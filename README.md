@@ -7,7 +7,7 @@
 |Problema escolhido | Dificuldade na destinação de alimentos excedentes de comércios para instituições de caridade.
 |Turma/semestre | Engenharia de Software — 2026/2.
 |Professor | Prof. Johnatan Oliveira.
-|Link para o projeto no GitHub |   |
+|Link para o projeto no GitHub | https://github.com/liviafgs/TrabalhoPratico-eng-software  |
 |Link da aplicação publicada | [em andamento]
 |Link do vídeo final | [em andamento]
 

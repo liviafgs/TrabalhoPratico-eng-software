@@ -14,7 +14,7 @@
 ## **Integrantes:**
 |Nome completo | Usuário no GitHub | Responsabilidade principal | Outras contribuições |
 |---|---|---|---|
-|Letícia Cristhinie Alexandre | @Letícia-Cristina | --- | ---
+|Letícia Cristhinie Alexandre | @Letícia-Cristhinie | --- | ---
 |Lívia Fagundes dos Santos | @liviafgs | --- | ---
 |Raíssa Fernandes | @raissafernandesdesouza | --- | ---
 |Rawany Mendonça | @rawanymendonca | --- | ---

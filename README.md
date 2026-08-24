@@ -14,10 +14,10 @@
 ## **Integrantes:**
 |Nome completo | Usuário no GitHub | Responsabilidade principal | Outras contribuições |
 |---|---|---|---|
-|Letícia Cristhinie Alexandre | @ | --- | ---
+|Letícia Cristhinie Alexandre | @Letícia-Cristina | --- | ---
 |Lívia Fagundes dos Santos | @liviafgs | --- | ---
-|Raíssa Fernandes | @ | --- | ---
-|Rawany Mendonça | @ | --- | ---
+|Raíssa Fernandes | @raissafernandesdesouza | --- | ---
+|Rawany Mendonça | @rawanymendonca | --- | ---
 
 ## **2. Resumo da solução:**
 **Problema:** Comércios como supermercados, restaurantes e padarias podem possuir alimentos excedentes que ainda estão próprios para consumo, mas que não serão comercializados. Ao mesmo tempo, instituições de caridade precisam de alimentos para atender pessoas em situação de vulnerabilidade. A falta de uma forma organizada de conectar esses dois públicos pode dificultar as doações e contribuir para o desperdício de alimentos.

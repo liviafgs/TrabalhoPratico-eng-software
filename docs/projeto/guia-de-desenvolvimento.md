@@ -17,7 +17,6 @@ As regras deste documento devem ser seguidas por todos os integrantes da equipe.
 O backend da aplicacao sera desenvolvido utilizando:
 
 - Java
-- Spring Boot
 - API REST
 - Banco de dados relacional
 

@@ -95,7 +95,8 @@ A estrutura inicial está relacionada aos requisitos do sistema definidos para o
 
 | Requisito | Issue | Artefato/modelo/decisão | Código | Teste/evidência |
 |---|---|---|---|---|
-| `RF-XX` | `#XX` | `[link]` | `[link]` | `[link ou ainda não aplicável]` |
+| `RF-01` | `#2` | `docs/visao-geral.md` | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/visao-geral.md` | `[link ou ainda não aplicável]` |
+| `RF-02` | `#4` | `docs/backlog-produto.md` | `` | `[link ou ainda não aplicável]` |
 
 ## 7. Revisão do incremento
 

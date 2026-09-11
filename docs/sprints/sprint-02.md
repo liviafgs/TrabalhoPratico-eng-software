@@ -63,16 +63,16 @@ Também serão definidos os requisitos funcionais e não funcionais, as históri
 |---|---|---|---|---|
 | `#5` | `Levantar requisitos funcionais` | `@raissafernandesdesouza` | `Requisitos funcionais identificados e numerados` | Concluída |
 | `#6` | `Levantar requisitos não funcionais` | `@raissafernandesdesouza` | `Requisitos não funcionais definidos e verificáveis` | Concluída |
-| `#7` | `Criar histórias de usuário/casos` | `@` | `Histórias vinculadas aos requisitos` | Pendente |
+| `#7` | `Criar histórias de usuário/casos` | `@raissafernadesdesouza @liiafag` | `Histórias vinculadas aos requisitos` | Pendente |
 | `#8` | `Definir critério de aceitação das funcionalidades` | `@` | `Critérios objetivos definidos para as funcionalidades` | Pendente |
 | `#9` | `Refinar backlog do produto` | `@` | `Itens detalhados e priorizados` | Pendente |
-| `#10` | `Definir funcionalidades da aplicação web` | `@` | `Escopo definido` | Pendente |
+| `#10` | `Definir funcionalidades da aplicação web` | `@raissafernandesdesouza @liviafag` | `Escopo definido` | Pendente |
 | `#11` | `Criar Documentação da sprint-02` | `@liviafag` | `Arquivo da sprint preenchido e versionado` | Pendente |
 
 ### Acompanhamento
 
 - **GitHub Project:** `https://github.com/users/liviafgs/projects/3`
-- **Reuniões/decisões:** `[links para docs/reunioes/]`
+- **Reuniões/decisões:** `https://meet.google.com/zve-vpem-xer`
 - **Impedimentos:** `[PREENCHER ou Nenhum]`
 - **Mudanças de escopo:** `[PREENCHER ou Nenhuma]`
 

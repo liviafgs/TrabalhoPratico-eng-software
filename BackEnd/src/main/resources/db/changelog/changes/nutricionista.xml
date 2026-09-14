@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="007-create-nutricionista" author="raissafernandesdesouza">
+        <createTable tableName="nutricionista">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_nutricionista" nullable="false"/>
+            </column>
+            <column name="instituicao_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_nutricionista_instituicao" references="instituicao(id)"/>
+            </column>
+            <column name="nome" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="crn" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uf_crn" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(150)"/>
+            <column name="telefone" type="VARCHAR(20)"/>
+            <column name="ativo" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_cadastro" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint
+            tableName="nutricionista"
+            columnNames="crn, uf_crn"
+            constraintName="uk_nutricionista_crn_uf"/>
+    </changeSet>
+
+</databaseChangeLog>

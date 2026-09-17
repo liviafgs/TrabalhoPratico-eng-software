@@ -98,11 +98,7 @@ test/teste-cadastro
 refactor/organizacao-servico
 ```
 
-<<<<<<< HEAD
 ### 5.1 Por que utilizar somente letras minusculas?
-=======
-### 5.1 Por que devo utilizar somente letras minusculas?
->>>>>>> 877aa32ea677578f6eda4f71d05f08af7c3ea354
 
 A equipe adotara nomes de branches somente com letras minusculas para evitar problemas de compatibilidade entre sistemas operacionais e sistemas de arquivos.
 

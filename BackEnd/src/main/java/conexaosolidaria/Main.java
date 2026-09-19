@@ -1,21 +1,14 @@
 package conexaosolidaria;
 
-import conexaosolidaria.controller.UsuarioConsoleController;
-import conexaosolidaria.repository.UsuarioRepository;
-import conexaosolidaria.service.UsuarioService;
-import conexaosolidaria.util.ConexaoBanco;
-
-import java.util.Scanner;
+import conexaosolidaria.config.ApplicationConfig;
+import conexaosolidaria.server.ApplicationServer;
 
 public class Main {
     public static void main(String[] args) {
-        ConexaoBanco conexaoBanco = new ConexaoBanco();
-        UsuarioRepository usuarioRepository = new UsuarioRepository(conexaoBanco);
-        UsuarioService usuarioService = new UsuarioService(usuarioRepository);
-        UsuarioConsoleController usuarioController = new UsuarioConsoleController(usuarioService);
+        ApplicationConfig config = new ApplicationConfig();
+        ApplicationServer server = config.createServer(8080);
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            usuarioController.cadastrarPeloConsole(scanner);
-        }
+        server.start();
+        System.out.println("Backend Conexao Solidaria iniciado em http://localhost:8080");
     }
 }

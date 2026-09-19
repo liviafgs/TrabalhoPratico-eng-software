@@ -3,99 +3,43 @@ package conexaosolidaria.model;
 import java.time.LocalDateTime;
 
 public class Usuario {
-    private Long id;
-    private String nome;
-    private String email;
-    private String senha;
-    private String telefone;
-    private TipoUsuario tipoUsuario;
-    private boolean ativo;
-    private LocalDateTime dataCadastro;
+    private final long id;
+    private final String nome;
+    private final String email;
+    private final String senhaHash;
+    private final PerfilUsuario perfil;
+    private final LocalDateTime criadoEm;
 
-    public Usuario() {
-    }
-
-    public Usuario(
-            Long id,
-            String nome,
-            String email,
-            String senha,
-            String telefone,
-            TipoUsuario tipoUsuario,
-            boolean ativo,
-            LocalDateTime dataCadastro
-    ) {
+    public Usuario(long id, String nome, String email, String senhaHash, PerfilUsuario perfil, LocalDateTime criadoEm) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
-        this.telefone = telefone;
-        this.tipoUsuario = tipoUsuario;
-        this.ativo = ativo;
-        this.dataCadastro = dataCadastro;
+        this.senhaHash = senhaHash;
+        this.perfil = perfil;
+        this.criadoEm = criadoEm;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getSenhaHash() {
+        return senhaHash;
     }
 
-    public String getSenha() {
-        return senha;
+    public PerfilUsuario getPerfil() {
+        return perfil;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public TipoUsuario getTipoUsuario() {
-        return tipoUsuario;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
+    public LocalDateTime getCriadoEm() {
+        return criadoEm;
     }
 }

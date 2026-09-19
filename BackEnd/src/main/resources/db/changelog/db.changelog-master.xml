@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <include file="db/changelog/changes/tipo_organizacao.xml"/>
+    <include file="db/changelog/changes/usuario.xml"/>
+    <include file="db/changelog/changes/organizacao.xml"/>
+    <include file="db/changelog/changes/usuario_organizacao.xml"/>
+    <include file="db/changelog/changes/endereco.xml"/>
+    <include file="db/changelog/changes/instituicao.xml"/>
+    <include file="db/changelog/changes/nutricionista.xml"/>
+    <include file="db/changelog/changes/documento_habilitacao.xml"/>
+    <include file="db/changelog/changes/item_alimentar.xml"/>
+    <include file="db/changelog/changes/oferta_doacao.xml"/>
+    <include file="db/changelog/changes/oferta_item.xml"/>
+    <include file="db/changelog/changes/demanda.xml"/>
+    <include file="db/changelog/changes/demanda_item.xml"/>
+    <include file="db/changelog/changes/solicitacao_doacao.xml"/>
+    <include file="db/changelog/changes/retirada.xml"/>
+    <include file="db/changelog/changes/historico_status.xml"/>
+    <include file="db/changelog/changes/notificacao.xml"/>
+
+</databaseChangeLog>

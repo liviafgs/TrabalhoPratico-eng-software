@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="004-create-usuario-organizacao" author="raissafernandesdesouza">
+        <createTable tableName="usuario_organizacao">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_usuario_organizacao" nullable="false"/>
+            </column>
+            <column name="usuario_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_usuario_organizacao_usuario" references="usuario(id)"/>
+            </column>
+            <column name="organizacao_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_usuario_organizacao_organizacao" references="organizacao(id)"/>
+            </column>
+            <column name="perfil" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_vinculo" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ativo" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint
+            tableName="usuario_organizacao"
+            columnNames="usuario_id, organizacao_id"
+            constraintName="uk_usuario_organizacao_usuario_organizacao"/>
+    </changeSet>
+
+</databaseChangeLog>

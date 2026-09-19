@@ -46,7 +46,7 @@ Também serão definidos os requisitos funcionais e não funcionais, as históri
 
 Durante a Sprint 2, foram desenvolvidas partes do front-end e do back-end da aplicação de forma integrada, avançando na construção da estrutura técnica do Conexão Solidária.
 
-No front-end, foi desenvolvido o protótipo navegável da aplicação web Conexão Solidária, utilizando HTML, CSS e JavaScript.
+No **front-end**, foi desenvolvido o protótipo navegável da aplicação web Conexão Solidária, utilizando HTML, CSS e JavaScript.
 
 O incremento contempla os principais fluxos definidos nos requisitos da Sprint 2:
 
@@ -66,7 +66,7 @@ O incremento contempla os principais fluxos definidos nos requisitos da Sprint 2
 * registro de justificativa para demandas excepcionais;
 * consulta das demandas cadastradas.
 
-No back-end, foram desenvolvidas estruturas relacionadas ao funcionamento da aplicação e ao gerenciamento dos dados, incluindo componentes responsáveis pelo processamento e suporte aos fluxos definidos durante a especificação dos requisitos.
+No **back-end**, foram desenvolvidas estruturas relacionadas ao funcionamento da aplicação e ao gerenciamento dos dados, incluindo componentes responsáveis pelo processamento e suporte aos fluxos definidos durante a especificação dos requisitos.
 
 O desenvolvimento foi realizado considerando os requisitos funcionais, requisitos não funcionais, regras de negócio e histórias de usuário definidos no documento de requisitos.
 
@@ -155,5 +155,6 @@ Para verificar o protótipo do front-end, acessar a pasta `front-end` e abrir o 
 
 * **Tag `sprint-02`:** `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/sprints/sprint-02.md`
 * **Este arquivo na tag:** `https://github.com/liviafgs/TrabalhoPratico-eng-software/tree/main/docs/sprints`
-* **Observação adicional:** `Durante a Sprint 2, além da especificação dos requisitos, foram desenvolvidas partes do front-end e do back-end da aplicação, utilizando os requisitos definidos como referência para orientar a evolução técnica do sistema.`
+* **Observação adicional:** `Durante a Sprint 2, além da especificação dos requisitos, foram desenvolvidas partes do front-end e do back-end da aplicação, utilizando os requisitos definidos como base para a implementação.`
+
 

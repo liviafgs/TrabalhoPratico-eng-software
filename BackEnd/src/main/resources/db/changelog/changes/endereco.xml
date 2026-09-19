@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="005-create-endereco" author="raissafernandesdesouza">
+        <createTable tableName="endereco">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_endereco" nullable="false"/>
+            </column>
+            <column name="organizacao_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_endereco_organizacao" references="organizacao(id)"/>
+            </column>
+            <column name="logradouro" type="VARCHAR(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="numero" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complemento" type="VARCHAR(100)"/>
+            <column name="bairro" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cidade" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="estado" type="CHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cep" type="VARCHAR(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="latitude" type="NUMERIC(10,7)"/>
+            <column name="longitude" type="NUMERIC(10,7)"/>
+            <column name="principal" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

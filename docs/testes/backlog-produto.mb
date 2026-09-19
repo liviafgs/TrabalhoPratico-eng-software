@@ -1,0 +1,445 @@
+# Product Backlog — Conexão Solidária
+
+> Documento de visão e rastreabilidade do Product Backlog da aplicação Conexão Solidária. O backlog operacional é mantido no GitHub Project por meio de Issues.
+
+---
+
+## 1. Objetivo
+
+O Product Backlog reúne as funcionalidades, requisitos, tarefas técnicas, atividades de documentação, testes e demais trabalhos necessários para o desenvolvimento da aplicação Conexão Solidária.
+
+A aplicação tem como objetivo conectar estabelecimentos que possuem alimentos disponíveis para doação a instituições sociais que necessitam desses alimentos, permitindo organizar ofertas, demandas, solicitações e retiradas.
+
+O backlog será utilizado pela equipe para organizar, priorizar e acompanhar o desenvolvimento do projeto ao longo das Sprints.
+
+Os itens do backlog deverão estar relacionados às Issues correspondentes no GitHub, permitindo rastrear cada atividade desde sua definição até sua implementação, revisão e integração.
+
+---
+
+# 2. Link do GitHub Project
+
+O acompanhamento operacional do Product Backlog será realizado no GitHub Project do projeto.
+
+Link:
+
+https://github.com/liviafgs/TrabalhoPratico-eng-software
+
+O GitHub Project será utilizado para acompanhar o status, prioridade, responsável, Sprint e demais informações relacionadas às Issues.
+
+---
+
+# 3. Organização do Backlog
+
+Cada item do backlog deverá ser representado por uma Issue no GitHub quando corresponder a uma atividade que necessite acompanhamento pela equipe.
+
+Os itens poderão representar:
+
+- História de usuário;
+- Requisito funcional;
+- Requisito não funcional;
+- Tarefa de desenvolvimento;
+- Tarefa técnica;
+- Documentação;
+- Teste;
+- Correção de defeito;
+- Modelagem;
+- Arquitetura;
+- Padrão de projeto;
+- Outras atividades necessárias ao projeto.
+
+O backlog será refinado ao longo das Sprints. Um item poderá ser detalhado, dividido em tarefas menores, repriorizado ou retirado quando houver justificativa.
+
+---
+
+# 4. Campos obrigatórios no GitHub Project
+
+Cada item deverá possuir, sempre que aplicável:
+
+- Título claro;
+- Tipo do item;
+- Prioridade;
+- Responsável;
+- Sprint;
+- Status;
+- Critério de aceitação ou conclusão;
+- Requisito relacionado;
+- Issue correspondente;
+- Artefato relacionado, quando aplicável.
+
+Essas informações permitem acompanhar o trabalho e manter a rastreabilidade entre planejamento, desenvolvimento e documentação.
+
+---
+
+# 5. Tipos de itens
+
+A equipe utilizará os seguintes tipos principais:
+
+| Tipo | Significado |
+|---|---|
+| História | Representa uma necessidade do usuário ou comportamento esperado do sistema. |
+| Requisito | Representa uma condição que o sistema deve atender. |
+| Tarefa | Atividade necessária para desenvolver ou documentar uma parte do projeto. |
+| Tarefa técnica | Atividade relacionada à infraestrutura, configuração, arquitetura ou aspectos internos do sistema. |
+| Documentação | Criação ou atualização de documentos do projeto. |
+| Teste | Criação, execução ou documentação de testes. |
+| Bug | Correção de comportamento incorreto identificado no sistema. |
+| Modelagem | Criação ou atualização dos modelos do sistema. |
+
+---
+
+# 6. Estratégia de priorização
+
+A priorização dos itens será realizada considerando principalmente:
+
+1. Valor para o usuário;
+2. Importância para o funcionamento da aplicação;
+3. Dependências entre funcionalidades;
+4. Risco técnico;
+5. Complexidade de implementação;
+6. Necessidade para atender aos requisitos;
+7. Necessidade para a evolução das Sprints;
+8. Critérios de avaliação do projeto.
+
+A prioridade será classificada como:
+
+| Prioridade | Significado |
+|---|---|
+| Alta | Item essencial para o funcionamento ou evolução do projeto. |
+| Média | Item importante, mas que pode ser desenvolvido após os itens de maior prioridade. |
+| Baixa | Item complementar, que pode ser realizado posteriormente caso haja tempo e recursos. |
+
+---
+
+# 7. Convenção de identificação
+
+Os itens poderão utilizar identificadores para facilitar a rastreabilidade.
+
+Exemplos:
+
+- US-01 — História de usuário;
+- RF-01 — Requisito funcional;
+- RNF-01 — Requisito não funcional;
+- RN-01 — Regra de negócio;
+- DEV-01 — Tarefa de desenvolvimento;
+- DOC-01 — Tarefa de documentação;
+- TEST-01 — Tarefa de teste.
+
+O identificador utilizado no documento não substitui o número da Issue do GitHub.
+
+Exemplo:
+
+US-01 pode estar relacionada à Issue #15.
+
+---
+
+# 8. Visão resumida do Product Backlog
+
+| ID | Tipo | Descrição | Prioridade | Requisito relacionado | Sprint | Issue | Estado |
+|---|---|---|---|---|---|---|---|
+| US-01 | História | Permitir o cadastro de instituições beneficiárias. | Alta | RF-02 | 2 | #15 | Planejado |
+| US-02 | História | Permitir o cadastro de ofertas de alimentos. | Alta | RF-07 | 2 | #12 | Planejado |
+| US-03 | História | Permitir que instituições consultem e solicitem ofertas. | Alta | RF-08, RF-10 | 2 | #12 | Planejado |
+| US-04 | História | Permitir o cadastro de demandas de alimentos. | Alta | RF-16 | 2 | #16 | Planejado |
+| US-05 | História | Verificar a coerência entre quantidade solicitada e número de beneficiários. | Alta | RF-18, RF-19 | 2 | #17 | Planejado |
+| US-06 | História | Permitir a consulta das demandas cadastradas. | Média | RF-20 | 2 | #16 | Planejado |
+| RF-01 | Requisito | Cadastro de estabelecimento doador. | Alta | RF-01 | 2 | #12 | Planejado |
+| RF-02 | Requisito | Cadastro de instituição beneficiária. | Alta | RF-02 | 2 | #15 | Planejado |
+| RF-03 | Requisito | Cadastro do nutricionista responsável. | Alta | RF-03 | 2 | #15 | Planejado |
+| RF-04 | Requisito | Habilitação da instituição. | Alta | RF-04 | 2 | #15 | Planejado |
+| RF-05 | Requisito | Autenticação dos usuários. | Alta | RF-05 | 2 | #18 | Planejado |
+| RF-06 | Requisito | Controle de acesso por perfil. | Alta | RF-06 | 2 | #18 | Planejado |
+| RF-07 | Requisito | Cadastro de oferta de alimentos. | Alta | RF-07 | 2 | #12 | Planejado |
+| RF-08 | Requisito | Consulta de ofertas disponíveis. | Alta | RF-08 | 2 | #12 | Planejado |
+| RF-09 | Requisito | Filtros para ofertas. | Média | RF-09 | 2 | #12 | Planejado |
+| RF-10 | Requisito | Solicitação de alimentos. | Alta | RF-10 | 2 | #12 | Planejado |
+| RF-11 | Requisito | Atualização da quantidade disponível. | Alta | RF-11 | 2 | #12 | Planejado |
+| RF-12 | Requisito | Gerenciamento do status das solicitações. | Alta | RF-12 | 2 | #12 | Planejado |
+| RF-13 | Requisito | Confirmação da retirada. | Alta | RF-13 | 2 | #12 | Planejado |
+| RF-14 | Requisito | Histórico de doações. | Média | RF-14 | 2 | #12 | Planejado |
+| RF-15 | Requisito | Perfil de atendimento da instituição. | Alta | RF-15 | 2 | #15 | Planejado |
+| RF-16 | Requisito | Cadastro de demandas. | Alta | RF-16 | 2 | #16 | Planejado |
+| RF-17 | Requisito | Definição da prioridade da demanda. | Média | RF-17 | 2 | #16 | Planejado |
+| RF-18 | Requisito | Verificação da coerência da quantidade solicitada. | Alta | RF-18 | 2 | #17 | Planejado |
+| RF-19 | Requisito | Justificativa para demandas excepcionais. | Alta | RF-19 | 2 | #17 | Planejado |
+| RF-20 | Requisito | Consulta de demandas. | Média | RF-20 | 2 | #16 | Planejado |
+| RF-21 | Requisito | Correspondência entre ofertas e demandas. | Alta | RF-21 | 3 | A definir | Planejado |
+| RF-22 | Requisito | Cadastro de alimentos. | Alta | RF-22 | 2 | A definir | Planejado |
+| RF-23 | Requisito | Notificações do sistema. | Média | RF-23 | 3 | A definir | Planejado |
+| RNF-01 | Requisito | Segurança de senhas. | Alta | RNF-01 | 2 | #6 | Planejado |
+| RNF-02 | Requisito | Controle de autorização. | Alta | RNF-02 | 2 | #6 | Planejado |
+| RNF-03 | Requisito | Proteção de dados e privacidade. | Alta | RNF-03 | 2 | #6 | Planejado |
+| RNF-04 | Requisito | Integridade dos dados. | Alta | RNF-04 | 2 | #6 | Planejado |
+| RNF-05 | Requisito | Tempo de resposta de até 3 segundos no ambiente de teste definido. | Média | RNF-05 | 7 | A definir | Planejado |
+| RNF-06 | Requisito | Usabilidade. | Média | RNF-06 | 2 | #6 | Planejado |
+| RNF-07 | Requisito | Acessibilidade. | Média | RNF-07 | 2 | #8 | Planejado |
+| RNF-08 | Requisito | Compatibilidade com navegadores definidos pelo projeto. | Média | RNF-08 | 7 | A definir | Planejado |
+| RNF-09 | Requisito | Responsividade da aplicação. | Média | RNF-09 | 7 | A definir | Planejado |
+| RNF-10 | Requisito | Manutenibilidade do código. | Média | RNF-10 | 4 | A definir | Planejado |
+| RNF-11 | Requisito | Rastreabilidade entre requisitos, Issues, código e documentação. | Alta | RNF-11 | Todas | #13 | Planejado |
+
+---
+
+# 9. Tarefas de desenvolvimento
+
+Além dos requisitos e histórias de usuário, o backlog será detalhado em tarefas técnicas menores para facilitar o desenvolvimento.
+
+Entre as principais tarefas previstas estão:
+
+## Usuários e autenticação
+
+- Criar entidade de usuário;
+- Implementar cadastro de usuário;
+- Implementar autenticação;
+- Implementar controle de acesso por perfil;
+- Desenvolver interface de login.
+
+## Estabelecimentos doadores
+
+- Criar cadastro de estabelecimento;
+- Implementar edição do estabelecimento;
+- Desenvolver perfil do estabelecimento.
+
+## Instituições beneficiárias
+
+- Criar cadastro de instituição;
+- Criar cadastro do nutricionista responsável;
+- Implementar vínculo do nutricionista com a instituição;
+- Implementar habilitação da instituição;
+- Desenvolver perfil de atendimento da instituição.
+
+## Alimentos e ofertas
+
+- Criar cadastro de alimentos;
+- Criar cadastro de oferta;
+- Implementar consulta de ofertas;
+- Implementar filtros de ofertas;
+- Implementar controle da quantidade disponível;
+- Implementar solicitação de alimento;
+- Implementar gerenciamento do status da solicitação;
+- Implementar confirmação da retirada;
+- Implementar cancelamento de solicitação;
+- Implementar histórico de doações.
+
+## Demandas
+
+- Criar cadastro de demanda;
+- Implementar prioridade da demanda;
+- Implementar consulta de demandas;
+- Implementar filtros de demandas;
+- Implementar cadastro de beneficiários da demanda;
+- Implementar consumo per capita;
+- Implementar cálculo da quantidade de referência;
+- Implementar verificação de coerência da demanda;
+- Implementar alerta de incompatibilidade;
+- Implementar justificativa para demanda excepcional.
+
+## Correspondência entre oferta e demanda
+
+- Implementar correspondência entre oferta e demanda;
+- Desenvolver tela de oportunidades compatíveis.
+
+## Notificações
+
+- Implementar notificações relacionadas às ofertas, solicitações e demandas.
+
+As tarefas serão detalhadas em Issues próprias conforme o desenvolvimento avançar.
+
+---
+
+# 10. Backlog por Sprint
+
+O Product Backlog será continuamente refinado e os itens serão selecionados para os Sprint Backlogs de acordo com prioridade, dependências e capacidade da equipe.
+
+## Sprint 1
+
+Principais entregas:
+
+- Definição do problema;
+- Visão do produto;
+- Organização inicial da equipe;
+- Criação do Product Backlog;
+- Organização do GitHub Project;
+- Definição inicial das Issues;
+- Estrutura inicial do projeto.
+
+## Sprint 2
+
+Principais entregas:
+
+- Documento de requisitos;
+- Atores e perfis;
+- Requisitos funcionais;
+- Requisitos não funcionais;
+- Regras de negócio;
+- Histórias de usuário;
+- Critérios de aceitação;
+- Definição do escopo;
+- Perfil de atendimento da instituição;
+- Regras de quantidade e beneficiários;
+- Primeira evolução funcional ou protótipo navegável.
+
+## Sprint 3
+
+Principais entregas:
+
+- Modelagem comportamental;
+- Modelagem estrutural;
+- Diagramas;
+- Relacionamento entre requisitos e modelos;
+- Evolução do fluxo funcional.
+
+## Sprint 4
+
+Principais entregas:
+
+- Princípios de projeto;
+- Responsabilidades;
+- Modularidade;
+- Coesão;
+- Baixo acoplamento;
+- Separação de responsabilidades.
+
+## Sprint 5
+
+Principais entregas:
+
+- Identificação dos padrões de projeto;
+- Aplicação dos padrões;
+- Documentação das decisões relacionadas aos padrões.
+
+## Sprint 6
+
+Principais entregas:
+
+- Definição da arquitetura;
+- Organização global da aplicação;
+- Integração dos componentes.
+
+## Sprint 7
+
+Principais entregas:
+
+- Plano de testes;
+- Estratégia de testes;
+- Primeiras execuções verificáveis;
+- Testes funcionais e automatizados, quando aplicável.
+
+## Sprint 8
+
+Principais entregas:
+
+- Validação final;
+- Correção de defeitos;
+- Evidências de testes;
+- Atualização da documentação;
+- Validação dos requisitos;
+- Documentação do uso de IA;
+- Estabilização da aplicação;
+- Preparação da versão final.
+
+---
+
+# 11. Definition of Ready
+
+Um item está pronto para entrar em uma Sprint quando:
+
+- [ ] Possui descrição compreensível;
+- [ ] Possui objetivo ou valor identificável;
+- [ ] Possui critério de aceitação ou conclusão;
+- [ ] As principais dependências foram identificadas;
+- [ ] Possui prioridade definida;
+- [ ] Possui responsável quando necessário;
+- [ ] Foi suficientemente refinado para ser executado pela equipe.
+
+---
+
+# 12. Definition of Done
+
+Um item será considerado concluído quando:
+
+- [ ] Atender aos critérios de aceitação;
+- [ ] O desenvolvimento estiver concluído, quando aplicável;
+- [ ] A aplicação estiver funcionando após a alteração;
+- [ ] Os testes necessários tiverem sido realizados;
+- [ ] Outro integrante tiver revisado a alteração;
+- [ ] O Pull Request tiver sido aprovado;
+- [ ] A alteração estiver integrada à `release`;
+- [ ] A documentação afetada tiver sido atualizada;
+- [ ] A Issue estiver atualizada;
+- [ ] A atividade estiver registrada na Sprint correspondente.
+
+---
+
+# 13. Rastreabilidade
+
+Cada item do backlog deverá permitir, quando aplicável, a identificação de sua relação com:
+
+- Issue;
+- Requisito;
+- História de usuário;
+- Sprint;
+- Branch;
+- Commit;
+- Pull Request;
+- Artefato de documentação;
+- Código;
+- Teste;
+- Evidência.
+
+O fluxo esperado de rastreabilidade é:
+
+Backlog
+→ Issue
+→ Branch
+→ Desenvolvimento
+→ Commit
+→ Push
+→ Pull Request
+→ Revisão
+→ Aprovação
+→ Merge na release
+→ Evidência/artefato
+
+---
+
+# 14. Política de desenvolvimento relacionada ao backlog
+
+As tarefas selecionadas do backlog deverão seguir o fluxo de desenvolvimento definido no Guia de Desenvolvimento.
+
+Toda branch deverá ser criada a partir da `release`.
+
+Não será permitido realizar commits diretamente na `release`.
+
+O responsável pela tarefa deverá desenvolver em sua própria branch, realizar os testes necessários, enviar a branch ao GitHub e abrir um Pull Request direcionado para a `release`.
+
+Antes da abertura do Pull Request, a `release` deverá ser atualizada e integrada à branch da tarefa para que eventuais conflitos sejam identificados e resolvidos antecipadamente.
+
+Nenhum Pull Request deverá ser aberto com código quebrado, com erros conhecidos ou sem os testes necessários.
+
+A integração na `release` ocorrerá somente após as revisões e aprovações definidas pela equipe.
+
+---
+
+# 15. Histórico de Refinamento
+
+| Sprint | Alteração | Motivo | Evidência |
+|---|---|---|---|
+| Sprint 1 | Criação do Product Backlog inicial | Organizar as funcionalidades e atividades necessárias ao projeto. | GitHub Project |
+| Sprint 2 | Detalhamento dos requisitos e histórias de usuário | Transformar a visão inicial do produto em requisitos verificáveis e itens executáveis. | Documento de requisitos / Issues |
+| Sprint 2 | Inclusão das regras relacionadas ao perfil da instituição e quantidade de beneficiários | Tornar a demanda de alimentos mais consistente com o contexto de atendimento da instituição. | Issues #15, #16 e #17 |
+| Sprint 2 | Divisão das funcionalidades em tarefas menores | Facilitar o desenvolvimento paralelo e a revisão entre os integrantes. | GitHub Project |
+| Sprint 3 em diante | Refinamentos conforme modelagem e desenvolvimento | Ajustar o backlog às decisões técnicas e aos resultados das Sprints. | GitHub Project / Issues |
+
+---
+
+# 16. Observações
+
+O Product Backlog é um artefato evolutivo.
+
+Novos itens poderão ser adicionados quando forem identificadas novas necessidades, dependências técnicas ou ajustes de escopo.
+
+Itens existentes poderão ser divididos, reordenados ou refinados durante as Sprints.
+
+Alterações relevantes no backlog deverão ser justificadas e registradas para preservar a rastreabilidade do projeto.
+
+O GitHub Project será considerado a fonte operacional do estado atual dos itens, enquanto este documento apresenta a visão organizada e rastreável do backlog.

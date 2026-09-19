@@ -34,18 +34,19 @@ Cada item do backlog deverá ser representado por uma Issue no GitHub quando cor
 
 Os itens poderão representar:
 
-- História de usuário;
-- Requisito funcional;
-- Requisito não funcional;
-- Tarefa de desenvolvimento;
-- Tarefa técnica;
-- Documentação;
-- Teste;
-- Correção de defeito;
-- Modelagem;
-- Arquitetura;
-- Padrão de projeto;
-- Outras atividades necessárias ao projeto.
+* História de usuário;
+* Requisito funcional;
+* Requisito não funcional;
+* Regra de negócio;
+* Tarefa de desenvolvimento;
+* Tarefa técnica;
+* Documentação;
+* Teste;
+* Correção de defeito;
+* Modelagem;
+* Arquitetura;
+* Padrão de projeto;
+* Outras atividades necessárias ao projeto.
 
 O backlog será refinado ao longo das Sprints. Um item poderá ser detalhado, dividido em tarefas menores, repriorizado ou retirado quando houver justificativa.
 
@@ -55,16 +56,17 @@ O backlog será refinado ao longo das Sprints. Um item poderá ser detalhado, di
 
 Cada item deverá possuir, sempre que aplicável:
 
-- Título claro;
-- Tipo do item;
-- Prioridade;
-- Responsável;
-- Sprint;
-- Status;
-- Critério de aceitação ou conclusão;
-- Requisito relacionado;
-- Issue correspondente;
-- Artefato relacionado, quando aplicável.
+* Título claro;
+* Tipo do item;
+* Prioridade;
+* Responsável;
+* Sprint;
+* Status;
+* Critério de aceitação ou conclusão;
+* Requisito relacionado;
+* Issue correspondente;
+* Dependências;
+* Artefato relacionado, quando aplicável.
 
 Essas informações permitem acompanhar o trabalho e manter a rastreabilidade entre planejamento, desenvolvimento e documentação.
 
@@ -74,16 +76,17 @@ Essas informações permitem acompanhar o trabalho e manter a rastreabilidade en
 
 A equipe utilizará os seguintes tipos principais:
 
-| Tipo | Significado |
-|---|---|
-| História | Representa uma necessidade do usuário ou comportamento esperado do sistema. |
-| Requisito | Representa uma condição que o sistema deve atender. |
-| Tarefa | Atividade necessária para desenvolver ou documentar uma parte do projeto. |
-| Tarefa técnica | Atividade relacionada à infraestrutura, configuração, arquitetura ou aspectos internos do sistema. |
-| Documentação | Criação ou atualização de documentos do projeto. |
-| Teste | Criação, execução ou documentação de testes. |
-| Bug | Correção de comportamento incorreto identificado no sistema. |
-| Modelagem | Criação ou atualização dos modelos do sistema. |
+| Tipo             | Significado                                                                                        |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| História         | Representa uma necessidade do usuário ou comportamento esperado do sistema.                        |
+| Requisito        | Representa uma condição que o sistema deve atender.                                                |
+| Regra de negócio | Representa uma regra que restringe ou orienta o funcionamento do sistema.                          |
+| Tarefa           | Atividade necessária para desenvolver ou documentar uma parte do projeto.                          |
+| Tarefa técnica   | Atividade relacionada à infraestrutura, configuração, arquitetura ou aspectos internos do sistema. |
+| Documentação     | Criação ou atualização de documentos do projeto.                                                   |
+| Teste            | Criação, execução ou documentação de testes.                                                       |
+| Bug              | Correção de comportamento incorreto identificado no sistema.                                       |
+| Modelagem        | Criação ou atualização dos modelos do sistema.                                                     |
 
 ---
 
@@ -102,11 +105,11 @@ A priorização dos itens será realizada considerando principalmente:
 
 A prioridade será classificada como:
 
-| Prioridade | Significado |
-|---|---|
-| Alta | Item essencial para o funcionamento ou evolução do projeto. |
-| Média | Item importante, mas que pode ser desenvolvido após os itens de maior prioridade. |
-| Baixa | Item complementar, que pode ser realizado posteriormente caso haja tempo e recursos. |
+| Prioridade | Significado                                                                          |
+| ---------- | ------------------------------------------------------------------------------------ |
+| Alta       | Item essencial para o funcionamento ou evolução do projeto.                          |
+| Média      | Item importante, mas que pode ser desenvolvido após os itens de maior prioridade.    |
+| Baixa      | Item complementar, que pode ser realizado posteriormente caso haja tempo e recursos. |
 
 ---
 
@@ -116,13 +119,13 @@ Os itens poderão utilizar identificadores para facilitar a rastreabilidade.
 
 Exemplos:
 
-- US-01 — História de usuário;
-- RF-01 — Requisito funcional;
-- RNF-01 — Requisito não funcional;
-- RN-01 — Regra de negócio;
-- DEV-01 — Tarefa de desenvolvimento;
-- DOC-01 — Tarefa de documentação;
-- TEST-01 — Tarefa de teste.
+* US-01 — História de usuário;
+* RF-01 — Requisito funcional;
+* RNF-01 — Requisito não funcional;
+* RN-01 — Regra de negócio;
+* DEV-01 — Tarefa de desenvolvimento;
+* DOC-01 — Tarefa de documentação;
+* TEST-01 — Tarefa de teste.
 
 O identificador utilizado no documento não substitui o número da Issue do GitHub.
 
@@ -134,119 +137,155 @@ US-01 pode estar relacionada à Issue #15.
 
 # 8. Visão resumida do Product Backlog
 
-| ID | Tipo | Descrição | Prioridade | Requisito relacionado | Sprint | Issue | Estado |
-|---|---|---|---|---|---|---|---|
-| US-01 | História | Permitir o cadastro de instituições beneficiárias. | Alta | RF-02 | 2 | #15 | Planejado |
-| US-02 | História | Permitir o cadastro de ofertas de alimentos. | Alta | RF-07 | 2 | #12 | Planejado |
-| US-03 | História | Permitir que instituições consultem e solicitem ofertas. | Alta | RF-08, RF-10 | 2 | #12 | Planejado |
-| US-04 | História | Permitir o cadastro de demandas de alimentos. | Alta | RF-16 | 2 | #16 | Planejado |
-| US-05 | História | Verificar a coerência entre quantidade solicitada e número de beneficiários. | Alta | RF-18, RF-19 | 2 | #17 | Planejado |
-| US-06 | História | Permitir a consulta das demandas cadastradas. | Média | RF-20 | 2 | #16 | Planejado |
-| RF-01 | Requisito | Cadastro de estabelecimento doador. | Alta | RF-01 | 2 | #12 | Planejado |
-| RF-02 | Requisito | Cadastro de instituição beneficiária. | Alta | RF-02 | 2 | #15 | Planejado |
-| RF-03 | Requisito | Cadastro do nutricionista responsável. | Alta | RF-03 | 2 | #15 | Planejado |
-| RF-04 | Requisito | Habilitação da instituição. | Alta | RF-04 | 2 | #15 | Planejado |
-| RF-05 | Requisito | Autenticação dos usuários. | Alta | RF-05 | 2 | #18 | Planejado |
-| RF-06 | Requisito | Controle de acesso por perfil. | Alta | RF-06 | 2 | #18 | Planejado |
-| RF-07 | Requisito | Cadastro de oferta de alimentos. | Alta | RF-07 | 2 | #12 | Planejado |
-| RF-08 | Requisito | Consulta de ofertas disponíveis. | Alta | RF-08 | 2 | #12 | Planejado |
-| RF-09 | Requisito | Filtros para ofertas. | Média | RF-09 | 2 | #12 | Planejado |
-| RF-10 | Requisito | Solicitação de alimentos. | Alta | RF-10 | 2 | #12 | Planejado |
-| RF-11 | Requisito | Atualização da quantidade disponível. | Alta | RF-11 | 2 | #12 | Planejado |
-| RF-12 | Requisito | Gerenciamento do status das solicitações. | Alta | RF-12 | 2 | #12 | Planejado |
-| RF-13 | Requisito | Confirmação da retirada. | Alta | RF-13 | 2 | #12 | Planejado |
-| RF-14 | Requisito | Histórico de doações. | Média | RF-14 | 2 | #12 | Planejado |
-| RF-15 | Requisito | Perfil de atendimento da instituição. | Alta | RF-15 | 2 | #15 | Planejado |
-| RF-16 | Requisito | Cadastro de demandas. | Alta | RF-16 | 2 | #16 | Planejado |
-| RF-17 | Requisito | Definição da prioridade da demanda. | Média | RF-17 | 2 | #16 | Planejado |
-| RF-18 | Requisito | Verificação da coerência da quantidade solicitada. | Alta | RF-18 | 2 | #17 | Planejado |
-| RF-19 | Requisito | Justificativa para demandas excepcionais. | Alta | RF-19 | 2 | #17 | Planejado |
-| RF-20 | Requisito | Consulta de demandas. | Média | RF-20 | 2 | #16 | Planejado |
-| RF-21 | Requisito | Correspondência entre ofertas e demandas. | Alta | RF-21 | 3 | A definir | Planejado |
-| RF-22 | Requisito | Cadastro de alimentos. | Alta | RF-22 | 2 | A definir | Planejado |
-| RF-23 | Requisito | Notificações do sistema. | Média | RF-23 | 3 | A definir | Planejado |
-| RNF-01 | Requisito | Segurança de senhas. | Alta | RNF-01 | 2 | #6 | Planejado |
-| RNF-02 | Requisito | Controle de autorização. | Alta | RNF-02 | 2 | #6 | Planejado |
-| RNF-03 | Requisito | Proteção de dados e privacidade. | Alta | RNF-03 | 2 | #6 | Planejado |
-| RNF-04 | Requisito | Integridade dos dados. | Alta | RNF-04 | 2 | #6 | Planejado |
-| RNF-05 | Requisito | Tempo de resposta de até 3 segundos no ambiente de teste definido. | Média | RNF-05 | 7 | A definir | Planejado |
-| RNF-06 | Requisito | Usabilidade. | Média | RNF-06 | 2 | #6 | Planejado |
-| RNF-07 | Requisito | Acessibilidade. | Média | RNF-07 | 2 | #8 | Planejado |
-| RNF-08 | Requisito | Compatibilidade com navegadores definidos pelo projeto. | Média | RNF-08 | 7 | A definir | Planejado |
-| RNF-09 | Requisito | Responsividade da aplicação. | Média | RNF-09 | 7 | A definir | Planejado |
-| RNF-10 | Requisito | Manutenibilidade do código. | Média | RNF-10 | 4 | A definir | Planejado |
-| RNF-11 | Requisito | Rastreabilidade entre requisitos, Issues, código e documentação. | Alta | RNF-11 | Todas | #13 | Planejado |
+| ID     | Tipo      | Descrição                                                                    | Prioridade | Requisito relacionado | Sprint | Issue     | Estado    |
+| ------ | --------- | ---------------------------------------------------------------------------- | ---------- | --------------------- | ------ | --------- | --------- |
+| US-01  | História  | Permitir o cadastro de instituições beneficiárias.                           | Alta       | RF-02                 | 2      | #15       | Refinado  |
+| US-02  | História  | Permitir o cadastro de ofertas de alimentos.                                 | Alta       | RF-07                 | 2      | #12       | Refinado  |
+| US-03  | História  | Permitir que instituições consultem e solicitem ofertas.                     | Alta       | RF-08, RF-10          | 2      | #12       | Refinado  |
+| US-04  | História  | Permitir o cadastro de demandas de alimentos.                                | Alta       | RF-16                 | 2      | #16       | Refinado  |
+| US-05  | História  | Verificar a coerência entre quantidade solicitada e número de beneficiários. | Alta       | RF-18, RF-19          | 2      | #17       | Refinado  |
+| US-06  | História  | Permitir a consulta das demandas cadastradas.                                | Média      | RF-20                 | 2      | #16       | Refinado  |
+| RF-01  | Requisito | Cadastro de estabelecimento doador.                                          | Alta       | RF-01                 | 2      | #12       | Refinado  |
+| RF-02  | Requisito | Cadastro de instituição beneficiária.                                        | Alta       | RF-02                 | 2      | #15       | Refinado  |
+| RF-03  | Requisito | Cadastro do nutricionista responsável.                                       | Alta       | RF-03                 | 2      | #15       | Refinado  |
+| RF-04  | Requisito | Habilitação da instituição.                                                  | Alta       | RF-04                 | 2      | #15       | Refinado  |
+| RF-05  | Requisito | Autenticação dos usuários.                                                   | Alta       | RF-05                 | 2      | #18       | Refinado  |
+| RF-06  | Requisito | Controle de acesso por perfil.                                               | Alta       | RF-06                 | 2      | #18       | Refinado  |
+| RF-07  | Requisito | Cadastro de oferta de alimentos.                                             | Alta       | RF-07                 | 2      | #12       | Refinado  |
+| RF-08  | Requisito | Consulta de ofertas disponíveis.                                             | Alta       | RF-08                 | 2      | #12       | Refinado  |
+| RF-09  | Requisito | Filtros para ofertas.                                                        | Média      | RF-09                 | 2      | #12       | Refinado  |
+| RF-10  | Requisito | Solicitação de alimentos.                                                    | Alta       | RF-10                 | 2      | #12       | Refinado  |
+| RF-11  | Requisito | Atualização da quantidade disponível.                                        | Alta       | RF-11                 | 2      | #12       | Refinado  |
+| RF-12  | Requisito | Gerenciamento do status das solicitações.                                    | Alta       | RF-12                 | 2      | #12       | Refinado  |
+| RF-13  | Requisito | Confirmação da retirada.                                                     | Alta       | RF-13                 | 2      | #12       | Refinado  |
+| RF-14  | Requisito | Histórico de doações.                                                        | Média      | RF-14                 | 2      | #12       | Refinado  |
+| RF-15  | Requisito | Perfil de atendimento da instituição.                                        | Alta       | RF-15                 | 2      | #15       | Refinado  |
+| RF-16  | Requisito | Cadastro de demandas.                                                        | Alta       | RF-16                 | 2      | #16       | Refinado  |
+| RF-17  | Requisito | Definição da prioridade da demanda.                                          | Média      | RF-17                 | 2      | #16       | Refinado  |
+| RF-18  | Requisito | Verificação da coerência da quantidade solicitada.                           | Alta       | RF-18                 | 2      | #17       | Refinado  |
+| RF-19  | Requisito | Justificativa para demandas excepcionais.                                    | Alta       | RF-19                 | 2      | #17       | Refinado  |
+| RF-20  | Requisito | Consulta de demandas.                                                        | Média      | RF-20                 | 2      | #16       | Refinado  |
+| RF-21  | Requisito | Correspondência entre ofertas e demandas.                                    | Alta       | RF-21                 | 3      | A definir | Planejado |
+| RF-22  | Requisito | Cadastro de alimentos.                                                       | Alta       | RF-22                 | 2      | A definir | Planejado |
+| RF-23  | Requisito | Notificações do sistema.                                                     | Média      | RF-23                 | 3      | A definir | Planejado |
+| RNF-01 | Requisito | Segurança de senhas.                                                         | Alta       | RNF-01                | 2      | #6        | Refinado  |
+| RNF-02 | Requisito | Controle de autorização.                                                     | Alta       | RNF-02                | 2      | #6        | Refinado  |
+| RNF-03 | Requisito | Proteção de dados e privacidade.                                             | Alta       | RNF-03                | 2      | #6        | Refinado  |
+| RNF-04 | Requisito | Integridade dos dados.                                                       | Alta       | RNF-04                | 2      | #6        | Refinado  |
+| RNF-05 | Requisito | Tempo de resposta de até 3 segundos no ambiente de teste definido.           | Média      | RNF-05                | 7      | A definir | Planejado |
+| RNF-06 | Requisito | Usabilidade.                                                                 | Média      | RNF-06                | 2      | #6        | Refinado  |
+| RNF-07 | Requisito | Acessibilidade.                                                              | Média      | RNF-07                | 2      | #8        | Refinado  |
+| RNF-08 | Requisito | Compatibilidade com navegadores definidos pelo projeto.                      | Média      | RNF-08                | 7      | A definir | Planejado |
+| RNF-09 | Requisito | Responsividade da aplicação.                                                 | Média      | RNF-09                | 7      | A definir | Planejado |
+| RNF-10 | Requisito | Manutenibilidade do código.                                                  | Média      | RNF-10                | 4      | A definir | Planejado |
+| RNF-11 | Requisito | Rastreabilidade entre requisitos, Issues, código e documentação.             | Alta       | RNF-11                | Todas  | #13       | Refinado  |
 
 ---
 
-# 9. Tarefas de desenvolvimento
+# 9. Tarefas de desenvolvimento refinadas
 
-Além dos requisitos e histórias de usuário, o backlog será detalhado em tarefas técnicas menores para facilitar o desenvolvimento.
+As funcionalidades do Product Backlog foram divididas em tarefas menores para facilitar a implementação, distribuição entre os integrantes, acompanhamento e revisão.
 
-Entre as principais tarefas previstas estão:
+## 9.1 Usuários e autenticação
 
-## Usuários e autenticação
+| ID     | Tarefa                                    | Prioridade | Dependência | Critério de aceitação                                                         |
+| ------ | ----------------------------------------- | ---------- | ----------- | ----------------------------------------------------------------------------- |
+| DEV-01 | Criar estrutura de cadastro de usuário    | Alta       | —           | Usuário consegue informar os dados obrigatórios e o sistema valida os campos. |
+| DEV-02 | Implementar autenticação de usuário       | Alta       | DEV-01      | Usuário cadastrado consegue realizar login com credenciais válidas.           |
+| DEV-03 | Implementar controle de acesso por perfil | Alta       | DEV-02      | Cada perfil acessa somente as funcionalidades permitidas.                     |
+| DEV-04 | Criar interface de login                  | Alta       | DEV-02      | Interface permite informar credenciais e apresenta mensagens de validação.    |
 
-- Criar entidade de usuário;
-- Implementar cadastro de usuário;
-- Implementar autenticação;
-- Implementar controle de acesso por perfil;
-- Desenvolver interface de login.
+## 9.2 Estabelecimentos doadores
 
-## Estabelecimentos doadores
+| ID     | Tarefa                                   | Prioridade | Dependência | Critério de aceitação                                            |
+| ------ | ---------------------------------------- | ---------- | ----------- | ---------------------------------------------------------------- |
+| DEV-05 | Criar cadastro de estabelecimento doador | Alta       | DEV-01      | Estabelecimento consegue cadastrar os dados obrigatórios.        |
+| DEV-06 | Implementar edição do estabelecimento    | Média      | DEV-05      | Usuário consegue alterar os dados permitidos do estabelecimento. |
+| DEV-07 | Desenvolver perfil do estabelecimento    | Média      | DEV-05      | Dados cadastrados são apresentados de forma organizada.          |
 
-- Criar cadastro de estabelecimento;
-- Implementar edição do estabelecimento;
-- Desenvolver perfil do estabelecimento.
+## 9.3 Instituições beneficiárias e nutricionista
 
-## Instituições beneficiárias
+| ID     | Tarefa                                                | Prioridade | Dependência    | Critério de aceitação                                                   |
+| ------ | ----------------------------------------------------- | ---------- | -------------- | ----------------------------------------------------------------------- |
+| DEV-08 | Criar cadastro de instituição beneficiária            | Alta       | DEV-01         | Instituição consegue cadastrar os dados obrigatórios.                   |
+| DEV-09 | Criar cadastro do nutricionista responsável           | Alta       | DEV-01         | Nutricionista consegue ser cadastrado com registro profissional.        |
+| DEV-10 | Implementar vínculo entre nutricionista e instituição | Alta       | DEV-08, DEV-09 | Sistema permite relacionar nutricionista válido à instituição.          |
+| DEV-11 | Implementar habilitação da instituição                | Alta       | DEV-10         | Instituição somente é habilitada após vínculo válido com nutricionista. |
+| DEV-12 | Desenvolver perfil de atendimento da instituição      | Alta       | DEV-08         | Perfil apresenta capacidade, pessoas atendidas, público e frequência.   |
 
-- Criar cadastro de instituição;
-- Criar cadastro do nutricionista responsável;
-- Implementar vínculo do nutricionista com a instituição;
-- Implementar habilitação da instituição;
-- Desenvolver perfil de atendimento da instituição.
+## 9.4 Alimentos
 
-## Alimentos e ofertas
+| ID     | Tarefa                      | Prioridade | Dependência | Critério de aceitação                                   |
+| ------ | --------------------------- | ---------- | ----------- | ------------------------------------------------------- |
+| DEV-13 | Criar cadastro de alimentos | Alta       | DEV-01      | Alimento pode ser cadastrado com os dados obrigatórios. |
+| DEV-14 | Validar dados do alimento   | Média      | DEV-13      | Campos obrigatórios e valores inválidos são rejeitados. |
 
-- Criar cadastro de alimentos;
-- Criar cadastro de oferta;
-- Implementar consulta de ofertas;
-- Implementar filtros de ofertas;
-- Implementar controle da quantidade disponível;
-- Implementar solicitação de alimento;
-- Implementar gerenciamento do status da solicitação;
-- Implementar confirmação da retirada;
-- Implementar cancelamento de solicitação;
-- Implementar histórico de doações.
+## 9.5 Ofertas
 
-## Demandas
+| ID     | Tarefa                                           | Prioridade | Dependência    | Critério de aceitação                                                                  |
+| ------ | ------------------------------------------------ | ---------- | -------------- | -------------------------------------------------------------------------------------- |
+| DEV-15 | Criar cadastro de oferta                         | Alta       | DEV-05, DEV-13 | Estabelecimento consegue informar alimento, quantidade, unidade e período de retirada. |
+| DEV-16 | Implementar consulta de ofertas                  | Alta       | DEV-15         | Instituição consegue visualizar ofertas disponíveis.                                   |
+| DEV-17 | Implementar filtros de ofertas                   | Média      | DEV-16         | Usuário consegue filtrar por tipo de alimento, quantidade e período de retirada.       |
+| DEV-18 | Implementar solicitação de alimento              | Alta       | DEV-11, DEV-16 | Instituição habilitada consegue solicitar quantidade disponível.                       |
+| DEV-19 | Validar quantidade solicitada                    | Alta       | DEV-18         | Sistema impede solicitação superior à quantidade disponível.                           |
+| DEV-20 | Atualizar quantidade disponível após confirmação | Alta       | DEV-18         | Quantidade disponível é atualizada conforme a solicitação confirmada.                  |
+| DEV-21 | Implementar status da solicitação                | Alta       | DEV-18         | Solicitação apresenta seu status durante o fluxo.                                      |
+| DEV-22 | Implementar confirmação de retirada              | Alta       | DEV-21         | Retirada pode ser confirmada e o status atualizado.                                    |
+| DEV-23 | Implementar cancelamento de solicitação          | Média      | DEV-21         | Solicitação pode ser cancelada conforme as regras definidas.                           |
+| DEV-24 | Implementar histórico de doações                 | Média      | DEV-22         | Estabelecimento consegue consultar doações concluídas.                                 |
 
-- Criar cadastro de demanda;
-- Implementar prioridade da demanda;
-- Implementar consulta de demandas;
-- Implementar filtros de demandas;
-- Implementar cadastro de beneficiários da demanda;
-- Implementar consumo per capita;
-- Implementar cálculo da quantidade de referência;
-- Implementar verificação de coerência da demanda;
-- Implementar alerta de incompatibilidade;
-- Implementar justificativa para demanda excepcional.
+## 9.6 Demandas
 
-## Correspondência entre oferta e demanda
+| ID     | Tarefa                                             | Prioridade | Dependência    | Critério de aceitação                                                                              |
+| ------ | -------------------------------------------------- | ---------- | -------------- | -------------------------------------------------------------------------------------------------- |
+| DEV-25 | Criar cadastro de demanda                          | Alta       | DEV-12, DEV-13 | Instituição consegue informar alimento, quantidade, unidade, prazo e finalidade.                   |
+| DEV-26 | Informar quantidade estimada de beneficiários      | Alta       | DEV-25         | Cadastro permite informar a quantidade estimada de beneficiários.                                  |
+| DEV-27 | Implementar prioridade da demanda                  | Média      | DEV-25         | Demanda pode ser classificada como alta, média ou baixa.                                           |
+| DEV-28 | Implementar consulta de demandas                   | Média      | DEV-25         | Estabelecimento consegue consultar demandas cadastradas.                                           |
+| DEV-29 | Implementar filtros de demandas                    | Média      | DEV-28         | Demandas podem ser filtradas conforme os critérios definidos.                                      |
+| DEV-30 | Implementar consumo per capita                     | Alta       | DEV-25, DEV-26 | Sistema permite informar o consumo per capita utilizado como referência.                           |
+| DEV-31 | Implementar cálculo da quantidade de referência    | Alta       | DEV-26, DEV-30 | Sistema calcula uma quantidade de referência com base nos beneficiários e consumo informado.       |
+| DEV-32 | Implementar verificação de coerência da quantidade | Alta       | DEV-31         | Sistema compara a quantidade solicitada com a referência calculada.                                |
+| DEV-33 | Implementar alerta de incompatibilidade            | Alta       | DEV-32         | Sistema informa quando a quantidade apresenta incompatibilidade com a referência.                  |
+| DEV-34 | Implementar justificativa para demanda excepcional | Alta       | DEV-33         | Sistema solicita justificativa quando a quantidade estiver significativamente acima da referência. |
 
-- Implementar correspondência entre oferta e demanda;
-- Desenvolver tela de oportunidades compatíveis.
+## 9.7 Correspondência entre ofertas e demandas
 
-## Notificações
+| ID     | Tarefa                                                      | Prioridade | Dependência    | Critério de aceitação                                            |
+| ------ | ----------------------------------------------------------- | ---------- | -------------- | ---------------------------------------------------------------- |
+| DEV-35 | Definir critérios de compatibilidade entre oferta e demanda | Alta       | DEV-15, DEV-25 | Critérios consideram alimento, quantidade e prazo.               |
+| DEV-36 | Implementar correspondência entre oferta e demanda          | Alta       | DEV-35         | Sistema identifica ofertas relacionadas às demandas compatíveis. |
+| DEV-37 | Criar tela de oportunidades compatíveis                     | Média      | DEV-36         | Usuário consegue visualizar correspondências identificadas.      |
 
-- Implementar notificações relacionadas às ofertas, solicitações e demandas.
+## 9.8 Notificações
 
-As tarefas serão detalhadas em Issues próprias conforme o desenvolvimento avançar.
+| ID     | Tarefa                                 | Prioridade | Dependência    | Critério de aceitação                                         |
+| ------ | -------------------------------------- | ---------- | -------------- | ------------------------------------------------------------- |
+| DEV-38 | Definir eventos que geram notificações | Média      | DEV-21, DEV-28 | Eventos relevantes são identificados e documentados.          |
+| DEV-39 | Implementar notificações do sistema    | Média      | DEV-38         | Usuário recebe notificações relacionadas às ações relevantes. |
 
 ---
 
-# 10. Backlog por Sprint
+# 10. Tarefas de qualidade e requisitos não funcionais
+
+| ID      | Tarefa                                 | Prioridade | Requisito | Critério de aceitação                                                                       |
+| ------- | -------------------------------------- | ---------- | --------- | ------------------------------------------------------------------------------------------- |
+| TEST-01 | Validar segurança de senhas            | Alta       | RNF-01    | Senhas não são armazenadas em texto simples.                                                |
+| TEST-02 | Validar controle de autorização        | Alta       | RNF-02    | Usuário não consegue acessar funcionalidades não permitidas ao seu perfil.                  |
+| TEST-03 | Validar proteção de dados              | Alta       | RNF-03    | Sistema solicita e utiliza somente os dados pessoais necessários.                           |
+| TEST-04 | Validar integridade das operações      | Alta       | RNF-04    | Regras de integridade impedem operações inválidas.                                          |
+| TEST-05 | Avaliar tempo de resposta              | Média      | RNF-05    | Operações principais atendem ao limite definido no ambiente de teste.                       |
+| TEST-06 | Avaliar usabilidade                    | Média      | RNF-06    | Informações, mensagens e validações são compreensíveis.                                     |
+| TEST-07 | Avaliar acessibilidade                 | Média      | RNF-07    | Interface permite navegação por teclado e possui identificação adequada dos campos.         |
+| TEST-08 | Testar compatibilidade com navegadores | Média      | RNF-08    | Aplicação funciona nos navegadores definidos pelo projeto.                                  |
+| TEST-09 | Testar responsividade                  | Média      | RNF-09    | Interface se adapta aos tamanhos de tela definidos.                                         |
+| TEST-10 | Revisar manutenibilidade               | Média      | RNF-10    | Código apresenta organização, separação de responsabilidades e padrão definido pela equipe. |
+| TEST-11 | Verificar rastreabilidade              | Alta       | RNF-11    | Requisitos podem ser relacionados às Issues, código, documentação e testes correspondentes. |
+
+---
+
+# 11. Backlog por Sprint
 
 O Product Backlog será continuamente refinado e os itens serão selecionados para os Sprint Backlogs de acordo com prioridade, dependências e capacidade da equipe.
 
@@ -254,140 +293,148 @@ O Product Backlog será continuamente refinado e os itens serão selecionados pa
 
 Principais entregas:
 
-- Definição do problema;
-- Visão do produto;
-- Organização inicial da equipe;
-- Criação do Product Backlog;
-- Organização do GitHub Project;
-- Definição inicial das Issues;
-- Estrutura inicial do projeto.
+* Definição do problema;
+* Visão do produto;
+* Organização inicial da equipe;
+* Criação do Product Backlog;
+* Organização do GitHub Project;
+* Definição inicial das Issues;
+* Estrutura inicial do projeto.
 
 ## Sprint 2
 
 Principais entregas:
 
-- Documento de requisitos;
-- Atores e perfis;
-- Requisitos funcionais;
-- Requisitos não funcionais;
-- Regras de negócio;
-- Histórias de usuário;
-- Critérios de aceitação;
-- Definição do escopo;
-- Perfil de atendimento da instituição;
-- Regras de quantidade e beneficiários;
-- Primeira evolução funcional ou protótipo navegável.
+* Documento de requisitos;
+* Atores e perfis;
+* Requisitos funcionais;
+* Requisitos não funcionais;
+* Regras de negócio;
+* Histórias de usuário;
+* Critérios de aceitação;
+* Definição do escopo;
+* Perfil de atendimento da instituição;
+* Regras de quantidade e beneficiários;
+* Refinamento das tarefas de desenvolvimento;
+* Definição de prioridades e dependências;
+* Primeira evolução funcional ou protótipo navegável da aplicação web.
 
 ## Sprint 3
 
 Principais entregas:
 
-- Modelagem comportamental;
-- Modelagem estrutural;
-- Diagramas;
-- Relacionamento entre requisitos e modelos;
-- Evolução do fluxo funcional.
+* Modelagem comportamental;
+* Modelagem estrutural;
+* Diagramas;
+* Relacionamento entre requisitos e modelos;
+* Evolução do fluxo funcional;
+* Desenvolvimento das funcionalidades priorizadas.
 
 ## Sprint 4
 
 Principais entregas:
 
-- Princípios de projeto;
-- Responsabilidades;
-- Modularidade;
-- Coesão;
-- Baixo acoplamento;
-- Separação de responsabilidades.
+* Princípios de projeto;
+* Responsabilidades;
+* Modularidade;
+* Coesão;
+* Baixo acoplamento;
+* Separação de responsabilidades.
 
 ## Sprint 5
 
 Principais entregas:
 
-- Identificação dos padrões de projeto;
-- Aplicação dos padrões;
-- Documentação das decisões relacionadas aos padrões.
+* Identificação dos padrões de projeto;
+* Aplicação dos padrões;
+* Documentação das decisões relacionadas aos padrões.
 
 ## Sprint 6
 
 Principais entregas:
 
-- Definição da arquitetura;
-- Organização global da aplicação;
-- Integração dos componentes.
+* Definição da arquitetura;
+* Organização global da aplicação;
+* Integração dos componentes;
+* Integração entre front-end, back-end e banco de dados.
 
 ## Sprint 7
 
 Principais entregas:
 
-- Plano de testes;
-- Estratégia de testes;
-- Primeiras execuções verificáveis;
-- Testes funcionais e automatizados, quando aplicável.
+* Plano de testes;
+* Estratégia de testes;
+* Primeiras execuções verificáveis;
+* Testes funcionais e automatizados, quando aplicável;
+* Avaliação dos requisitos não funcionais.
 
 ## Sprint 8
 
 Principais entregas:
 
-- Validação final;
-- Correção de defeitos;
-- Evidências de testes;
-- Atualização da documentação;
-- Validação dos requisitos;
-- Documentação do uso de IA;
-- Estabilização da aplicação;
-- Preparação da versão final.
+* Validação final;
+* Correção de defeitos;
+* Evidências de testes;
+* Atualização da documentação;
+* Validação dos requisitos;
+* Documentação do uso de IA;
+* Estabilização da aplicação;
+* Preparação da versão final.
 
 ---
 
-# 11. Definition of Ready
+# 12. Definition of Ready
 
 Um item está pronto para entrar em uma Sprint quando:
 
-- [ ] Possui descrição compreensível;
-- [ ] Possui objetivo ou valor identificável;
-- [ ] Possui critério de aceitação ou conclusão;
-- [ ] As principais dependências foram identificadas;
-- [ ] Possui prioridade definida;
-- [ ] Possui responsável quando necessário;
-- [ ] Foi suficientemente refinado para ser executado pela equipe.
+* [ ] Possui descrição compreensível;
+* [ ] Possui objetivo ou valor identificável;
+* [ ] Possui critério de aceitação ou conclusão;
+* [ ] As principais dependências foram identificadas;
+* [ ] Possui prioridade definida;
+* [ ] Possui responsável quando necessário;
+* [ ] Foi suficientemente refinado para ser executado pela equipe;
+* [ ] Está relacionado a um requisito ou objetivo do projeto, quando aplicável.
 
 ---
 
-# 12. Definition of Done
+# 13. Definition of Done
 
 Um item será considerado concluído quando:
 
-- [ ] Atender aos critérios de aceitação;
-- [ ] O desenvolvimento estiver concluído, quando aplicável;
-- [ ] A aplicação estiver funcionando após a alteração;
-- [ ] Os testes necessários tiverem sido realizados;
-- [ ] Outro integrante tiver revisado a alteração;
-- [ ] O Pull Request tiver sido aprovado;
-- [ ] A alteração estiver integrada à `release`;
-- [ ] A documentação afetada tiver sido atualizada;
-- [ ] A Issue estiver atualizada;
-- [ ] A atividade estiver registrada na Sprint correspondente.
+* [ ] Atender aos critérios de aceitação;
+* [ ] O desenvolvimento estiver concluído, quando aplicável;
+* [ ] A aplicação estiver funcionando após a alteração;
+* [ ] Os testes necessários tiverem sido realizados;
+* [ ] Outro integrante tiver revisado a alteração;
+* [ ] O Pull Request tiver sido aprovado;
+* [ ] A alteração estiver integrada à `release`;
+* [ ] A documentação afetada tiver sido atualizada;
+* [ ] A Issue estiver atualizada;
+* [ ] A atividade estiver registrada na Sprint correspondente.
 
 ---
 
-# 13. Rastreabilidade
+# 14. Rastreabilidade
 
 Cada item do backlog deverá permitir, quando aplicável, a identificação de sua relação com:
 
-- Issue;
-- Requisito;
-- História de usuário;
-- Sprint;
-- Branch;
-- Commit;
-- Pull Request;
-- Artefato de documentação;
-- Código;
-- Teste;
-- Evidência.
+* Issue;
+* Requisito;
+* História de usuário;
+* Regra de negócio;
+* Sprint;
+* Branch;
+* Commit;
+* Pull Request;
+* Artefato de documentação;
+* Código;
+* Teste;
+* Evidência.
 
 O fluxo esperado de rastreabilidade é:
 
+```text
 Backlog
 → Issue
 → Branch
@@ -399,10 +446,11 @@ Backlog
 → Aprovação
 → Merge na release
 → Evidência/artefato
+```
 
 ---
 
-# 14. Política de desenvolvimento relacionada ao backlog
+# 15. Política de desenvolvimento relacionada ao backlog
 
 As tarefas selecionadas do backlog deverão seguir o fluxo de desenvolvimento definido no Guia de Desenvolvimento.
 
@@ -420,19 +468,20 @@ A integração na `release` ocorrerá somente após as revisões e aprovações 
 
 ---
 
-# 15. Histórico de Refinamento
+# 16. Histórico de Refinamento
 
-| Sprint | Alteração | Motivo | Evidência |
-|---|---|---|---|
-| Sprint 1 | Criação do Product Backlog inicial | Organizar as funcionalidades e atividades necessárias ao projeto. | GitHub Project |
-| Sprint 2 | Detalhamento dos requisitos e histórias de usuário | Transformar a visão inicial do produto em requisitos verificáveis e itens executáveis. | Documento de requisitos / Issues |
-| Sprint 2 | Inclusão das regras relacionadas ao perfil da instituição e quantidade de beneficiários | Tornar a demanda de alimentos mais consistente com o contexto de atendimento da instituição. | Issues #15, #16 e #17 |
-| Sprint 2 | Divisão das funcionalidades em tarefas menores | Facilitar o desenvolvimento paralelo e a revisão entre os integrantes. | GitHub Project |
-| Sprint 3 em diante | Refinamentos conforme modelagem e desenvolvimento | Ajustar o backlog às decisões técnicas e aos resultados das Sprints. | GitHub Project / Issues |
+| Sprint             | Alteração                                                                                 | Motivo                                                                                       | Evidência                        |
+| ------------------ | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| Sprint 1           | Criação do Product Backlog inicial                                                        | Organizar as funcionalidades e atividades necessárias ao projeto.                            | GitHub Project                   |
+| Sprint 2           | Detalhamento dos requisitos e histórias de usuário                                        | Transformar a visão inicial do produto em requisitos verificáveis e itens executáveis.       | Documento de requisitos / Issues |
+| Sprint 2           | Inclusão das regras relacionadas ao perfil da instituição e quantidade de beneficiários   | Tornar a demanda de alimentos mais consistente com o contexto de atendimento da instituição. | Issues #15, #16 e #17            |
+| Sprint 2           | Divisão das funcionalidades em tarefas menores                                            | Facilitar o desenvolvimento paralelo, o acompanhamento e a revisão entre os integrantes.     | GitHub Project                   |
+| Sprint 2           | Definição de prioridades, dependências e critérios de aceitação para as tarefas refinadas | Tornar os itens do backlog mais claros e preparados para execução nas Sprints.               | Product Backlog / GitHub Project |
+| Sprint 3 em diante | Refinamentos conforme modelagem e desenvolvimento                                         | Ajustar o backlog às decisões técnicas e aos resultados das Sprints.                         | GitHub Project / Issues          |
 
 ---
 
-# 16. Observações
+# 17. Observações
 
 O Product Backlog é um artefato evolutivo.
 
@@ -443,3 +492,5 @@ Itens existentes poderão ser divididos, reordenados ou refinados durante as Spr
 Alterações relevantes no backlog deverão ser justificadas e registradas para preservar a rastreabilidade do projeto.
 
 O GitHub Project será considerado a fonte operacional do estado atual dos itens, enquanto este documento apresenta a visão organizada e rastreável do backlog.
+
+O refinamento realizado na Sprint 02 não significa que todas as funcionalidades estejam implementadas. Os itens classificados como planejados permanecem no backlog para desenvolvimento nas próximas Sprints.

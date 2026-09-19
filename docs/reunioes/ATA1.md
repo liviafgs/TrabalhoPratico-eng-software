@@ -2,7 +2,7 @@
 
 - **Data e horário:** 11 de setembro de 2026
 - **Participantes:** Rawany Marcella Mendonça; Lívia Fagundes Dos Santos; Raíssa Fernandes de Souza; Letícia Cristhinie Alexandre
-- **Sprint:** [PREENCHER]
+- **Sprint:** Sprint 1
 - **Objetivo:** Discutir e definir a divisão de tarefas do projeto Conexão Solidária e planejar a coleta de dados por meio de entrevistas com stakeholders.
 
 ## Decisões
@@ -21,11 +21,11 @@
 
 | Tarefa/Issue | Responsável | Prazo |
 |---|---|---|
-| Desenvolvimento do Backend em Java | Raíssa Fernandes de Souza e Rawany Marcella Mendonça | [PREENCHER] |
-| Desenvolvimento do Frontend | Letícia Cristhinie Alexandre e Lívia Fagundes Dos Santos | [PREENCHER] |
-| Entrevistas com estabelecimentos doadores | Grupo completo | [PREENCHER] |
-| Entrevistas com ONGs e instituições de caridade | Grupo completo | [PREENCHER] |
-| Documentação dos resultados das entrevistas | Grupo completo | [PREENCHER] |
+| Desenvolvimento do Backend em Java | Raíssa Fernandes de Souza e Rawany Marcella Mendonça | 30/10/2026 |
+| Desenvolvimento do Frontend | Letícia Cristhinie Alexandre e Lívia Fagundes Dos Santos | 30/10/2026 |
+| Entrevistas com estabelecimentos doadores | Grupo completo | 25/09/2026 |
+| Entrevistas com ONGs e instituições de caridade | Grupo completo | 25/09/2026 |
+| Documentação dos resultados das entrevistas | Grupo completo | 02/10/2026 |
 
 ## Impedimentos
 

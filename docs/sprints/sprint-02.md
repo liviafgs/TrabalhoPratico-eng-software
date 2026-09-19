@@ -43,7 +43,29 @@ Também serão definidos os requisitos funcionais e não funcionais, as históri
 
 ### O que foi implementado ou evoluído
 
-`[Explique o comportamento demonstrável e relacione-o aos requisitos.]`
+### O que foi implementado ou evoluído
+
+Foi desenvolvido o protótipo navegável da aplicação web Conexão Solidária, utilizando HTML, CSS e JavaScript.
+
+O incremento contempla os principais fluxos definidos nos requisitos da Sprint 2:
+
+- seleção do perfil de acesso entre estabelecimento doador e instituição beneficiária;
+- consulta de ofertas disponíveis;
+- filtragem de ofertas por alimento, quantidade e período de retirada;
+- cadastro de ofertas de alimentos;
+- solicitação de alimentos por instituição;
+- validação para impedir solicitações superiores à quantidade disponível;
+- atualização da quantidade disponível após uma solicitação;
+- acompanhamento das solicitações;
+- confirmação da retirada;
+- cadastro de demandas;
+- definição da prioridade da demanda;
+- cálculo da quantidade de referência com base nos beneficiários e consumo per capita;
+- alerta para demandas acima da referência;
+- registro de justificativa para demandas excepcionais;
+- consulta das demandas cadastradas.
+
+O protótipo utiliza dados locais em memória para demonstrar os fluxos da aplicação. A integração definitiva com persistência e os serviços do back-end será realizada nas etapas posteriores do projeto.
 
 ### Como executar e verificar
 

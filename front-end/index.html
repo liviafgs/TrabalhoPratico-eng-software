@@ -1,11 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Conexão Solidária</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
+<header class="header">
+    <div>
+        <h1>Conexão Solidária</h1>
+        <p>Doação que conecta, alimento que transforma.</p>
+    </div>
+
+    <button id="logoutBtn">Sair</button>
+</header>
+
+<div class="layout">
+
+    <aside class="sidebar">
+        <button class="menu active" data-page="inicio">Início</button>
+        <button class="menu" data-page="ofertas">Ofertas disponíveis</button>
+        <button class="menu" data-page="demanda">Cadastrar demanda</button>
+        <button class="menu" data-page="solicitacoes">Minhas solicitações</button>
+        <button class="menu" data-page="cadastro">Meu cadastro</button>
+
+        <div id="menuDoador">
+            <button class="menu" data-page="novaOferta">Cadastrar oferta</button>
+            <button class="menu" data-page="demandas">Consultar demandas</button>
+        </div>
+    </aside>
+
+    <main class="content">
+
+        <!-- INÍCIO -->
+        <section id="inicio" class="page active">
+            <h2>Visão geral</h2>
+            <p>Bem-vindo à Conexão Solidária.</p>
+
+            <div class="cards">
+                <div class="card">
+                    <span>Ofertas disponíveis</span>
+                    <strong id="totalOfertas">3</strong>
+                </div>
+
+                <div class="card">
+                    <span>Minhas solicitações</span>
+                    <strong id="totalSolicitacoes">1</strong>
+                </div>
+
+                <div class="card">
+                    <span>Demandas cadastradas</span>
+                    <strong id="totalDemandas">1</strong>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="primary" onclick="mostrarPagina('ofertas')">
+                    Ver ofertas
+                </button>
+
+                <button class="secondary" onclick="mostrarPagina('demanda')">
+                    Cadastrar demanda
+                </button>
+            </div>
+        </section>
+
+
+        <!-- OFERTAS -->
+        <section id="ofertas" class="page">
+
+            <h2>Ofertas disponíveis</h2>
+            <p>Consulte alimentos disponíveis para doação.</p>
+
+            <div class="filters">
+
+                <div>
+                    <label for="filtroAlimento">Alimento</label>
+                    <input id="filtroAlimento" type="text"
+                           placeholder="Ex.: arroz">
+                </div>
+
+                <div>
+                    <label for="filtroQuantidade">Quantidade mínima</label>
+                    <input id="filtroQuantidade" type="number" min="0">
+                </div>
+
+                <div>
+                    <label for="filtroData">Retirada até</label>
+                    <input id="filtroData" type="date">
+                </div>
+
+                <button class="secondary" onclick="filtrarOfertas()">
+                    Filtrar
+                </button>
+
+            </div>
+
+            <div id="listaOfertas"></div>
+
+        </section>
+
+
+        <!-- CADASTRAR OFERTA -->
+        <section id="novaOferta" class="page">
+
+            <h2>Cadastrar oferta</h2>
+            <p>Disponibilize alimentos para doação.</p>
+
+            <form id="formOferta">
+
+                <label>Alimento *</label>
+                <input id="ofertaAlimento" required>
+
+                <label>Quantidade *</label>
+                <input id="ofertaQuantidade"
+                       type="number"
+                       min="1"
+                       required>
+
+                <label>Unidade *</label>
+                <select id="ofertaUnidade" required>
+                    <option value="">Selecione</option>
+                    <option>kg</option>
+                    <option>litros</option>
+                    <option>unidades</option>
+                    <option>caixas</option>
+                </select>
+
+                <label>Período para retirada *</label>
+                <input id="ofertaData"
+                       type="date"
+                       required>
+
+                <label>Local de retirada *</label>
+                <input id="ofertaLocal" required>
+
+                <button class="primary" type="submit">
+                    Publicar oferta
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- DEMANDA -->
+        <section id="demanda" class="page">
+
+            <h2>Cadastrar demanda</h2>
+
+            <p>
+                Informe a necessidade de alimentos da instituição.
+            </p>
+
+            <form id="formDemanda">
+
+                <label>Alimento *</label>
+                <input id="demandaAlimento" required>
+
+                <label>Quantidade desejada *</label>
+                <input id="demandaQuantidade"
+                       type="number"
+                       min="1"
+                       required>
+
+                <label>Unidade *</label>
+                <select id="demandaUnidade" required>
+                    <option value="">Selecione</option>
+                    <option>kg</option>
+                    <option>litros</option>
+                    <option>unidades</option>
+                    <option>caixas</option>
+                </select>
+
+                <label>Quantidade estimada de beneficiários *</label>
+                <input id="beneficiarios"
+                       type="number"
+                       min="1"
+                       required>
+
+                <label>Consumo per capita *</label>
+                <input id="consumoPerCapita"
+                       type="number"
+                       min="0.01"
+                       step="0.01"
+                       required>
+
+                <label>Prazo *</label>
+                <input id="demandaPrazo"
+                       type="date"
+                       required>
+
+                <label>Finalidade *</label>
+                <input id="demandaFinalidade" required>
+
+                <label>Prioridade *</label>
+                <select id="demandaPrioridade" required>
+                    <option value="">Selecione</option>
+                    <option>Alta</option>
+                    <option>Média</option>
+                    <option>Baixa</option>
+                </select>
+
+                <div id="referencia" class="info" hidden>
+                    <strong>
+                        Quantidade de referência:
+                        <span id="valorReferencia">0</span>
+                    </strong>
+
+                    <p>
+                        Cálculo:
+                        beneficiários × consumo per capita
+                    </p>
+                </div>
+
+                <div id="alertaDemanda" class="alerta" hidden>
+
+                    <strong>
+                        Atenção: quantidade acima da referência.
+                    </strong>
+
+                    <p>
+                        Informe uma justificativa para registrar
+                        uma demanda excepcional.
+                    </p>
+
+                    <label>Justificativa *</label>
+
+                    <textarea
+                        id="justificativa"
+                        rows="4">
+                    </textarea>
+
+                </div>
+
+                <button class="primary" type="submit">
+                    Registrar demanda
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- SOLICITAÇÕES -->
+        <section id="solicitacoes" class="page">
+
+            <h2>Minhas solicitações</h2>
+
+            <div id="listaSolicitacoes"></div>
+
+        </section>
+
+
+        <!-- DEMANDAS -->
+        <section id="demandas" class="page">
+
+            <h2>Demandas das instituições</h2>
+
+            <p>
+                Consulte necessidades cadastradas pelas instituições.
+            </p>
+
+            <div class="filters">
+
+                <div>
+                    <label>Alimento</label>
+                    <input id="filtroDemanda">
+                </div>
+
+                <div>
+                    <label>Prioridade</label>
+                    <select id="filtroPrioridade">
+                        <option value="">Todas</option>
+                        <option>Alta</option>
+                        <option>Média</option>
+                        <option>Baixa</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div id="listaDemandas"></div>
+
+        </section>
+
+
+        <!-- CADASTRO -->
+        <section id="cadastro" class="page">
+
+            <h2>Meu cadastro</h2>
+
+            <div class="profile">
+
+                <h3 id="nomePerfil">
+                    Instituição Esperança
+                </h3>
+
+                <p id="tipoPerfil">
+                    Instituição beneficiária
+                </p>
+
+                <span class="status">
+                    Habilitada
+                </span>
+
+                <hr>
+
+                <p>
+                    <strong>Responsável:</strong>
+                    Maria da Silva
+                </p>
+
+                <p>
+                    <strong>Nutricionista:</strong>
+                    CRN 12345
+                </p>
+
+                <p>
+                    <strong>Pessoas atendidas:</strong>
+                    30
+                </p>
+
+                <p>
+                    <strong>Capacidade:</strong>
+                    50 pessoas
+                </p>
+
+                <p>
+                    <strong>Público atendido:</strong>
+                    Famílias em vulnerabilidade
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ESCOLHA DE PERFIL -->
+
+<div id="modalPerfil" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Conexão Solidária</h2>
+
+        <p>Escolha o perfil para acessar a aplicação.</p>
+
+        <button onclick="selecionarPerfil('instituicao')">
+            Instituição beneficiária
+        </button>
+
+        <button onclick="selecionarPerfil('doador')">
+            Estabelecimento doador
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>

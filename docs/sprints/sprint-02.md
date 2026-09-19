@@ -79,7 +79,7 @@ cd TrabalhoPratico-eng-software
 | `#9` | `Refinar backlog do produto` | `@leticia-Cristhinie` | `Itens detalhados e priorizados` | Concluído |
 | `#10` | `Definir funcionalidades da aplicação web` | `@raissafernandesdesouza @liviafag` | `Escopo definido` | Concluído |
 | `#11` | `Criar Documentação da sprint-02` | `@liviafag` | `Arquivo da sprint preenchido e versionado` | Concluído |
-| `#12` | `Ata de Reunião` | `@rawanymendonca` | `Arquivo da sprint preenchido e versionado` | Concluído |
+| `#12` | `Ata de Reunião` | `@raissafernandesdesouza` | `Arquivo da sprint preenchido e versionado` | Concluído |
 
 ### Acompanhamento
 

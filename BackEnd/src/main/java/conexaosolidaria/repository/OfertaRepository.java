@@ -4,6 +4,7 @@ import conexaosolidaria.model.Oferta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -19,6 +20,7 @@ public class OfertaRepository {
                 oferta.getIdUsuarioDoador(),
                 oferta.getIdAlimento(),
                 oferta.getAlimento(),
+                oferta.getCategoria(),
                 oferta.getQuantidade(),
                 oferta.getUnidadeMedida(),
                 oferta.getRetiradaAte(),
@@ -32,5 +34,9 @@ public class OfertaRepository {
 
     public List<Oferta> findAll() {
         return new ArrayList<>(ofertas.values());
+    }
+
+    public Optional<Oferta> findById(long id) {
+        return Optional.ofNullable(ofertas.get(id));
     }
 }

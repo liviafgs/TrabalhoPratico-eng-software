@@ -8,6 +8,7 @@ public class Oferta {
     private final long idUsuarioDoador;
     private final long idAlimento;
     private final String alimento;
+    private final String categoria;
     private final double quantidade;
     private final String unidadeMedida;
     private final LocalDate retiradaAte;
@@ -17,16 +18,24 @@ public class Oferta {
 
     public Oferta(long id, long idUsuarioDoador, String alimento, double quantidade, String unidadeMedida,
             LocalDate retiradaAte) {
-        this(id, idUsuarioDoador, 0L, alimento, quantidade, unidadeMedida, retiradaAte, null, null, null);
+        this(id, idUsuarioDoador, 0L, alimento, null, quantidade, unidadeMedida, retiradaAte, null, null, null);
     }
 
     public Oferta(long id, long idUsuarioDoador, long idAlimento, String alimento, double quantidade,
             String unidadeMedida, LocalDate retiradaAte, LocalDate validade, LocalDateTime dataHoraRetirada,
             String localRetirada) {
+        this(id, idUsuarioDoador, idAlimento, alimento, null, quantidade, unidadeMedida, retiradaAte, validade,
+                dataHoraRetirada, localRetirada);
+    }
+
+    public Oferta(long id, long idUsuarioDoador, long idAlimento, String alimento, String categoria,
+            double quantidade, String unidadeMedida, LocalDate retiradaAte, LocalDate validade,
+            LocalDateTime dataHoraRetirada, String localRetirada) {
         this.id = id;
         this.idUsuarioDoador = idUsuarioDoador;
         this.idAlimento = idAlimento;
         this.alimento = alimento;
+        this.categoria = categoria;
         this.quantidade = quantidade;
         this.unidadeMedida = unidadeMedida;
         this.retiradaAte = retiradaAte;
@@ -51,6 +60,10 @@ public class Oferta {
         return alimento;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
     public double getQuantidade() {
         return quantidade;
     }
@@ -73,5 +86,12 @@ public class Oferta {
 
     public String getLocalRetirada() {
         return localRetirada;
+    }
+
+    public boolean isExpirada() {
+        LocalDate hoje = LocalDate.now();
+        return (validade != null && hoje.isAfter(validade))
+                || (retiradaAte != null && hoje.isAfter(retiradaAte))
+                || (dataHoraRetirada != null && LocalDateTime.now().isAfter(dataHoraRetirada));
     }
 }

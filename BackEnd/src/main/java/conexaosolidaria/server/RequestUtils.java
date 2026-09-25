@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -34,6 +35,22 @@ public final class RequestUtils {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Campo numerico invalido: " + fieldName);
         }
+    }
+
+    public static Map<String, String> queryParams(HttpExchange exchange) {
+        Map<String, String> values = new LinkedHashMap<>();
+        String query = exchange.getRequestURI().getRawQuery();
+        if (query == null || query.isBlank()) {
+            return values;
+        }
+
+        for (String parameter : query.split("&")) {
+            String[] parts = parameter.split("=", 2);
+            String key = URLDecoder.decode(parts[0], StandardCharsets.UTF_8);
+            String value = parts.length == 1 ? "" : URLDecoder.decode(parts[1], StandardCharsets.UTF_8);
+            values.put(key, value);
+        }
+        return values;
     }
 
     private static Map<String, String> parseSimpleJsonObject(String json) {

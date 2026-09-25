@@ -16,6 +16,8 @@ public enum Permissao {
     CADASTRAR_OFERTA("Cadastrar oferta de alimentos"),
     CONSULTAR_OFERTAS("Consultar ofertas disponiveis"),
     SOLICITAR_ALIMENTO("Solicitar alimento"),
+    CONFIRMAR_RETIRADA_OFERTA("Confirmar retirada de oferta"),
+    CANCELAR_SOLICITACAO_OFERTA("Cancelar solicitacao de oferta"),
     CADASTRAR_DEMANDA("Cadastrar demanda"),
     CONSULTAR_DEMANDAS("Consultar demandas"),
     CONSULTAR_USUARIOS("Consultar usuarios cadastrados"),

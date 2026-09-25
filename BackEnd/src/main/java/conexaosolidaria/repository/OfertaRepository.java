@@ -17,11 +17,14 @@ public class OfertaRepository {
         Oferta salva = new Oferta(
                 id,
                 oferta.getIdUsuarioDoador(),
+                oferta.getIdAlimento(),
                 oferta.getAlimento(),
                 oferta.getQuantidade(),
                 oferta.getUnidadeMedida(),
-                oferta.getRetiradaAte()
-        );
+                oferta.getRetiradaAte(),
+                oferta.getValidade(),
+                oferta.getDataHoraRetirada(),
+                oferta.getLocalRetirada());
 
         ofertas.put(salva.getId(), salva);
         return salva;

@@ -8,6 +8,7 @@ import conexaosolidaria.repository.OfertaRepository;
 import conexaosolidaria.security.AccessControl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,11 +21,28 @@ public class OfertaService {
         this.accessControl = accessControl;
     }
 
-    public Oferta cadastrar(AuthenticatedUser user, String alimento, double quantidade, String unidadeMedida, LocalDate retiradaAte) {
+    public Oferta cadastrar(AuthenticatedUser user, String alimento, double quantidade, String unidadeMedida,
+            LocalDate retiradaAte) {
+        return cadastrar(user, 0L, alimento, quantidade, unidadeMedida, retiradaAte, null, null, null);
+    }
+
+    public Oferta cadastrar(AuthenticatedUser user, long idAlimento, String alimento, double quantidade,
+            String unidadeMedida, LocalDate retiradaAte, LocalDate validade, LocalDateTime dataHoraRetirada,
+            String localRetirada) {
         accessControl.require(user, Permissao.CADASTRAR_OFERTA);
         validarOferta(alimento, quantidade, unidadeMedida, retiradaAte);
 
-        return ofertaRepository.save(new Oferta(0, user.id(), alimento.trim(), quantidade, unidadeMedida.trim(), retiradaAte));
+        return ofertaRepository.save(new Oferta(
+                0,
+                user.id(),
+                idAlimento,
+                alimento.trim(),
+                quantidade,
+                unidadeMedida.trim(),
+                retiradaAte,
+                validade,
+                dataHoraRetirada,
+                localRetirada == null ? null : localRetirada.trim()));
     }
 
     public List<Oferta> listar(AuthenticatedUser user) {

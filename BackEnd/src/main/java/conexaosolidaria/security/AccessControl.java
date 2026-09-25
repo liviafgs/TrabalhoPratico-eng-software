@@ -16,15 +16,32 @@ public class AccessControl {
     public AccessControl() {
         permissoesPorPerfil = new EnumMap<>(PerfilUsuario.class);
         permissoesPorPerfil.put(PerfilUsuario.ESTABELECIMENTO_DOADOR, EnumSet.of(
+                Permissao.CADASTRAR_ESTABELECIMENTO,
+                Permissao.CONSULTAR_ESTABELECIMENTOS,
+                Permissao.ATUALIZAR_ESTABELECIMENTO,
+                Permissao.CADASTRAR_ALIMENTO,
+                Permissao.CONSULTAR_ALIMENTOS,
                 Permissao.CADASTRAR_OFERTA,
-                Permissao.CONSULTAR_DEMANDAS
-        ));
+                Permissao.CONSULTAR_OFERTAS,
+                Permissao.CONSULTAR_DEMANDAS));
         permissoesPorPerfil.put(PerfilUsuario.INSTITUICAO_BENEFICIARIA, EnumSet.of(
+                Permissao.CADASTRAR_INSTITUICAO,
+                Permissao.CONSULTAR_INSTITUICOES,
+                Permissao.CADASTRAR_NUTRICIONISTA,
+                Permissao.CONSULTAR_NUTRICIONISTAS,
+                Permissao.CADASTRAR_PERFIL_ATENDIMENTO,
+                Permissao.CONSULTAR_PERFIL_ATENDIMENTO,
+                Permissao.HABILITAR_INSTITUICAO,
+                Permissao.CONSULTAR_ALIMENTOS,
                 Permissao.CONSULTAR_OFERTAS,
                 Permissao.SOLICITAR_ALIMENTO,
-                Permissao.CADASTRAR_DEMANDA
-        ));
-        permissoesPorPerfil.put(PerfilUsuario.NUTRICIONISTA, EnumSet.noneOf(Permissao.class));
+                Permissao.CADASTRAR_DEMANDA));
+        permissoesPorPerfil.put(PerfilUsuario.NUTRICIONISTA, EnumSet.of(
+                Permissao.CONSULTAR_ESTABELECIMENTOS,
+                Permissao.CONSULTAR_INSTITUICOES,
+                Permissao.CONSULTAR_NUTRICIONISTAS,
+                Permissao.CONSULTAR_PERFIL_ATENDIMENTO,
+                Permissao.HABILITAR_INSTITUICAO));
         permissoesPorPerfil.put(PerfilUsuario.ADMINISTRADOR, EnumSet.allOf(Permissao.class));
     }
 

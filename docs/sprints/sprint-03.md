@@ -23,11 +23,11 @@ Ao final da sprint, o repositório deverá possuir modelos comportamentais e est
 
 **Entrega esperada:** `modelaem/modelagem.md`, contendo ao menos um modelo comportamental e um modelo estrutural, suas descrições e o vínculo com os requisitos.
 
-* [ ] Modelos legíveis e versionados no repositório.
-* [ ] Descrição textual da finalidade e das decisões de cada modelo.
-* [ ] Requisitos ligados aos elementos dos modelos.
-* [ ] Backlog e requisitos revisados quando a modelagem revelar mudanças.
-* [ ] Elementos modelados relacionados ao código existente.
+* [x] Modelos legíveis e versionados no repositório.
+* [x] Descrição textual da finalidade e das decisões de cada modelo.
+* [x] Requisitos ligados aos elementos dos modelos.
+* [x] Backlog e requisitos revisados quando a modelagem revelar mudanças.
+* [x] Elementos modelados relacionados ao código existente.
 
 ### Links dos artefatos
 
@@ -92,15 +92,15 @@ As Issues `#18` e `#19` permanecem como pendências da Sprint 2 enquanto seus cr
 
 ## 6. GitHub, documentação e rastreabilidade — 0,50 ponto
 
-| Tipo de evidência       | Link                                                                                                | O que comprova                                                                                |
-| ----------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| Issues                  | `https://github.com/liviafgs/TrabalhoPratico-eng-software/issues`                                   | Organização das atividades da Sprint 3 e critérios de aceitação.                              |
-| Documento de requisitos | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/requisitos/requisitos.md`  | Fonte dos requisitos relacionados aos modelos.                                                |
-| Modelagem               | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/modelaem/modelagem.md`          | Modelos comportamentais e estruturais e a rastreabilidade entre requisitos, modelos e código. |
-| Backlog                 | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/testes/backlog-produto.mb` | Tarefas refinadas e organização da Sprint 3.                                                  |
-| Pull Request            | `Será preenchido após a abertura do PR.`                                                            | Registro da revisão e integração das alterações.                                              |
-| Commit                  | `Será preenchido após o commit.`                                                                    | Registro da alteração realizada na branch.                                                    |
-| Teste/captura/relatório | `Será preenchido após a execução.`                                                                  | Evidência do fluxo funcional evoluído.                                                        |
+| Tipo de evidência | Link | O que comprova |
+|---|---|---|
+| Issues | `https://github.com/liviafgs/TrabalhoPratico-eng-software/issues` | Organização das atividades da Sprint 3 e critérios de aceitação. |
+| Documento de requisitos | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/requisitos/requisitos.md` | Fonte dos requisitos relacionados aos modelos. |
+| Modelagem | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/modelaem/modelagem.md` | Modelos comportamentais e estruturais e a rastreabilidade entre requisitos, modelos e código. |
+| Backlog | `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/testes/backlog-produto.mb` | Tarefas refinadas e organização da Sprint 3. |
+| Pull Request | `Ainda não aberto.` | Registro da revisão e integração das alterações. |
+| Commit | `https://github.com/liviafgs/TrabalhoPratico-eng-software/commits/main/` | Histórico dos commits do projeto. |
+| Teste/captura/relatório | `Evidência ainda não registrada.` | Evidência do fluxo funcional evoluído. |
 
 ### Rastreabilidade resumida
 
@@ -114,17 +114,16 @@ As Issues `#18` e `#19` permanecem como pendências da Sprint 2 enquanto seus cr
 
 ## 7. Revisão do incremento
 
-* **O que foi demonstrado:** `Será preenchido após a revisão da Sprint 3.`
-* **Critérios atendidos:** `Será preenchido após a verificação dos modelos, vínculos e fluxo funcional.`
-* **Itens não concluídos:** `Será preenchido ao final da sprint.`
-* **Motivo das pendências:** `Será preenchido ao final da sprint, caso existam pendências.`
-* **Feedback recebido e ajustes:** `Será preenchido após a revisão do incremento.`
+* **O que foi demonstrado:** `Foram apresentados os modelos comportamentais e estruturais do Conexão Solidária, incluindo os diagramas de cadastro de usuário, cadastro de oferta e solicitação de alimento, além do modelo estrutural do sistema.`
+* **Critérios atendidos:** `Foram relacionados os requisitos funcionais aos elementos dos modelos e estabelecida a correspondência entre os modelos e os componentes existentes no código.`
+* **Itens não concluídos:** `A implementação do fluxo de solicitação de alimentos ainda não possui correspondência completa no código.`
+* **Motivo das pendências:** `O fluxo de solicitação foi modelado para representar o comportamento esperado, porém seus componentes de implementação ainda não estão disponíveis no backend.`
+* **Feedback recebido e ajustes:** `A modelagem foi revisada para manter a correspondência entre requisitos, modelos e código, registrando explicitamente os elementos que ainda não foram implementados.`
+## 8. Retrospectiva e próximo sprint
 
-## 8. Retrospectiva e próxima sprint
-
-* **Funcionou bem:** `Será preenchido após a retrospectiva da Sprint 3.`
-* **Precisa melhorar:** `Será preenchido após a retrospectiva da Sprint 3.`
-* **Ação concreta para a próxima sprint:** `Será definida após a revisão da Sprint 3 e utilizada para alimentar o backlog da Sprint 4.`
+* **Funcionou bem:** `A modelagem permitiu relacionar os requisitos funcionais aos principais elementos estruturais e comportamentais do sistema.`
+* **Precisa melhorar:** `É necessário aproximar continuamente a modelagem da implementação, principalmente nos fluxos que ainda não possuem componentes correspondentes no backend.`
+* **Ação concreta para o próximo sprint:** `Implementar e validar os fluxos que permanecem sem correspondência no código, mantendo a rastreabilidade entre requisitos, modelos e implementação.`
 
 ## 9. O que não será considerado suficiente
 
@@ -136,6 +135,6 @@ As Issues `#18` e `#19` permanecem como pendências da Sprint 2 enquanto seus cr
 
 ## 10. Links enviados no UFLA Virtual
 
-* **Tag `sprint-03`:** `Será preenchido após a criação da tag.`
-* **Este arquivo na tag:** `Será preenchido após a criação da tag.`
+* **Tag `sprint-03`:** `Tag ainda não criada no repositório.`
+* **Este arquivo na branch `main`:** `https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/sprints/sprint-03.md`
 * **Observação adicional:** `A Sprint 3 concentra a modelagem comportamental e estrutural do Conexão Solidária, o vínculo entre requisitos e modelos e a evolução de um fluxo funcional com base na modelagem.`

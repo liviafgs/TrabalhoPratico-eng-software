@@ -149,9 +149,9 @@ US-01 pode estar relacionada à Issue #15.
 | RF-02  | Requisito | Cadastro de instituição beneficiária.                                        | Alta       | RF-02                 | 2      | #15       | Refinado  |
 | RF-03  | Requisito | Cadastro do nutricionista responsável.                                       | Alta       | RF-03                 | 2      | #15       | Refinado  |
 | RF-04  | Requisito | Habilitação da instituição.                                                  | Alta       | RF-04                 | 2      | #15       | Refinado  |
-| RF-05  | Requisito | Autenticação dos usuários.                                                   | Alta       | RF-05                 | 2      | #18       | Refinado  |
-| RF-06  | Requisito | Controle de acesso por perfil.                                               | Alta       | RF-06                 | 2      | #18       | Refinado  |
-| RF-07  | Requisito | Cadastro de oferta de alimentos.                                             | Alta       | RF-07                 | 2      | #12       | Refinado  |
+| RF-05  | Requisito | Autenticação dos usuários.                                                   | Alta       | RF-05                 | 2      | #18       | Pendente  |
+| RF-06  | Requisito | Controle de acesso por perfil.                                               | Alta       | RF-06                 | 2      | #18       | Pendente  |
+| RNF-07 | Requisito | Acessibilidade.                                                              | Média      | RNF-07                | 2      | #8        | Pendente  |                                            | Alta       | RF-07                 | 2      | #12       | Refinado  |
 | RF-08  | Requisito | Consulta de ofertas disponíveis.                                             | Alta       | RF-08                 | 2      | #12       | Refinado  |
 | RF-09  | Requisito | Filtros para ofertas.                                                        | Média      | RF-09                 | 2      | #12       | Refinado  |
 | RF-10  | Requisito | Solicitação de alimentos.                                                    | Alta       | RF-10                 | 2      | #12       | Refinado  |
@@ -265,6 +265,14 @@ As funcionalidades do Product Backlog foram divididas em tarefas menores para fa
 | DEV-38 | Definir eventos que geram notificações | Média      | DEV-21, DEV-28 | Eventos relevantes são identificados e documentados.          |
 | DEV-39 | Implementar notificações do sistema    | Média      | DEV-38         | Usuário recebe notificações relacionadas às ações relevantes. |
 
+## 9.9 Modelagem e rastreabilidade
+
+| ID     | Tarefa                                                            | Prioridade | Issue | Sprint | Critério de aceitação                                                                                                         |
+| ------ | ----------------------------------------------------------------- | ---------- | ----- | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| MOD-01 | Elaborar modelagem comportamental dos principais fluxos           | Alta       | #20   | 3      | Os diagramas representam os principais fluxos e estão relacionados aos requisitos correspondentes.                            |
+| MOD-02 | Elaborar modelagem estrutural e relacionar requisitos aos modelos | Alta       | #22   | 3      | O modelo estrutural representa os principais elementos do sistema e os requisitos possuem vínculo com os elementos modelados. |
+| MOD-03 | Evoluir fluxo funcional conforme a modelagem                      | Alta       | #21   | 3      | O fluxo implementado corresponde ao comportamento representado nos modelos e possui evidência de execução.                    |
+
 ---
 
 # 10. Tarefas de qualidade e requisitos não funcionais
@@ -323,12 +331,28 @@ Principais entregas:
 
 Principais entregas:
 
-* Modelagem comportamental;
-* Modelagem estrutural;
-* Diagramas;
-* Relacionamento entre requisitos e modelos;
-* Evolução do fluxo funcional;
-* Desenvolvimento das funcionalidades priorizadas.
+* Modelagem comportamental dos principais fluxos;
+* Modelagem estrutural do sistema;
+* Relacionamento entre requisitos e elementos dos modelos;
+* Correspondência entre modelos e código existente;
+* Evolução de fluxo funcional a partir da modelagem;
+* Registro das decisões de modelagem e dos impactos no backlog.
+
+MOD-01 — Elaborar modelagem comportamental dos principais fluxos
+Issue: #20
+Sprint: 3
+Prioridade: Alta
+
+MOD-02 — Elaborar modelagem estrutural e relacionar requisitos aos modelos
+Issue: #22
+Sprint: 3
+Prioridade: Alta
+
+MOD-03 — Evoluir fluxo funcional conforme a modelagem
+Issue: #21
+Sprint: 3
+Prioridade: Alta
+
 
 ## Sprint 4
 
@@ -477,7 +501,8 @@ A integração na `release` ocorrerá somente após as revisões e aprovações 
 | Sprint 2           | Inclusão das regras relacionadas ao perfil da instituição e quantidade de beneficiários   | Tornar a demanda de alimentos mais consistente com o contexto de atendimento da instituição. | Issues #15, #16 e #17            |
 | Sprint 2           | Divisão das funcionalidades em tarefas menores                                            | Facilitar o desenvolvimento paralelo, o acompanhamento e a revisão entre os integrantes.     | GitHub Project                   |
 | Sprint 2           | Definição de prioridades, dependências e critérios de aceitação para as tarefas refinadas | Tornar os itens do backlog mais claros e preparados para execução nas Sprints.               | Product Backlog / GitHub Project |
-| Sprint 3 em diante | Refinamentos conforme modelagem e desenvolvimento                                         | Ajustar o backlog às decisões técnicas e aos resultados das Sprints.                         | GitHub Project / Issues          |
+| Sprint 3 em diante | Refinamentos conforme modelagem e desenvolvimento  
+| Sprint 3           | Inclusão das tarefas de modelagem comportamental, modelagem estrutural e rastreabilidade | Organizar a próxima sprint em torno da representação do sistema e do vínculo entre requisitos, modelos e código. | Issues #20, #21 e #22 / modelaem/modelagem.md |                                       | Ajustar o backlog às decisões técnicas e aos resultados das Sprints.                         | GitHub Project / Issues          |
 
 ---
 

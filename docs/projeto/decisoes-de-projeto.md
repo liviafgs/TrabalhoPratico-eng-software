@@ -100,8 +100,8 @@ O diretório `front-end/` (`index.html`, `script.js`, `style.css`) concentra a i
 
 Commits de referência:
 
-- Estado anterior: `[hash do commit anterior]`
-- Estado posterior: `[hash do commit da refatoração]`
+- Estado anterior: `103a097125ff4f4de85ccd8bfd345fb8b4132037`
+- Estado posterior: `8bbb7abbefbcb09c8b4829c368ae2b5351b5b1a3`
 
 ## 6. Artefatos atualizados
 
@@ -113,7 +113,7 @@ Commits de referência:
 
 | Tipo | Referência |
 |---|---|
-| Issues técnicas | `#__` (PRJ-01), `#__` (PRJ-02), `#__` (PRJ-03), `#__` (PRJ-04), `#__` (PRJ-05) |
+| Issues técnicas | `66` (PRJ-01), `67` (PRJ-02), `68` (PRJ-03), `69` (PRJ-04), `70` (PRJ-05) |
 | Código afetado | [`DisponibilidadeOfertaService.java`](../../BackEnd/src/main/java/conexaosolidaria/service/DisponibilidadeOfertaService.java), [`OfertaService.java`](../../BackEnd/src/main/java/conexaosolidaria/service/OfertaService.java), [`SolicitacaoOfertaService.java`](../../BackEnd/src/main/java/conexaosolidaria/service/SolicitacaoOfertaService.java), [`AccessControl.java`](../../BackEnd/src/main/java/conexaosolidaria/security/AccessControl.java), [`OfertaController.java`](../../BackEnd/src/main/java/conexaosolidaria/controller/OfertaController.java), [`ApplicationConfig.java`](../../BackEnd/src/main/java/conexaosolidaria/config/ApplicationConfig.java) |
 | Teste | [`OfertaDisponibilidadeServiceTest.java`](../../BackEnd/src/test/java/conexaosolidaria/service/OfertaDisponibilidadeServiceTest.java) |
 | Commits | listados no arquivo `docs/sprints/sprint-04.md` |

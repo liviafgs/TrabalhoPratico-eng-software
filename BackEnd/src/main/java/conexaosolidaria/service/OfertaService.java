@@ -16,17 +16,13 @@ import java.util.Locale;
 public class OfertaService {
     private final OfertaRepository ofertaRepository;
     private final AccessControl accessControl;
-    private final SolicitacaoOfertaService solicitacaoService;
-
-    public OfertaService(OfertaRepository ofertaRepository, AccessControl accessControl) {
-        this(ofertaRepository, accessControl, null);
-    }
+    private final DisponibilidadeOfertaService disponibilidade;
 
     public OfertaService(OfertaRepository ofertaRepository, AccessControl accessControl,
-            SolicitacaoOfertaService solicitacaoService) {
+            DisponibilidadeOfertaService disponibilidade) {
         this.ofertaRepository = ofertaRepository;
         this.accessControl = accessControl;
-        this.solicitacaoService = solicitacaoService;
+        this.disponibilidade = disponibilidade;
     }
 
     public Oferta cadastrar(AuthenticatedUser user, String alimento, double quantidade, String unidadeMedida,
@@ -78,14 +74,15 @@ public class OfertaService {
     }
 
     public double quantidadeDisponivel(Oferta oferta) {
-        if (solicitacaoService == null) {
-            return oferta.getQuantidade();
-        }
-        return solicitacaoService.quantidadeDisponivel(oferta);
+        return disponibilidade.quantidadeDisponivel(oferta);
+    }
+
+    public boolean estaDisponivel(Oferta oferta) {
+        return disponibilidade.estaDisponivel(oferta);
     }
 
     private boolean corresponde(Oferta oferta, OfertaFiltros filtros) {
-        boolean disponivel = !oferta.isExpirada() && quantidadeDisponivel(oferta) > 0;
+        boolean disponivel = disponibilidade.estaDisponivel(oferta);
         if (Boolean.TRUE.equals(filtros.disponivel()) && !disponivel) {
             return false;
         }

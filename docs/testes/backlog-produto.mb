@@ -275,6 +275,18 @@ As funcionalidades do Product Backlog foram divididas em tarefas menores para fa
 
 ---
 
+## 9.10 Decisões de projeto e refatoração
+
+| ID     | Tarefa                                                                                                                  | Prioridade | Issue | Sprint | Critério de aceitação                                                                                                    |
+| ------ | ----------------------------------------------------------------------------------------------------------------------- | ---------- | ----- | ------ | ------------------------------------------------------------------------------------------------------------------------ |
+| PRJ-01 | Centralizar a regra de disponibilidade da oferta em `DisponibilidadeOfertaService`                                       | Alta       | 66   | 4      | Regra de oferta disponível definida em um único lugar e usada por `OfertaService`, `SolicitacaoOfertaService` e controller. |
+| PRJ-02 | Concentrar a autorização por propriedade (dono ou administrador) em `AccessControl`                                      | Média      | 67   | 4      | Verificação feita por `requireDonoOuAdministrador`, com teste para usuário não autorizado e para administrador.           |
+| PRJ-03 | Corrigir declarações de package e imports que impedem a compilação do backend                                           | Alta       | 68   | 5      | Backend compila e o teste de ofertas é executado.                                                                        |
+| PRJ-04 | Migrar a verificação de permissões dos controllers para os serviços (estabelecimento, instituição, nutricionista, alimento, perfil de atendimento e usuário) | Média | 69 | 5 | Controllers sem chamadas a `AccessControl`; regras de permissão testadas sem HTTP. |
+| PRJ-05 | Separar o registro de rotas da composição de dependências em `ApplicationConfig`                                         | Baixa      | 70   | 6      | Montagem de objetos e tabela de rotas em classes distintas.                                                              |
+
+---
+
 # 10. Tarefas de qualidade e requisitos não funcionais
 
 | ID      | Tarefa                                 | Prioridade | Requisito | Critério de aceitação                                                                       |
@@ -364,6 +376,8 @@ Principais entregas:
 * Coesão;
 * Baixo acoplamento;
 * Separação de responsabilidades.
+
+Tarefas técnicas da sprint: PRJ-01 e PRJ-02 (seção 9.10). PRJ-03 foi identificada nesta sprint e fica planejada para a Sprint 5.
 
 ## Sprint 5
 
@@ -503,6 +517,7 @@ A integração na `release` ocorrerá somente após as revisões e aprovações 
 | Sprint 2           | Definição de prioridades, dependências e critérios de aceitação para as tarefas refinadas | Tornar os itens do backlog mais claros e preparados para execução nas Sprints.               | Product Backlog / GitHub Project |
 | Sprint 3 em diante | Refinamentos conforme modelagem e desenvolvimento  
 | Sprint 3           | Inclusão das tarefas de modelagem comportamental, modelagem estrutural e rastreabilidade | Organizar a próxima sprint em torno da representação do sistema e do vínculo entre requisitos, modelos e código. | Issues #20, #21 e #22 / modelaem/modelagem.md |                                       | Ajustar o backlog às decisões técnicas e aos resultados das Sprints.                         | GitHub Project / Issues          |
+| Sprint 4           | Inclusão das tarefas técnicas de decisões de projeto e refatoração (PRJ-01 a PRJ-05) | Registrar a organização interna da solução e as melhorias identificadas na análise de coesão e acoplamento. | Issues #__ / `docs/projeto/decisoes-de-projeto.md` |
 
 ---
 

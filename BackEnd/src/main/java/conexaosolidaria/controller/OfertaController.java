@@ -81,7 +81,7 @@ public class OfertaController {
                                 oferta.getDataHoraRetirada() == null ? null : oferta.getDataHoraRetirada().toString());
                 response.put("localRetirada", oferta.getLocalRetirada());
                 response.put("expirada", oferta.isExpirada());
-                response.put("disponivel", !oferta.isExpirada() && ofertaService.quantidadeDisponivel(oferta) > 0);
+                response.put("disponivel", ofertaService.estaDisponivel(oferta));
                 return response;
         }
 

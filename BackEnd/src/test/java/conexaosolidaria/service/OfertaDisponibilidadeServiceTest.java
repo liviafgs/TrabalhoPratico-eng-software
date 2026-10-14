@@ -1,6 +1,7 @@
 package test.java.conexaosolidaria.service;
 
 import conexaosolidaria.dto.AuthenticatedUser;
+import conexaosolidaria.exception.ApiException;
 import conexaosolidaria.model.Oferta;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.model.SolicitacaoOferta;
@@ -41,8 +42,8 @@ class OfertaDisponibilidadeServiceTest {
         OfertaRepository ofertaRepository = new OfertaRepository();
         SolicitacaoOfertaRepository solicitacaoRepository = new SolicitacaoOfertaRepository();
         OfertaService ofertaService = criarService(ofertaRepository, solicitacaoRepository);
-        SolicitacaoOfertaService solicitacaoService = new SolicitacaoOfertaService(
-                ofertaRepository, solicitacaoRepository, new AccessControl());
+        SolicitacaoOfertaService solicitacaoService = criarSolicitacaoService(ofertaRepository,
+                solicitacaoRepository);
         Oferta oferta = ofertaService.cadastrar(
                 usuario(1L, PerfilUsuario.ESTABELECIMENTO_DOADOR),
                 "Arroz", 10, "kg", LocalDate.now().plusDays(2));
@@ -73,12 +74,37 @@ class OfertaDisponibilidadeServiceTest {
         assertEquals(0, resultado.size());
     }
 
+    @Test
+    void apenasInstituicaoSolicitanteOuAdministradorPodeCancelarSolicitacao() {
+        OfertaRepository ofertaRepository = new OfertaRepository();
+        SolicitacaoOfertaRepository solicitacaoRepository = new SolicitacaoOfertaRepository();
+        OfertaService ofertaService = criarService(ofertaRepository, solicitacaoRepository);
+        SolicitacaoOfertaService solicitacaoService = criarSolicitacaoService(ofertaRepository,
+                solicitacaoRepository);
+        Oferta oferta = ofertaService.cadastrar(
+                usuario(1L, PerfilUsuario.ESTABELECIMENTO_DOADOR),
+                "Arroz", 10, "kg", LocalDate.now().plusDays(2));
+        SolicitacaoOferta solicitacao = solicitacaoService.solicitar(
+                usuario(2L, PerfilUsuario.INSTITUICAO_BENEFICIARIA), oferta.getId(), 4);
+
+        ApiException erro = assertThrows(ApiException.class, () -> solicitacaoService.cancelar(
+                usuario(3L, PerfilUsuario.INSTITUICAO_BENEFICIARIA), solicitacao.getId()));
+        assertEquals(403, erro.getStatusCode());
+
+        solicitacaoService.cancelar(usuario(9L, PerfilUsuario.ADMINISTRADOR), solicitacao.getId());
+        assertEquals(10, ofertaService.quantidadeDisponivel(oferta));
+    }
+
     private OfertaService criarService(OfertaRepository ofertaRepository,
             SolicitacaoOfertaRepository solicitacaoRepository) {
-        AccessControl accessControl = new AccessControl();
-        SolicitacaoOfertaService solicitacaoService = new SolicitacaoOfertaService(
-                ofertaRepository, solicitacaoRepository, accessControl);
-        return new OfertaService(ofertaRepository, accessControl, solicitacaoService);
+        return new OfertaService(ofertaRepository, new AccessControl(),
+                new DisponibilidadeOfertaService(solicitacaoRepository));
+    }
+
+    private SolicitacaoOfertaService criarSolicitacaoService(OfertaRepository ofertaRepository,
+            SolicitacaoOfertaRepository solicitacaoRepository) {
+        return new SolicitacaoOfertaService(ofertaRepository, solicitacaoRepository, new AccessControl(),
+                new DisponibilidadeOfertaService(solicitacaoRepository));
     }
 
     private AuthenticatedUser usuario(long id, PerfilUsuario perfil) {

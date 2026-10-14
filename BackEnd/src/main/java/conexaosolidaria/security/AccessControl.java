@@ -53,6 +53,12 @@ public class AccessControl {
         }
     }
 
+    public void requireDonoOuAdministrador(AuthenticatedUser user, long idDono, String mensagemNegacao) {
+        if (user.id() != idDono && user.perfil() != PerfilUsuario.ADMINISTRADOR) {
+            throw new ApiException(403, mensagemNegacao);
+        }
+    }
+
     public boolean hasPermission(AuthenticatedUser user, Permissao permissao) {
         if (user == null || permissao == null) {
             return false;

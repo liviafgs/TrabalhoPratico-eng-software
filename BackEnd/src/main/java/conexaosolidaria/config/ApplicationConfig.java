@@ -27,6 +27,7 @@ import conexaosolidaria.server.ApplicationServer;
 import conexaosolidaria.service.AlimentoService;
 import conexaosolidaria.service.AuthService;
 import conexaosolidaria.service.DemandaService;
+import conexaosolidaria.service.DisponibilidadeOfertaService;
 import conexaosolidaria.service.EstabelecimentoService;
 import conexaosolidaria.service.InstituicaoService;
 import conexaosolidaria.service.NutricionistaService;
@@ -53,10 +54,13 @@ public class ApplicationConfig {
 
                 UsuarioService usuarioService = new UsuarioService(usuarioRepository, passwordHasher);
                 AuthService authService = new AuthService(usuarioRepository, passwordHasher, tokenService);
+                DisponibilidadeOfertaService disponibilidadeOfertaService = new DisponibilidadeOfertaService(
+                                solicitacaoOfertaRepository);
                 SolicitacaoOfertaService solicitacaoOfertaService = new SolicitacaoOfertaService(
-                                ofertaRepository, solicitacaoOfertaRepository, accessControl);
+                                ofertaRepository, solicitacaoOfertaRepository, accessControl,
+                                disponibilidadeOfertaService);
                 OfertaService ofertaService = new OfertaService(ofertaRepository, accessControl,
-                                solicitacaoOfertaService);
+                                disponibilidadeOfertaService);
                 DemandaService demandaService = new DemandaService(demandaRepository, accessControl);
                 EstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabelecimentoRepository);
                 InstituicaoService instituicaoService = new InstituicaoService(instituicaoRepository);

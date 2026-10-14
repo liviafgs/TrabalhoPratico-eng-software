@@ -228,12 +228,12 @@ A separação dessas entidades permite representar de forma mais clara os difere
 | Estabelecimento | [`front-end/`](../front-end/) | Entidade específica ainda não possui classe, controller, service ou repository correspondente no backend. **Ainda não implementado**. |
 | Instituição | [`Usuario.java`](../BackEnd/src/main/java/conexaosolidaria/model/Usuario.java) e [`PerfilUsuario.java`](../BackEnd/src/main/java/conexaosolidaria/model/PerfilUsuario.java) | Representada pelo cadastro de usuário e pelo perfil; entidade `INSTITUICAO` separada ainda não existe. |
 | Alimento | [`Oferta.java`](../BackEnd/src/main/java/conexaosolidaria/model/Oferta.java) e [`Demanda.java`](../BackEnd/src/main/java/conexaosolidaria/model/Demanda.java) | Representado pelo atributo textual `alimento`; classe `Alimento` específica ainda não existe. **Ainda não implementado**. |
-| Oferta | [`OfertaController.java`](../BackEnd/src/main/java/conexaosolidaria/controller/OfertaController.java), [`OfertaService.java`](../BackEnd/src/main/java/conexaosolidaria/service/OfertaService.java) e [`OfertaRepository.java`](../BackEnd/src/main/java/conexaosolidaria/repository/OfertaRepository.java) | Cadastro e consulta de ofertas implementados. |
-| Solicitação | Não há arquivo correspondente no backend | Cadastro, consulta e acompanhamento de solicitações. **Ainda não implementado**. |
+| Oferta | [`OfertaController.java`](../BackEnd/src/main/java/conexaosolidaria/controller/OfertaController.java), [`OfertaService.java`](../BackEnd/src/main/java/conexaosolidaria/service/OfertaService.java) e [`OfertaRepository.java`](../BackEnd/src/main/java/conexaosolidaria/repository/OfertaRepository.java) | Cadastro e consulta de ofertas implementados. A regra de disponibilidade (quantidade restante e expiração) fica em [`DisponibilidadeOfertaService.java`](../BackEnd/src/main/java/conexaosolidaria/service/DisponibilidadeOfertaService.java). |
+| Solicitação | [`SolicitacaoOfertaController.java`](../BackEnd/src/main/java/conexaosolidaria/controller/SolicitacaoOfertaController.java), [`SolicitacaoOfertaService.java`](../BackEnd/src/main/java/conexaosolidaria/service/SolicitacaoOfertaService.java), [`SolicitacaoOfertaRepository.java`](../BackEnd/src/main/java/conexaosolidaria/repository/SolicitacaoOfertaRepository.java) e [`SolicitacaoOferta.java`](../BackEnd/src/main/java/conexaosolidaria/model/SolicitacaoOferta.java) | Solicitar, confirmar retirada e cancelar implementados no backend, com estados em `StatusSolicitacaoOferta`. Consulta do histórico **ainda não implementada**. |
 | Demanda | [`DemandaController.java`](../BackEnd/src/main/java/conexaosolidaria/controller/DemandaController.java), [`DemandaService.java`](../BackEnd/src/main/java/conexaosolidaria/service/DemandaService.java) e [`DemandaRepository.java`](../BackEnd/src/main/java/conexaosolidaria/repository/DemandaRepository.java) | Cadastro e consulta de demandas implementados. |
 | Banco de dados | [`repository/`](../BackEnd/src/main/java/conexaosolidaria/repository/) | Os repositórios atuais mantêm os dados em memória; persistência em banco ainda não está implementada. |
 
-Os diagramas de cadastro de usuário e cadastro de oferta possuem correspondência com os componentes listados acima. O diagrama de solicitação representa o comportamento desejado pelos requisitos, mas permanece sem implementação correspondente.
+Os diagramas de cadastro de usuário e cadastro de oferta possuem correspondência com os componentes listados acima. O diagrama de solicitação passou a ter correspondência no backend com os componentes de solicitação listados acima; a consulta do histórico (RF-14) permanece pendente.
 
 ## 6. Revisão dos requisitos e do backlog
 
@@ -243,14 +243,14 @@ A revisão da Sprint 3 verificou a correspondência entre os requisitos funciona
 |---|---|---|
 | RF-01 a RF-06 | Relacionados ao cadastro, identificação e acesso dos usuários e perfis. | Parcialmente implementado por `UsuarioController`, `UsuarioService`, `AuthService`, `AccessControl` e `PerfilUsuario`. |
 | RF-07 a RF-09 | Relacionados ao cadastro e consulta de ofertas. | Implementado por `OfertaController`, `OfertaService` e `OfertaRepository`. |
-| RF-10 a RF-14 | Relacionados ao registro e acompanhamento de solicitações. | **Ainda não implementado**. Não há classe, controller, service ou repository de solicitação. |
+| RF-10 a RF-14 | Relacionados ao registro e acompanhamento de solicitações. | RF-10 a RF-13 implementados no backend por `SolicitacaoOfertaController`, `SolicitacaoOfertaService` e `SolicitacaoOfertaRepository`, com a regra de quantidade em `DisponibilidadeOfertaService`. RF-14 (histórico) **ainda não implementado**. |
 | RF-15 | Relacionado às informações da instituição beneficiária. | **Ainda não implementado** como entidade `INSTITUICAO` separada; há cadastro de usuário com perfil. |
 | RF-16 a RF-20 | Relacionados ao cadastro, classificação e consulta de demandas. | Implementado por `DemandaController`, `DemandaService` e `DemandaRepository`. |
 | RF-21 | Relacionado à identificação de correspondências entre ofertas e demandas. | **Ainda não implementado**. |
 | RF-22 | Relacionado à organização dos alimentos. | Representado por campos textuais em ofertas e demandas; classe `Alimento` específica **Ainda não implementado**. |
 | RF-23 | Relacionado à comunicação e ao acompanhamento das operações. | Parcialmente implementado nos endpoints de usuários, ofertas e demandas; solicitação e correspondência **Ainda não implementado**. |
 
-Como resultado da revisão, o backlog deve manter como pendências a implementação de solicitações, da correspondência entre ofertas e demandas, da entidade específica de alimento, da entidade específica de instituição e da persistência em banco de dados. Essas pendências não alteram o escopo dos requisitos funcionais.
+Como resultado da revisão, o backlog deve manter como pendências a consulta do histórico de solicitações, a correspondência entre ofertas e demandas, da entidade específica de alimento, da entidade específica de instituição e da persistência em banco de dados. Essas pendências não alteram o escopo dos requisitos funcionais.
 
 ## 7. Refinamentos identificados
 
@@ -275,3 +275,5 @@ Durante a elaboração da modelagem, foram identificados alguns pontos important
 | Sprint 3 | Correspondência entre modelo e código | Relacionar os modelos às estruturas implementadas no projeto e registrar pendências. | [`front-end/`](../front-end/) e [`BackEnd/`](../BackEnd/) |
 | Sprint 3 | Revisão dos requisitos e backlog | Conferir o escopo dos RF-01 a RF-23 e registrar itens implementados e pendentes. | [`modelagem.md`](modelagem.md) |
 | Sprint 3 | Refinamentos | Registrar as decisões tomadas durante a elaboração da modelagem. | [`modelagem.md`](modelagem.md) |
+| Sprint 4 | Correspondência entre modelo e código | Registrar `DisponibilidadeOfertaService` e os componentes de solicitação, que passaram a existir no backend. | [`decisoes-de-projeto.md`](../docs/projeto/decisoes-de-projeto.md) |
+| Sprint 4 | Revisão dos requisitos e backlog | Atualizar a situação de RF-10 a RF-13 após a organização interna da solução. | [`decisoes-de-projeto.md`](../docs/projeto/decisoes-de-projeto.md) |

@@ -50,7 +50,7 @@ O comportamento observável não mudou: respostas HTTP, códigos de status e men
 | Estado | Commit | O que mostra |
 |---|---|---|
 | Anterior | `3eac19745701df62a95ae455459cde80f7872785` | Regra de disponibilidade repetida em quatro lugares; `OfertaService` com construtor aceitando `null`; verificação "dono ou administrador" duplicada em `SolicitacaoOfertaService`. |
-| Posterior | `[hash do commit da Sprint 4 — preencher após o commit]` | Regra em `DisponibilidadeOfertaService` e autorização em `AccessControl`. |
+| Posterior | `[cdc345e3ddf38c7a8882c86b3ec9a54ea02a18e0]` | Regra em `DisponibilidadeOfertaService` e autorização em `AccessControl`. |
 
 ### Como executar e verificar
 
@@ -95,7 +95,7 @@ O servidor inicia em `http://localhost:8080`.
 |---|---|---|
 | Issue | `https://github.com/liviafgs/TrabalhoPratico-eng-software/issues` | Issues técnicas `#66` a `#70` (PRJ-01 a PRJ-05) e seus critérios de aceitação. |
 | Pull Request | `[link do Pull Request]` | Revisão e integração das alterações. |
-| Commit | `[hash do commit anterior: 3eac197]` (anterior) e `[hash do commit da refatoração]` (posterior); histórico: `https://github.com/liviafgs/TrabalhoPratico-eng-software/commits/main/` | Estado anterior e posterior da refatoração. |
+| Commit | `[3eac19745701df62a95ae455459cde80f7872785]` (anterior) e `[cdc345e3ddf38c7a8882c86b3ec9a54ea02a18e0]` (posterior); histórico: `https://github.com/liviafgs/TrabalhoPratico-eng-software/commits/main/` | Estado anterior e posterior da refatoração. |
 | Código/arquivo | [`decisoes-de-projeto.md`](https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/sprint-04/docs/projeto/decisoes-de-projeto.md) e [`DisponibilidadeOfertaService.java`](https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/sprint-04/BackEnd/src/main/java/conexaosolidaria/service/DisponibilidadeOfertaService.java) | Decisões de projeto documentadas e implementadas. |
 | Teste/captura/relatório | [`OfertaDisponibilidadeServiceTest.java`](https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/sprint-04/BackEnd/src/test/java/conexaosolidaria/service/OfertaDisponibilidadeServiceTest.java) e `[print do resultado do mvn test]` | Cenários de disponibilidade e de autorização. |
 

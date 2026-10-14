@@ -94,7 +94,7 @@ O servidor inicia em `http://localhost:8080`.
 | Tipo de evidência | Link | O que comprova |
 |---|---|---|
 | Issue | `https://github.com/liviafgs/TrabalhoPratico-eng-software/issues` | Issues técnicas `#66` a `#70` (PRJ-01 a PRJ-05) e seus critérios de aceitação. |
-| Pull Request | `[link do Pull Request]` | Revisão e integração das alterações. |
+| Pull Request | (https://github.com/liviafgs/TrabalhoPratico-eng-software/pull/73) | Revisão e integração das alterações. |
 | Commit | `[3eac19745701df62a95ae455459cde80f7872785]` (anterior) e `[cdc345e3ddf38c7a8882c86b3ec9a54ea02a18e0]` (posterior); histórico: `https://github.com/liviafgs/TrabalhoPratico-eng-software/commits/main/` | Estado anterior e posterior da refatoração. |
 | Código/arquivo | [`decisoes-de-projeto.md`](https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/sprint-04/docs/projeto/decisoes-de-projeto.md) e [`DisponibilidadeOfertaService.java`](https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/sprint-04/BackEnd/src/main/java/conexaosolidaria/service/DisponibilidadeOfertaService.java) | Decisões de projeto documentadas e implementadas. |
 | Teste/captura/relatório | [`OfertaDisponibilidadeServiceTest.java`](https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/sprint-04/BackEnd/src/test/java/conexaosolidaria/service/OfertaDisponibilidadeServiceTest.java) e `[print do resultado do mvn test]` | Cenários de disponibilidade e de autorização. |

@@ -107,7 +107,7 @@ O diretório `front-end/` (`index.html`, `script.js`, `style.css`) concentra a i
 Commits de referência:
 
 - Estado anterior: `3eac19745701df62a95ae455459cde80f7872785` (`main` antes da Sprint 4)
-- Estado posterior: `[hash do commit da Sprint 4 — preencher após o commit]`
+- Estado posterior: `[cdc345e3ddf38c7a8882c86b3ec9a54ea02a18e0]`
 
 ## 6. Artefatos atualizados
 

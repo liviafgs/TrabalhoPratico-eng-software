@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="010-create-oferta-doacao" author="raissafernandesdesouza">
+        <createTable tableName="oferta_doacao">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_oferta_doacao" nullable="false"/>
+            </column>
+            <column name="organizacao_doadora_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_oferta_doacao_organizacao" references="organizacao(id)"/>
+            </column>
+            <column name="data_oferta" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_retirada" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hora_inicio_retirada" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hora_fim_retirada" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(30)" defaultValue="DISPONIVEL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="observacao" type="VARCHAR(500)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

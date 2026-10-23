@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="009-create-item-alimentar" author="raissafernandesdesouza">
+        <createTable tableName="item_alimentar">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_item_alimentar" nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="categoria" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unidade_medida" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="consumo_per_capita_referencia" type="NUMERIC(10,3)"/>
+            <column name="descricao" type="VARCHAR(255)"/>
+            <column name="ativo" type="BOOLEAN" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint
+            tableName="item_alimentar"
+            columnNames="nome, unidade_medida"
+            constraintName="uk_item_alimentar_nome_unidade"/>
+    </changeSet>
+
+</databaseChangeLog>

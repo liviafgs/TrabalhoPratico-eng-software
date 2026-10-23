@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="013-create-demanda-item" author="raissafernandesdesouza">
+        <createTable tableName="demanda_item">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_demanda_item" nullable="false"/>
+            </column>
+            <column name="demanda_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_demanda_item_demanda" references="demanda(id)"/>
+            </column>
+            <column name="item_alimentar_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="fk_demanda_item_item" references="item_alimentar(id)"/>
+            </column>
+            <column name="quantidade_solicitada" type="NUMERIC(10,3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantidade_referencia" type="NUMERIC(10,3)"/>
+            <column name="unidade_medida" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="observacao" type="VARCHAR(500)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

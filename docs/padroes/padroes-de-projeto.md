@@ -261,3 +261,45 @@ Utilizar os seguintes estados para acompanhar os problemas:
 Não marcar um item como resolvido apenas porque o código foi alterado. Registrar a evidência que comprova o resultado, como teste executado, comportamento demonstrado ou revisão aprovada.
 
 Manter os IDs `PROB-001` a `PROB-014` estáveis para facilitar a rastreabilidade entre documentação, Issues, PRs, commits e sprints.
+
+## 8. Estrutura atual do controle de acesso
+
+O diagrama abaixo corresponde à implementação atual. Algumas verificações são feitas pelos controllers e outras pelos serviços; a migração de todas as verificações para os serviços está planejada em PRJ-04. `AccessControl` recebe o usuário autenticado, a permissão ou o identificador do proprietário. O serviço busca o recurso no repositório e passa o identificador do dono para a verificação; `AccessControl` não acessa o recurso diretamente.
+
+```mermaid
+classDiagram
+    class Controller {
+        +tratarRequisicao(HttpExchange)
+    }
+    class AuthService {
+        +authenticate(token) AuthenticatedUser
+    }
+    class Service {
+        +executarOperacao(usuario, idRecurso)
+    }
+    class AccessControl {
+        +require(usuario, permissao)
+        +requireDonoOuAdministrador(usuario, idDono, mensagem)
+    }
+    class AuthenticatedUser {
+        +id
+        +perfil
+    }
+    class Repository {
+        +findById(id) Recurso
+        +save(recurso) Recurso
+    }
+    class Recurso {
+        +id
+        +idDono
+    }
+
+    Controller --> AuthService : autentica token
+    AuthService --> AuthenticatedUser : cria contexto autenticado
+    Controller --> Service : encaminha operação
+    Controller ..> AccessControl : verifica permissão em alguns fluxos
+    Service ..> AccessControl : verifica permissão e propriedade
+    Service --> Repository : busca ou persiste
+    Repository --> Recurso : armazena
+    AccessControl ..> AuthenticatedUser : consulta perfil e id
+```

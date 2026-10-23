@@ -116,62 +116,107 @@ O fluxo de solicitação permanece como modelo comportamental do requisito, mas 
 
 ```mermaid
 erDiagram
+    USUARIO ||--o| ESTABELECIMENTO : possui_perfil
+    USUARIO ||--o| INSTITUICAO : possui_perfil
+    USUARIO ||--o{ OFERTA : publica
+    USUARIO ||--o{ DEMANDA : registra
+    USUARIO ||--o{ SOLICITACAO_OFERTA : solicita
+    USUARIO ||--o| NUTRICIONISTA_RESPONSAVEL : representa
+    INSTITUICAO ||--o| PERFIL_ATENDIMENTO_INSTITUICAO : descreve
+    INSTITUICAO ||--o| NUTRICIONISTA_RESPONSAVEL : possui
+    OFERTA ||--o{ SOLICITACAO_OFERTA : recebe
+    ALIMENTO o|--o{ OFERTA : cataloga
 
-    ESTABELECIMENTO ||--o{ OFERTA : cadastra
-    INSTITUICAO ||--o{ SOLICITACAO : realiza
-    OFERTA ||--o{ SOLICITACAO : recebe
-    INSTITUICAO ||--o{ DEMANDA : cadastra
-    ALIMENTO ||--o{ OFERTA : possui
-    ALIMENTO ||--o{ DEMANDA : referencia
+    USUARIO {
+        long id PK
+        string nome
+        string email
+        string senhaHash
+        enum perfil
+        datetime criadoEm
+    }
 
     ESTABELECIMENTO {
-        int id
+        long id PK
+        long idUsuario FK
         string nome
         string cnpj
         string endereco
+        string contato
+        datetime criadoEm
     }
 
     INSTITUICAO {
-        int id
+        long id PK
+        long idUsuario FK
         string nome
         string cnpj
         string endereco
-        int pessoas_atendidas
-        string publico_atendido
+        string contato
+        enum status
+        datetime criadoEm
     }
 
-    OFERTA {
-        int id
-        int estabelecimento_id
-        int alimento_id
-        decimal quantidade
-        date periodo_retirada
-        string status
+    PERFIL_ATENDIMENTO_INSTITUICAO {
+        long id PK
+        long idInstituicao FK
+        int numeroBeneficiarios
+        int capacidadeAtendimento
+        string publicoAtendido
+        string frequenciaAtendimento
+        datetime criadoEm
     }
 
-    SOLICITACAO {
-        int id
-        int instituicao_id
-        int oferta_id
-        decimal quantidade
-        date data_solicitacao
-        string status
-    }
-
-    DEMANDA {
-        int id
-        int instituicao_id
-        int alimento_id
-        decimal quantidade
-        string finalidade
-        string prioridade
-        string status
+    NUTRICIONISTA_RESPONSAVEL {
+        long id PK
+        long idUsuario FK
+        long idInstituicao FK
+        string nome
+        string crn
+        string contato
+        datetime criadoEm
     }
 
     ALIMENTO {
-        int id
+        long id PK
         string nome
-        string unidade_medida
+        string categoria
+        string unidadeMedida
+        string descricao
+        datetime criadoEm
+    }
+
+    OFERTA {
+        long id PK
+        long idUsuarioDoador FK
+        long idAlimento FK
+        string alimento
+        string categoria
+        double quantidade
+        string unidadeMedida
+        date retiradaAte
+        date validade
+        datetime dataHoraRetirada
+        string localRetirada
+    }
+
+    DEMANDA {
+        long id PK
+        long idUsuarioInstituicao FK
+        string alimento
+        double quantidade
+        string unidadeMedida
+        date prazo
+        string prioridade
+    }
+
+    SOLICITACAO_OFERTA {
+        long id PK
+        long idOferta FK
+        long idUsuarioInstituicao FK
+        double quantidade
+        enum status
+        datetime criadoEm
     }
 ```
 

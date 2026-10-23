@@ -1,4 +1,4 @@
-package main.java.conexaosolidaria.model;
+package conexaosolidaria.model;
 
 import java.time.LocalDateTime;
 

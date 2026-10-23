@@ -1,4 +1,4 @@
-package main.java.conexaosolidaria.service;
+package conexaosolidaria.service;
 
 import conexaosolidaria.dto.AuthenticatedUser;
 import conexaosolidaria.exception.ApiException;

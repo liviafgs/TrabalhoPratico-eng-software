@@ -1,4 +1,4 @@
-package main.java.conexaosolidaria.model;
+package conexaosolidaria.model;
 
 public enum StatusSolicitacaoOferta {
     SOLICITADA,

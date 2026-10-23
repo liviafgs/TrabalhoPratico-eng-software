@@ -1,4 +1,4 @@
-package main.java.conexaosolidaria.repository;
+package conexaosolidaria.repository;
 
 import conexaosolidaria.model.SolicitacaoOferta;
 

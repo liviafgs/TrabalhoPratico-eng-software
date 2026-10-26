@@ -15,7 +15,7 @@
         <p>Doação que conecta, alimento que transforma.</p>
     </div>
 
-    <button id="logoutBtn">Sair</button>
+    <button id="logoutBtn" type="button">Sair</button>
 </header>
 
 <div class="layout">
@@ -27,7 +27,7 @@
         <button class="menu" data-page="solicitacoes">Minhas solicitações</button>
         <button class="menu" data-page="cadastro">Meu cadastro</button>
 
-        <div id="menuDoador">
+        <div id="menuDoador" style="display: none;">
             <button class="menu" data-page="novaOferta">Cadastrar oferta</button>
             <button class="menu" data-page="demandas">Consultar demandas</button>
         </div>
@@ -68,7 +68,6 @@
             </div>
         </section>
 
-
         <!-- OFERTAS -->
         <section id="ofertas" class="page">
 
@@ -79,13 +78,16 @@
 
                 <div>
                     <label for="filtroAlimento">Alimento</label>
-                    <input id="filtroAlimento" type="text"
+                    <input id="filtroAlimento"
+                           type="text"
                            placeholder="Ex.: arroz">
                 </div>
 
                 <div>
                     <label for="filtroQuantidade">Quantidade mínima</label>
-                    <input id="filtroQuantidade" type="number" min="0">
+                    <input id="filtroQuantidade"
+                           type="number"
+                           min="0">
                 </div>
 
                 <div>
@@ -93,7 +95,9 @@
                     <input id="filtroData" type="date">
                 </div>
 
-                <button class="secondary" onclick="filtrarOfertas()">
+                <button class="secondary"
+                        type="button"
+                        onclick="filtrarOfertas()">
                     Filtrar
                 </button>
 
@@ -103,7 +107,6 @@
 
         </section>
 
-
         <!-- CADASTRAR OFERTA -->
         <section id="novaOferta" class="page">
 
@@ -112,31 +115,35 @@
 
             <form id="formOferta">
 
-                <label>Alimento *</label>
-                <input id="ofertaAlimento" required>
+                <label for="ofertaAlimento">Alimento *</label>
+                <input id="ofertaAlimento"
+                       type="text"
+                       required>
 
-                <label>Quantidade *</label>
+                <label for="ofertaQuantidade">Quantidade *</label>
                 <input id="ofertaQuantidade"
                        type="number"
                        min="1"
                        required>
 
-                <label>Unidade *</label>
+                <label for="ofertaUnidade">Unidade *</label>
                 <select id="ofertaUnidade" required>
                     <option value="">Selecione</option>
-                    <option>kg</option>
-                    <option>litros</option>
-                    <option>unidades</option>
-                    <option>caixas</option>
+                    <option value="kg">kg</option>
+                    <option value="litros">litros</option>
+                    <option value="unidades">unidades</option>
+                    <option value="caixas">caixas</option>
                 </select>
 
-                <label>Período para retirada *</label>
+                <label for="ofertaData">Período para retirada *</label>
                 <input id="ofertaData"
                        type="date"
                        required>
 
-                <label>Local de retirada *</label>
-                <input id="ofertaLocal" required>
+                <label for="ofertaLocal">Local de retirada *</label>
+                <input id="ofertaLocal"
+                       type="text"
+                       required>
 
                 <button class="primary" type="submit">
                     Publicar oferta
@@ -145,7 +152,6 @@
             </form>
 
         </section>
-
 
         <!-- DEMANDA -->
         <section id="demanda" class="page">
@@ -158,51 +164,58 @@
 
             <form id="formDemanda">
 
-                <label>Alimento *</label>
-                <input id="demandaAlimento" required>
+                <label for="demandaAlimento">Alimento *</label>
+                <input id="demandaAlimento"
+                       type="text"
+                       required>
 
-                <label>Quantidade desejada *</label>
+                <label for="demandaQuantidade">Quantidade desejada *</label>
                 <input id="demandaQuantidade"
                        type="number"
                        min="1"
                        required>
 
-                <label>Unidade *</label>
+                <label for="demandaUnidade">Unidade *</label>
                 <select id="demandaUnidade" required>
                     <option value="">Selecione</option>
-                    <option>kg</option>
-                    <option>litros</option>
-                    <option>unidades</option>
-                    <option>caixas</option>
+                    <option value="kg">kg</option>
+                    <option value="litros">litros</option>
+                    <option value="unidades">unidades</option>
+                    <option value="caixas">caixas</option>
                 </select>
 
-                <label>Quantidade estimada de beneficiários *</label>
+                <label for="beneficiarios">
+                    Quantidade estimada de beneficiários *
+                </label>
                 <input id="beneficiarios"
                        type="number"
                        min="1"
+                       step="1"
                        required>
 
-                <label>Consumo per capita *</label>
+                <label for="consumoPerCapita">Consumo per capita *</label>
                 <input id="consumoPerCapita"
                        type="number"
                        min="0.01"
                        step="0.01"
                        required>
 
-                <label>Prazo *</label>
+                <label for="demandaPrazo">Prazo *</label>
                 <input id="demandaPrazo"
                        type="date"
                        required>
 
-                <label>Finalidade *</label>
-                <input id="demandaFinalidade" required>
+                <label for="demandaFinalidade">Finalidade *</label>
+                <input id="demandaFinalidade"
+                       type="text"
+                       required>
 
-                <label>Prioridade *</label>
+                <label for="demandaPrioridade">Prioridade *</label>
                 <select id="demandaPrioridade" required>
                     <option value="">Selecione</option>
-                    <option>Alta</option>
-                    <option>Média</option>
-                    <option>Baixa</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
                 </select>
 
                 <div id="referencia" class="info" hidden>
@@ -212,8 +225,7 @@
                     </strong>
 
                     <p>
-                        Cálculo:
-                        beneficiários × consumo per capita
+                        Cálculo: beneficiários × consumo per capita.
                     </p>
                 </div>
 
@@ -228,12 +240,10 @@
                         uma demanda excepcional.
                     </p>
 
-                    <label>Justificativa *</label>
+                    <label for="justificativa">Justificativa *</label>
 
-                    <textarea
-                        id="justificativa"
-                        rows="4">
-                    </textarea>
+                    <textarea id="justificativa"
+                              rows="4"></textarea>
 
                 </div>
 
@@ -245,7 +255,6 @@
 
         </section>
 
-
         <!-- SOLICITAÇÕES -->
         <section id="solicitacoes" class="page">
 
@@ -254,7 +263,6 @@
             <div id="listaSolicitacoes"></div>
 
         </section>
-
 
         <!-- DEMANDAS -->
         <section id="demandas" class="page">
@@ -268,17 +276,19 @@
             <div class="filters">
 
                 <div>
-                    <label>Alimento</label>
-                    <input id="filtroDemanda">
+                    <label for="filtroDemanda">Alimento</label>
+                    <input id="filtroDemanda"
+                           type="text"
+                           placeholder="Filtrar por alimento">
                 </div>
 
                 <div>
-                    <label>Prioridade</label>
+                    <label for="filtroPrioridade">Prioridade</label>
                     <select id="filtroPrioridade">
                         <option value="">Todas</option>
-                        <option>Alta</option>
-                        <option>Média</option>
-                        <option>Baixa</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Média">Média</option>
+                        <option value="Baixa">Baixa</option>
                     </select>
                 </div>
 
@@ -287,7 +297,6 @@
             <div id="listaDemandas"></div>
 
         </section>
-
 
         <!-- CADASTRO -->
         <section id="cadastro" class="page">
@@ -343,9 +352,7 @@
 
 </div>
 
-
 <!-- ESCOLHA DE PERFIL -->
-
 <div id="modalPerfil" class="modal">
 
     <div class="modal-content">
@@ -354,18 +361,19 @@
 
         <p>Escolha o perfil para acessar a aplicação.</p>
 
-        <button onclick="selecionarPerfil('instituicao')">
+        <button type="button"
+                onclick="selecionarPerfil('instituicao')">
             Instituição beneficiária
         </button>
 
-        <button onclick="selecionarPerfil('doador')">
+        <button type="button"
+                onclick="selecionarPerfil('doador')">
             Estabelecimento doador
         </button>
 
     </div>
 
 </div>
-
 
 <script src="script.js"></script>
 

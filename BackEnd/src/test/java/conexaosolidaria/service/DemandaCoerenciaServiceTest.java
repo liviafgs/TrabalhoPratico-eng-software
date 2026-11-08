@@ -7,6 +7,7 @@ import conexaosolidaria.model.Demanda;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.repository.ConsumoPerCapitaRepository;
 import conexaosolidaria.repository.DemandaRepository;
+import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.security.AccessControl;
 import conexaosolidaria.service.CoerenciaDemandaService.ResultadoCoerencia;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,8 @@ class DemandaCoerenciaServiceTest {
     private final ConsumoPerCapitaService consumoService = new ConsumoPerCapitaService(
             new ConsumoPerCapitaRepository(), accessControl);
     private final DemandaService demandaService = new DemandaService(
-            new DemandaRepository(), accessControl, new CoerenciaDemandaService(consumoService));
+            new DemandaRepository(), accessControl, new CoerenciaDemandaService(consumoService),
+            new InstituicaoRepository());
 
     private final AuthenticatedUser instituicao = usuario(2L, PerfilUsuario.INSTITUICAO_BENEFICIARIA);
     private final AuthenticatedUser nutricionista = usuario(3L, PerfilUsuario.NUTRICIONISTA);

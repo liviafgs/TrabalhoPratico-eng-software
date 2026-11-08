@@ -38,6 +38,7 @@ public class AccessControl {
                 Permissao.SOLICITAR_ALIMENTO,
                 Permissao.CANCELAR_SOLICITACAO_OFERTA,
                 Permissao.CADASTRAR_DEMANDA,
+                Permissao.CONSULTAR_DEMANDAS,
                 Permissao.CONSULTAR_CONSUMO_PER_CAPITA));
         permissoesPorPerfil.put(PerfilUsuario.NUTRICIONISTA, EnumSet.of(
                 Permissao.CONSULTAR_ESTABELECIMENTOS,

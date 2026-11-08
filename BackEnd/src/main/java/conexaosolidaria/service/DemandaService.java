@@ -3,8 +3,11 @@ package conexaosolidaria.service;
 import conexaosolidaria.dto.AuthenticatedUser;
 import conexaosolidaria.exception.ApiException;
 import conexaosolidaria.model.Demanda;
+import conexaosolidaria.model.Instituicao;
+import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.model.Permissao;
 import conexaosolidaria.repository.DemandaRepository;
+import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.security.AccessControl;
 import conexaosolidaria.service.CoerenciaDemandaService.ResultadoCoerencia;
 
@@ -19,12 +22,14 @@ public class DemandaService {
     private final DemandaRepository demandaRepository;
     private final AccessControl accessControl;
     private final CoerenciaDemandaService coerenciaService;
+    private final InstituicaoRepository instituicaoRepository;
 
     public DemandaService(DemandaRepository demandaRepository, AccessControl accessControl,
-            CoerenciaDemandaService coerenciaService) {
+            CoerenciaDemandaService coerenciaService, InstituicaoRepository instituicaoRepository) {
         this.demandaRepository = demandaRepository;
         this.accessControl = accessControl;
         this.coerenciaService = coerenciaService;
+        this.instituicaoRepository = instituicaoRepository;
     }
 
     public Demanda cadastrar(AuthenticatedUser user, String alimento, double quantidade, String unidadeMedida,
@@ -77,11 +82,68 @@ public class DemandaService {
         return coerenciaService.analisar(alimento, unidadeMedida, quantidade, beneficiarios, consumoPerCapita);
     }
 
-    public List<Demanda> listar(AuthenticatedUser user) {
+    public List<DemandaConsulta> listar(AuthenticatedUser user) {
+        return listar(user, DemandaFiltros.vazios());
+    }
+
+    /**
+     * Instituicoes veem apenas as proprias demandas; estabelecimentos e administradores veem todas.
+     */
+    public List<DemandaConsulta> listar(AuthenticatedUser user, DemandaFiltros filtros) {
         accessControl.require(user, Permissao.CONSULTAR_DEMANDAS);
+        DemandaFiltros filtrosSeguros = filtros == null ? DemandaFiltros.vazios() : filtros;
+        validarFiltros(filtrosSeguros);
+
+        LocalDate hoje = LocalDate.now();
         return demandaRepository.findAll().stream()
-                .sorted(Comparator.comparingLong(Demanda::getId))
+                .filter(demanda -> user.perfil() != PerfilUsuario.INSTITUICAO_BENEFICIARIA
+                        || demanda.getIdUsuarioInstituicao() == user.id())
+                .map(this::comInstituicao)
+                .filter(consulta -> corresponde(consulta, filtrosSeguros, hoje))
+                .sorted(Comparator.comparingLong(consulta -> consulta.demanda().getId()))
                 .toList();
+    }
+
+    private DemandaConsulta comInstituicao(Demanda demanda) {
+        Instituicao instituicao = instituicaoRepository.findByUsuarioId(demanda.getIdUsuarioInstituicao())
+                .orElse(null);
+        return new DemandaConsulta(
+                demanda,
+                instituicao == null ? null : instituicao.getNome(),
+                instituicao == null ? null : instituicao.getEndereco());
+    }
+
+    private boolean corresponde(DemandaConsulta consulta, DemandaFiltros filtros, LocalDate hoje) {
+        Demanda demanda = consulta.demanda();
+        boolean vigente = !demanda.getPrazo().isBefore(hoje);
+        if (Boolean.TRUE.equals(filtros.disponivel()) && !vigente) {
+            return false;
+        }
+        if (Boolean.FALSE.equals(filtros.disponivel()) && vigente) {
+            return false;
+        }
+        if (filtros.prioridade() != null && !filtros.prioridade().isBlank()
+                && !demanda.getPrioridade().equals(filtros.prioridade().trim().toUpperCase())) {
+            return false;
+        }
+        if (filtros.prazoDe() != null && demanda.getPrazo().isBefore(filtros.prazoDe())) {
+            return false;
+        }
+        if (filtros.prazoAte() != null && demanda.getPrazo().isAfter(filtros.prazoAte())) {
+            return false;
+        }
+        return DemandaFiltros.contem(demanda.getAlimento(), filtros.alimento())
+                && DemandaFiltros.contem(consulta.instituicaoEndereco(), filtros.localizacao());
+    }
+
+    private void validarFiltros(DemandaFiltros filtros) {
+        if (filtros.prioridade() != null && !filtros.prioridade().isBlank()
+                && !PRIORIDADES.contains(filtros.prioridade().trim().toUpperCase())) {
+            throw new ApiException(400, "Prioridade deve ser ALTA, MEDIA ou BAIXA.");
+        }
+        if (filtros.prazoDe() != null && filtros.prazoAte() != null && filtros.prazoDe().isAfter(filtros.prazoAte())) {
+            throw new ApiException(400, "A data inicial do prazo nao pode ser posterior a data final.");
+        }
     }
 
     private void validarFinalidadeEBeneficiarios(String finalidade, int beneficiarios) {

@@ -71,7 +71,7 @@ public class ApplicationConfig {
                 CoerenciaDemandaService coerenciaDemandaService = new CoerenciaDemandaService(
                                 consumoPerCapitaService);
                 DemandaService demandaService = new DemandaService(demandaRepository, accessControl,
-                                coerenciaDemandaService);
+                                coerenciaDemandaService, instituicaoRepository);
                 EstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabelecimentoRepository);
                 InstituicaoService instituicaoService = new InstituicaoService(instituicaoRepository);
                 NutricionistaService nutricionistaService = new NutricionistaService(nutricionistaRepository,

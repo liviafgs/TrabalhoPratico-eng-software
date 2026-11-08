@@ -7,6 +7,8 @@ import conexaosolidaria.server.JsonResponse;
 import conexaosolidaria.server.RequestUtils;
 import conexaosolidaria.service.AuthService;
 import conexaosolidaria.service.CoerenciaDemandaService.ResultadoCoerencia;
+import conexaosolidaria.service.DemandaConsulta;
+import conexaosolidaria.service.DemandaFiltros;
 import conexaosolidaria.service.DemandaService;
 
 import java.io.IOException;
@@ -69,10 +71,38 @@ public class DemandaController {
 
     public void listar(HttpExchange exchange) throws IOException {
         AuthenticatedUser user = authService.authenticate(RequestUtils.authorizationHeader(exchange));
+        Map<String, String> query = RequestUtils.queryParams(exchange);
+        DemandaFiltros filtros = new DemandaFiltros(
+                query.get("alimento"),
+                query.get("prioridade"),
+                parseData(query.get("prazoDe"), "prazoDe"),
+                parseData(query.get("prazoAte"), "prazoAte"),
+                query.get("localizacao"),
+                query.containsKey("disponivel") ? Boolean.parseBoolean(query.get("disponivel")) : true
+        );
+
         JsonResponse.send(exchange, 200, Map.of(
                 "demandas",
-                demandaService.listar(user).stream().map(this::demandaToMap).toList()
+                demandaService.listar(user, filtros).stream().map(this::consultaToMap).toList()
         ));
+    }
+
+    private LocalDate parseData(String value, String fieldName) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        try {
+            return LocalDate.parse(value);
+        } catch (java.time.format.DateTimeParseException e) {
+            throw new IllegalArgumentException("Data invalida em " + fieldName + ". Use o formato AAAA-MM-DD.");
+        }
+    }
+
+    private Map<String, Object> consultaToMap(DemandaConsulta consulta) {
+        Map<String, Object> map = demandaToMap(consulta.demanda());
+        map.put("instituicaoNome", consulta.instituicaoNome());
+        map.put("instituicaoEndereco", consulta.instituicaoEndereco());
+        return map;
     }
 
     private int requiredInt(Map<String, String> body, String fieldName) {

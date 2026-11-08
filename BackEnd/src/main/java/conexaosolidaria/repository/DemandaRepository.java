@@ -21,7 +21,13 @@ public class DemandaRepository {
                 demanda.getQuantidade(),
                 demanda.getUnidadeMedida(),
                 demanda.getPrazo(),
-                demanda.getPrioridade()
+                demanda.getPrioridade(),
+                demanda.getFinalidade(),
+                demanda.getBeneficiarios(),
+                demanda.getConsumoPerCapita(),
+                demanda.getQuantidadeReferencia(),
+                demanda.isAcimaDaReferencia(),
+                demanda.getJustificativa()
         );
 
         demandas.put(salva.getId(), salva);

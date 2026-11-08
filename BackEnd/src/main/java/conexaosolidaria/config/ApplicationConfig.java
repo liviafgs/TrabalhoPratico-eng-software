@@ -2,6 +2,7 @@ package conexaosolidaria.config;
 
 import conexaosolidaria.controller.AlimentoController;
 import conexaosolidaria.controller.AuthController;
+import conexaosolidaria.controller.ConsumoPerCapitaController;
 import conexaosolidaria.controller.DemandaController;
 import conexaosolidaria.controller.EstabelecimentoController;
 import conexaosolidaria.controller.FuncionalidadeController;
@@ -12,6 +13,7 @@ import conexaosolidaria.controller.PerfilAtendimentoInstituicaoController;
 import conexaosolidaria.controller.SolicitacaoOfertaController;
 import conexaosolidaria.controller.UsuarioController;
 import conexaosolidaria.repository.AlimentoRepository;
+import conexaosolidaria.repository.ConsumoPerCapitaRepository;
 import conexaosolidaria.repository.DemandaRepository;
 import conexaosolidaria.repository.EstabelecimentoRepository;
 import conexaosolidaria.repository.InstituicaoRepository;
@@ -26,6 +28,8 @@ import conexaosolidaria.security.TokenService;
 import conexaosolidaria.server.ApplicationServer;
 import conexaosolidaria.service.AlimentoService;
 import conexaosolidaria.service.AuthService;
+import conexaosolidaria.service.CoerenciaDemandaService;
+import conexaosolidaria.service.ConsumoPerCapitaService;
 import conexaosolidaria.service.DemandaService;
 import conexaosolidaria.service.DisponibilidadeOfertaService;
 import conexaosolidaria.service.EstabelecimentoService;
@@ -42,6 +46,7 @@ public class ApplicationConfig {
                 OfertaRepository ofertaRepository = new OfertaRepository();
                 SolicitacaoOfertaRepository solicitacaoOfertaRepository = new SolicitacaoOfertaRepository();
                 DemandaRepository demandaRepository = new DemandaRepository();
+                ConsumoPerCapitaRepository consumoPerCapitaRepository = new ConsumoPerCapitaRepository();
                 EstabelecimentoRepository estabelecimentoRepository = new EstabelecimentoRepository();
                 InstituicaoRepository instituicaoRepository = new InstituicaoRepository();
                 NutricionistaRepository nutricionistaRepository = new NutricionistaRepository();
@@ -61,7 +66,12 @@ public class ApplicationConfig {
                                 disponibilidadeOfertaService);
                 OfertaService ofertaService = new OfertaService(ofertaRepository, accessControl,
                                 disponibilidadeOfertaService);
-                DemandaService demandaService = new DemandaService(demandaRepository, accessControl);
+                ConsumoPerCapitaService consumoPerCapitaService = new ConsumoPerCapitaService(
+                                consumoPerCapitaRepository, accessControl);
+                CoerenciaDemandaService coerenciaDemandaService = new CoerenciaDemandaService(
+                                consumoPerCapitaService);
+                DemandaService demandaService = new DemandaService(demandaRepository, accessControl,
+                                coerenciaDemandaService);
                 EstabelecimentoService estabelecimentoService = new EstabelecimentoService(estabelecimentoRepository);
                 InstituicaoService instituicaoService = new InstituicaoService(instituicaoRepository);
                 NutricionistaService nutricionistaService = new NutricionistaService(nutricionistaRepository,
@@ -76,6 +86,8 @@ public class ApplicationConfig {
                                 accessControl);
                 OfertaController ofertaController = new OfertaController(authService, ofertaService);
                 DemandaController demandaController = new DemandaController(authService, demandaService);
+                ConsumoPerCapitaController consumoPerCapitaController = new ConsumoPerCapitaController(authService,
+                                consumoPerCapitaService);
                 EstabelecimentoController estabelecimentoController = new EstabelecimentoController(authService,
                                 estabelecimentoService, accessControl);
                 InstituicaoController instituicaoController = new InstituicaoController(authService, instituicaoService,
@@ -118,6 +130,9 @@ public class ApplicationConfig {
                 server.register("POST", "/ofertas/solicitacoes/cancelar", solicitacaoOfertaController::cancelar);
                 server.register("POST", "/demandas", demandaController::cadastrar);
                 server.register("GET", "/demandas", demandaController::listar);
+                server.register("POST", "/demandas/verificar-coerencia", demandaController::verificarCoerencia);
+                server.register("POST", "/consumo-per-capita", consumoPerCapitaController::cadastrar);
+                server.register("GET", "/consumo-per-capita", consumoPerCapitaController::listar);
 
                 return server;
         }

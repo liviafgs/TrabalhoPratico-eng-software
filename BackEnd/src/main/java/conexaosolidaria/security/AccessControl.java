@@ -37,13 +37,16 @@ public class AccessControl {
                 Permissao.CONSULTAR_OFERTAS,
                 Permissao.SOLICITAR_ALIMENTO,
                 Permissao.CANCELAR_SOLICITACAO_OFERTA,
-                Permissao.CADASTRAR_DEMANDA));
+                Permissao.CADASTRAR_DEMANDA,
+                Permissao.CONSULTAR_CONSUMO_PER_CAPITA));
         permissoesPorPerfil.put(PerfilUsuario.NUTRICIONISTA, EnumSet.of(
                 Permissao.CONSULTAR_ESTABELECIMENTOS,
                 Permissao.CONSULTAR_INSTITUICOES,
                 Permissao.CONSULTAR_NUTRICIONISTAS,
                 Permissao.CONSULTAR_PERFIL_ATENDIMENTO,
-                Permissao.HABILITAR_INSTITUICAO));
+                Permissao.HABILITAR_INSTITUICAO,
+                Permissao.CADASTRAR_CONSUMO_PER_CAPITA,
+                Permissao.CONSULTAR_CONSUMO_PER_CAPITA));
         permissoesPorPerfil.put(PerfilUsuario.ADMINISTRADOR, EnumSet.allOf(Permissao.class));
     }
 

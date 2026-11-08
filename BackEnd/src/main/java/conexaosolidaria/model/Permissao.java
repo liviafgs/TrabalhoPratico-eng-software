@@ -20,6 +20,8 @@ public enum Permissao {
     CANCELAR_SOLICITACAO_OFERTA("Cancelar solicitacao de oferta"),
     CADASTRAR_DEMANDA("Cadastrar demanda"),
     CONSULTAR_DEMANDAS("Consultar demandas"),
+    CADASTRAR_CONSUMO_PER_CAPITA("Cadastrar consumo per capita"),
+    CONSULTAR_CONSUMO_PER_CAPITA("Consultar consumo per capita"),
     CONSULTAR_USUARIOS("Consultar usuarios cadastrados"),
     GERENCIAR_PLATAFORMA("Gerenciar plataforma");
 

@@ -8,6 +8,7 @@ import conexaosolidaria.controller.HistoricoDoacaoController;
 import conexaosolidaria.controller.EstabelecimentoController;
 import conexaosolidaria.controller.FuncionalidadeController;
 import conexaosolidaria.controller.InstituicaoController;
+import conexaosolidaria.controller.NotificacaoController;
 import conexaosolidaria.controller.OportunidadeController;
 import conexaosolidaria.controller.NutricionistaController;
 import conexaosolidaria.controller.OfertaController;
@@ -20,6 +21,7 @@ import conexaosolidaria.repository.DemandaRepository;
 import conexaosolidaria.repository.EstabelecimentoRepository;
 import conexaosolidaria.repository.HistoricoSolicitacaoRepository;
 import conexaosolidaria.repository.InstituicaoRepository;
+import conexaosolidaria.repository.NotificacaoRepository;
 import conexaosolidaria.repository.NutricionistaRepository;
 import conexaosolidaria.repository.OfertaRepository;
 import conexaosolidaria.repository.PerfilAtendimentoInstituicaoRepository;
@@ -40,6 +42,7 @@ import conexaosolidaria.service.CorrespondenciaService;
 import conexaosolidaria.service.HistoricoDoacaoService;
 import conexaosolidaria.service.InstituicaoService;
 import conexaosolidaria.service.NutricionistaService;
+import conexaosolidaria.service.NotificacaoService;
 import conexaosolidaria.service.OfertaService;
 import conexaosolidaria.service.OportunidadeService;
 import conexaosolidaria.service.PerfilAtendimentoInstituicaoService;
@@ -102,6 +105,15 @@ public class ApplicationConfig {
                                 estabelecimentoRepository, correspondenciaService, accessControl);
                 OportunidadeController oportunidadeController = new OportunidadeController(
                                 authService, oportunidadeService);
+                NotificacaoRepository notificacaoRepository = new NotificacaoRepository();
+                NotificacaoService notificacaoService = new NotificacaoService(
+                                notificacaoRepository, accessControl, ofertaRepository, demandaRepository,
+                                instituicaoRepository, estabelecimentoRepository, correspondenciaService);
+                ofertaService.aoCadastrar(notificacaoService::notificarNovaOferta);
+                demandaService.aoCadastrar(notificacaoService::notificarNovaDemanda);
+                solicitacaoOfertaService.aoMudarStatus(notificacaoService::notificarMudancaStatus);
+                NotificacaoController notificacaoController = new NotificacaoController(
+                                authService, notificacaoService);
                 DemandaController demandaController = new DemandaController(authService, demandaService);
                 ConsumoPerCapitaController consumoPerCapitaController = new ConsumoPerCapitaController(authService,
                                 consumoPerCapitaService);
@@ -152,6 +164,9 @@ public class ApplicationConfig {
                 server.register("POST", "/ofertas/solicitacoes/agendar", solicitacaoOfertaController::agendar);
                 server.register("POST", "/ofertas/solicitacoes/concluir", solicitacaoOfertaController::concluir);
                 server.register("GET", "/oportunidades", oportunidadeController::consultar);
+                server.register("GET", "/notificacoes", notificacaoController::listar);
+                server.register("POST", "/notificacoes/ler", notificacaoController::marcarComoLida);
+                server.register("POST", "/notificacoes/ler-todas", notificacaoController::marcarTodasComoLidas);
                 server.register("GET", "/ofertas/solicitacoes", historicoDoacaoController::consultar);
                 server.register("GET", "/ofertas/solicitacoes/historico", historicoDoacaoController::linhaDoTempo);
                 server.register("POST", "/demandas", demandaController::cadastrar);

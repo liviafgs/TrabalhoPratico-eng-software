@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 public class OfertaService {
+    private final Ouvintes<Oferta> ouvintesCadastro = new Ouvintes<>();
     private final OfertaRepository ofertaRepository;
     private final AccessControl accessControl;
     private final DisponibilidadeOfertaService disponibilidade;
@@ -43,7 +45,7 @@ public class OfertaService {
         accessControl.require(user, Permissao.CADASTRAR_OFERTA);
         validarOferta(alimento, quantidade, unidadeMedida, retiradaAte);
 
-        return ofertaRepository.save(new Oferta(
+        Oferta salva = ofertaRepository.save(new Oferta(
                 0,
                 user.id(),
                 idAlimento,
@@ -55,6 +57,13 @@ public class OfertaService {
                 validade,
                 dataHoraRetirada,
                 localRetirada == null ? null : localRetirada.trim()));
+        ouvintesCadastro.publicar(salva);
+        return salva;
+    }
+
+    /** Registra um ouvinte chamado depois de cada oferta cadastrada. */
+    public void aoCadastrar(Consumer<Oferta> ouvinte) {
+        ouvintesCadastro.adicionar(ouvinte);
     }
 
     public List<Oferta> listar(AuthenticatedUser user) {

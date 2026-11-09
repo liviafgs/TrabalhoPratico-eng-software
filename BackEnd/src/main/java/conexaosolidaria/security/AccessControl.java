@@ -27,6 +27,7 @@ public class AccessControl {
                 Permissao.RESPONDER_SOLICITACAO_OFERTA,
                 Permissao.CONSULTAR_HISTORICO_DOACOES,
                 Permissao.CONSULTAR_OPORTUNIDADES,
+                Permissao.CONSULTAR_NOTIFICACOES,
                 Permissao.CONSULTAR_DEMANDAS));
         permissoesPorPerfil.put(PerfilUsuario.INSTITUICAO_BENEFICIARIA, EnumSet.of(
                 Permissao.CADASTRAR_INSTITUICAO,
@@ -43,6 +44,7 @@ public class AccessControl {
                 Permissao.CONCLUIR_DOACAO,
                 Permissao.CONSULTAR_HISTORICO_DOACOES,
                 Permissao.CONSULTAR_OPORTUNIDADES,
+                Permissao.CONSULTAR_NOTIFICACOES,
                 Permissao.CADASTRAR_DEMANDA,
                 Permissao.CONSULTAR_DEMANDAS,
                 Permissao.CONSULTAR_CONSUMO_PER_CAPITA));

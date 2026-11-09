@@ -16,8 +16,10 @@ import conexaosolidaria.repository.SolicitacaoOfertaRepository;
 import conexaosolidaria.security.AccessControl;
 
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 public class SolicitacaoOfertaService {
+    private final Ouvintes<MudancaStatus> ouvintesMudancaStatus = new Ouvintes<>();
     private final OfertaRepository ofertaRepository;
     private final SolicitacaoOfertaRepository solicitacaoRepository;
     private final AccessControl accessControl;
@@ -124,7 +126,14 @@ public class SolicitacaoOfertaService {
                 salva.getStatus(),
                 user.id(),
                 LocalDateTime.now()));
+        ouvintesMudancaStatus.publicar(new MudancaStatus(
+                salva, anterior == null ? null : anterior.getStatus(), user.id()));
         return salva;
+    }
+
+    /** Registra um ouvinte chamado quando uma solicitacao e criada ou muda de status. */
+    public void aoMudarStatus(Consumer<MudancaStatus> ouvinte) {
+        ouvintesMudancaStatus.adicionar(ouvinte);
     }
 
     /** Aceitar, recusar e agendar cabem ao doador da oferta (ou ao administrador). */

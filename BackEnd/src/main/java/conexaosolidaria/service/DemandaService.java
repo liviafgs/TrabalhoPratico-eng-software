@@ -15,10 +15,12 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class DemandaService {
     private static final Set<String> PRIORIDADES = Set.of("ALTA", "MEDIA", "BAIXA");
 
+    private final Ouvintes<Demanda> ouvintesCadastro = new Ouvintes<>();
     private final DemandaRepository demandaRepository;
     private final AccessControl accessControl;
     private final CoerenciaDemandaService coerenciaService;
@@ -46,7 +48,7 @@ public class DemandaService {
             throw new ApiException(409, coerencia.mensagem());
         }
 
-        return demandaRepository.save(new Demanda(
+        Demanda salva = demandaRepository.save(new Demanda(
                 0,
                 user.id(),
                 alimento.trim(),
@@ -61,6 +63,13 @@ public class DemandaService {
                 coerencia.acimaDaReferencia(),
                 coerencia.acimaDaReferencia() ? justificativa.trim() : null
         ));
+        ouvintesCadastro.publicar(salva);
+        return salva;
+    }
+
+    /** Registra um ouvinte chamado depois de cada demanda cadastrada. */
+    public void aoCadastrar(Consumer<Demanda> ouvinte) {
+        ouvintesCadastro.adicionar(ouvinte);
     }
 
     public ResultadoCoerencia verificarCoerencia(AuthenticatedUser user, String alimento, double quantidade,

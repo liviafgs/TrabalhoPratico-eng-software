@@ -4,6 +4,7 @@ import conexaosolidaria.controller.AlimentoController;
 import conexaosolidaria.controller.AuthController;
 import conexaosolidaria.controller.ConsumoPerCapitaController;
 import conexaosolidaria.controller.DemandaController;
+import conexaosolidaria.controller.HistoricoDoacaoController;
 import conexaosolidaria.controller.EstabelecimentoController;
 import conexaosolidaria.controller.FuncionalidadeController;
 import conexaosolidaria.controller.InstituicaoController;
@@ -16,6 +17,7 @@ import conexaosolidaria.repository.AlimentoRepository;
 import conexaosolidaria.repository.ConsumoPerCapitaRepository;
 import conexaosolidaria.repository.DemandaRepository;
 import conexaosolidaria.repository.EstabelecimentoRepository;
+import conexaosolidaria.repository.HistoricoSolicitacaoRepository;
 import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.repository.NutricionistaRepository;
 import conexaosolidaria.repository.OfertaRepository;
@@ -33,6 +35,7 @@ import conexaosolidaria.service.ConsumoPerCapitaService;
 import conexaosolidaria.service.DemandaService;
 import conexaosolidaria.service.DisponibilidadeOfertaService;
 import conexaosolidaria.service.EstabelecimentoService;
+import conexaosolidaria.service.HistoricoDoacaoService;
 import conexaosolidaria.service.InstituicaoService;
 import conexaosolidaria.service.NutricionistaService;
 import conexaosolidaria.service.OfertaService;
@@ -45,6 +48,7 @@ public class ApplicationConfig {
                 UsuarioRepository usuarioRepository = new UsuarioRepository();
                 OfertaRepository ofertaRepository = new OfertaRepository();
                 SolicitacaoOfertaRepository solicitacaoOfertaRepository = new SolicitacaoOfertaRepository();
+                HistoricoSolicitacaoRepository historicoSolicitacaoRepository = new HistoricoSolicitacaoRepository();
                 DemandaRepository demandaRepository = new DemandaRepository();
                 ConsumoPerCapitaRepository consumoPerCapitaRepository = new ConsumoPerCapitaRepository();
                 EstabelecimentoRepository estabelecimentoRepository = new EstabelecimentoRepository();
@@ -63,7 +67,10 @@ public class ApplicationConfig {
                                 solicitacaoOfertaRepository);
                 SolicitacaoOfertaService solicitacaoOfertaService = new SolicitacaoOfertaService(
                                 ofertaRepository, solicitacaoOfertaRepository, accessControl,
-                                disponibilidadeOfertaService, instituicaoRepository);
+                                disponibilidadeOfertaService, instituicaoRepository, historicoSolicitacaoRepository);
+                HistoricoDoacaoService historicoDoacaoService = new HistoricoDoacaoService(
+                                solicitacaoOfertaRepository, ofertaRepository, instituicaoRepository,
+                                estabelecimentoRepository, historicoSolicitacaoRepository, accessControl);
                 OfertaService ofertaService = new OfertaService(ofertaRepository, accessControl,
                                 disponibilidadeOfertaService);
                 ConsumoPerCapitaService consumoPerCapitaService = new ConsumoPerCapitaService(
@@ -101,6 +108,8 @@ public class ApplicationConfig {
                                 authService, perfilAtendimentoService, accessControl);
                 SolicitacaoOfertaController solicitacaoOfertaController = new SolicitacaoOfertaController(
                                 authService, solicitacaoOfertaService);
+                HistoricoDoacaoController historicoDoacaoController = new HistoricoDoacaoController(
+                                authService, historicoDoacaoService);
 
                 ApplicationServer server = new ApplicationServer(port);
                 server.register("POST", "/usuarios", usuarioController::cadastrar);
@@ -132,6 +141,8 @@ public class ApplicationConfig {
                 server.register("POST", "/ofertas/solicitacoes/recusar", solicitacaoOfertaController::recusar);
                 server.register("POST", "/ofertas/solicitacoes/agendar", solicitacaoOfertaController::agendar);
                 server.register("POST", "/ofertas/solicitacoes/concluir", solicitacaoOfertaController::concluir);
+                server.register("GET", "/ofertas/solicitacoes", historicoDoacaoController::consultar);
+                server.register("GET", "/ofertas/solicitacoes/historico", historicoDoacaoController::linhaDoTempo);
                 server.register("POST", "/demandas", demandaController::cadastrar);
                 server.register("GET", "/demandas", demandaController::listar);
                 server.register("POST", "/demandas/verificar-coerencia", demandaController::verificarCoerencia);

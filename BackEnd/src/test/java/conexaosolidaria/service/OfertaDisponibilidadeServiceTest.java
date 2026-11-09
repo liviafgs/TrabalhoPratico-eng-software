@@ -5,6 +5,7 @@ import conexaosolidaria.exception.ApiException;
 import conexaosolidaria.model.Oferta;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.model.SolicitacaoOferta;
+import conexaosolidaria.repository.HistoricoSolicitacaoRepository;
 import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.repository.OfertaRepository;
 import conexaosolidaria.repository.SolicitacaoOfertaRepository;
@@ -112,7 +113,8 @@ class OfertaDisponibilidadeServiceTest {
                 instituicaoService.habilitar(instituicao, true);
 
                 return new SolicitacaoOfertaService(ofertaRepository, solicitacaoRepository, new AccessControl(),
-                                new DisponibilidadeOfertaService(solicitacaoRepository), instituicaoRepository);
+                                new DisponibilidadeOfertaService(solicitacaoRepository), instituicaoRepository,
+                                new HistoricoSolicitacaoRepository());
         }
 
         private AuthenticatedUser usuario(long id, PerfilUsuario perfil) {

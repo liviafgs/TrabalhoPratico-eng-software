@@ -20,6 +20,7 @@ public enum Permissao {
     CANCELAR_SOLICITACAO_OFERTA("Cancelar solicitacao de oferta"),
     RESPONDER_SOLICITACAO_OFERTA("Aceitar, recusar e agendar solicitacoes de oferta"),
     CONCLUIR_DOACAO("Concluir doacao recebida"),
+    CONSULTAR_HISTORICO_DOACOES("Consultar historico de doacoes"),
     CADASTRAR_DEMANDA("Cadastrar demanda"),
     CONSULTAR_DEMANDAS("Consultar demandas"),
     CADASTRAR_CONSUMO_PER_CAPITA("Cadastrar consumo per capita"),

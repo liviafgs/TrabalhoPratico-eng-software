@@ -6,6 +6,7 @@ import conexaosolidaria.model.Oferta;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.model.SolicitacaoOferta;
 import conexaosolidaria.model.StatusSolicitacaoOferta;
+import conexaosolidaria.repository.HistoricoSolicitacaoRepository;
 import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.repository.OfertaRepository;
 import conexaosolidaria.repository.SolicitacaoOfertaRepository;
@@ -28,7 +29,8 @@ class SolicitacaoStatusServiceTest {
     private final DisponibilidadeOfertaService disponibilidade = new DisponibilidadeOfertaService(solicitacaoRepository);
     private final OfertaService ofertaService = new OfertaService(ofertaRepository, accessControl, disponibilidade);
     private final SolicitacaoOfertaService service = new SolicitacaoOfertaService(
-            ofertaRepository, solicitacaoRepository, accessControl, disponibilidade, instituicaoRepository);
+            ofertaRepository, solicitacaoRepository, accessControl, disponibilidade, instituicaoRepository,
+            new HistoricoSolicitacaoRepository());
 
     private final AuthenticatedUser doador = usuario(1L, PerfilUsuario.ESTABELECIMENTO_DOADOR);
     private final AuthenticatedUser outroDoador = usuario(4L, PerfilUsuario.ESTABELECIMENTO_DOADOR);

@@ -2,12 +2,14 @@ package conexaosolidaria.service;
 
 import conexaosolidaria.dto.AuthenticatedUser;
 import conexaosolidaria.exception.ApiException;
+import conexaosolidaria.model.HistoricoSolicitacao;
 import conexaosolidaria.model.Instituicao;
 import conexaosolidaria.model.Oferta;
 import conexaosolidaria.model.Permissao;
 import conexaosolidaria.model.SolicitacaoOferta;
 import conexaosolidaria.model.StatusInstituicao;
 import conexaosolidaria.model.StatusSolicitacaoOferta;
+import conexaosolidaria.repository.HistoricoSolicitacaoRepository;
 import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.repository.OfertaRepository;
 import conexaosolidaria.repository.SolicitacaoOfertaRepository;
@@ -21,15 +23,18 @@ public class SolicitacaoOfertaService {
     private final AccessControl accessControl;
     private final DisponibilidadeOfertaService disponibilidade;
     private final InstituicaoRepository instituicaoRepository;
+    private final HistoricoSolicitacaoRepository historicoRepository;
 
     public SolicitacaoOfertaService(OfertaRepository ofertaRepository,
             SolicitacaoOfertaRepository solicitacaoRepository, AccessControl accessControl,
-            DisponibilidadeOfertaService disponibilidade, InstituicaoRepository instituicaoRepository) {
+            DisponibilidadeOfertaService disponibilidade, InstituicaoRepository instituicaoRepository,
+            HistoricoSolicitacaoRepository historicoRepository) {
         this.ofertaRepository = ofertaRepository;
         this.solicitacaoRepository = solicitacaoRepository;
         this.accessControl = accessControl;
         this.disponibilidade = disponibilidade;
         this.instituicaoRepository = instituicaoRepository;
+        this.historicoRepository = historicoRepository;
     }
 
     public SolicitacaoOferta solicitar(AuthenticatedUser user, long idOferta, double quantidade) {
@@ -47,7 +52,7 @@ public class SolicitacaoOfertaService {
             throw new ApiException(409, "Quantidade solicitada maior que a quantidade disponivel.");
         }
 
-        return solicitacaoRepository.save(new SolicitacaoOferta(
+        return registrarTransicao(user, null, new SolicitacaoOferta(
                 0,
                 idOferta,
                 user.id(),
@@ -59,20 +64,20 @@ public class SolicitacaoOfertaService {
     public SolicitacaoOferta aceitar(AuthenticatedUser user, long idSolicitacao) {
         SolicitacaoOferta solicitacao = carregarParaResposta(user, idSolicitacao);
         exigirTransicao(solicitacao, StatusSolicitacaoOferta.ACEITA);
-        return solicitacaoRepository.save(solicitacao.comStatus(StatusSolicitacaoOferta.ACEITA));
+        return registrarTransicao(user, solicitacao, solicitacao.comStatus(StatusSolicitacaoOferta.ACEITA));
     }
 
     public SolicitacaoOferta recusar(AuthenticatedUser user, long idSolicitacao) {
         SolicitacaoOferta solicitacao = carregarParaResposta(user, idSolicitacao);
         exigirTransicao(solicitacao, StatusSolicitacaoOferta.RECUSADA);
-        return solicitacaoRepository.save(solicitacao.comStatus(StatusSolicitacaoOferta.RECUSADA));
+        return registrarTransicao(user, solicitacao, solicitacao.comStatus(StatusSolicitacaoOferta.RECUSADA));
     }
 
     public SolicitacaoOferta agendar(AuthenticatedUser user, long idSolicitacao, LocalDateTime dataHora) {
         SolicitacaoOferta solicitacao = carregarParaResposta(user, idSolicitacao);
         exigirTransicao(solicitacao, StatusSolicitacaoOferta.AGENDADA);
         validarAgendamento(buscarOferta(solicitacao.getIdOferta()), dataHora);
-        return solicitacaoRepository.save(solicitacao.agendadaPara(dataHora));
+        return registrarTransicao(user, solicitacao, solicitacao.agendadaPara(dataHora));
     }
 
     public SolicitacaoOferta confirmarRetirada(AuthenticatedUser user, long idSolicitacao) {
@@ -84,7 +89,7 @@ public class SolicitacaoOfertaService {
                 "Somente o doador da oferta pode confirmar a retirada.");
         exigirTransicao(solicitacao, StatusSolicitacaoOferta.RETIRADA);
 
-        return solicitacaoRepository.save(solicitacao.comStatus(StatusSolicitacaoOferta.RETIRADA));
+        return registrarTransicao(user, solicitacao, solicitacao.comStatus(StatusSolicitacaoOferta.RETIRADA));
     }
 
     public SolicitacaoOferta concluir(AuthenticatedUser user, long idSolicitacao) {
@@ -95,7 +100,7 @@ public class SolicitacaoOfertaService {
                 "Somente a instituicao solicitante pode concluir a doacao.");
         exigirTransicao(solicitacao, StatusSolicitacaoOferta.CONCLUIDA);
 
-        return solicitacaoRepository.save(solicitacao.comStatus(StatusSolicitacaoOferta.CONCLUIDA));
+        return registrarTransicao(user, solicitacao, solicitacao.comStatus(StatusSolicitacaoOferta.CONCLUIDA));
     }
 
     public SolicitacaoOferta cancelar(AuthenticatedUser user, long idSolicitacao) {
@@ -105,7 +110,21 @@ public class SolicitacaoOfertaService {
                 "Somente a instituicao solicitante pode cancelar a solicitacao.");
         exigirTransicao(solicitacao, StatusSolicitacaoOferta.CANCELADA);
 
-        return solicitacaoRepository.save(solicitacao.comStatus(StatusSolicitacaoOferta.CANCELADA));
+        return registrarTransicao(user, solicitacao, solicitacao.comStatus(StatusSolicitacaoOferta.CANCELADA));
+    }
+
+    /** Salva a solicitacao e registra a mudanca de status no historico (RN-11). */
+    private SolicitacaoOferta registrarTransicao(AuthenticatedUser user, SolicitacaoOferta anterior,
+            SolicitacaoOferta nova) {
+        SolicitacaoOferta salva = solicitacaoRepository.save(nova);
+        historicoRepository.save(new HistoricoSolicitacao(
+                0,
+                salva.getId(),
+                anterior == null ? null : anterior.getStatus(),
+                salva.getStatus(),
+                user.id(),
+                LocalDateTime.now()));
+        return salva;
     }
 
     /** Aceitar, recusar e agendar cabem ao doador da oferta (ou ao administrador). */

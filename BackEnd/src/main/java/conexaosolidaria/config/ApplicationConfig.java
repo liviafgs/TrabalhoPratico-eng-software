@@ -8,6 +8,7 @@ import conexaosolidaria.controller.HistoricoDoacaoController;
 import conexaosolidaria.controller.EstabelecimentoController;
 import conexaosolidaria.controller.FuncionalidadeController;
 import conexaosolidaria.controller.InstituicaoController;
+import conexaosolidaria.controller.OportunidadeController;
 import conexaosolidaria.controller.NutricionistaController;
 import conexaosolidaria.controller.OfertaController;
 import conexaosolidaria.controller.PerfilAtendimentoInstituicaoController;
@@ -35,10 +36,12 @@ import conexaosolidaria.service.ConsumoPerCapitaService;
 import conexaosolidaria.service.DemandaService;
 import conexaosolidaria.service.DisponibilidadeOfertaService;
 import conexaosolidaria.service.EstabelecimentoService;
+import conexaosolidaria.service.CorrespondenciaService;
 import conexaosolidaria.service.HistoricoDoacaoService;
 import conexaosolidaria.service.InstituicaoService;
 import conexaosolidaria.service.NutricionistaService;
 import conexaosolidaria.service.OfertaService;
+import conexaosolidaria.service.OportunidadeService;
 import conexaosolidaria.service.PerfilAtendimentoInstituicaoService;
 import conexaosolidaria.service.SolicitacaoOfertaService;
 import conexaosolidaria.service.UsuarioService;
@@ -92,6 +95,13 @@ public class ApplicationConfig {
                 FuncionalidadeController funcionalidadeController = new FuncionalidadeController(authService,
                                 accessControl);
                 OfertaController ofertaController = new OfertaController(authService, ofertaService);
+                CorrespondenciaService correspondenciaService = new CorrespondenciaService(
+                                disponibilidadeOfertaService, instituicaoRepository);
+                OportunidadeService oportunidadeService = new OportunidadeService(
+                                ofertaRepository, demandaRepository, instituicaoRepository,
+                                estabelecimentoRepository, correspondenciaService, accessControl);
+                OportunidadeController oportunidadeController = new OportunidadeController(
+                                authService, oportunidadeService);
                 DemandaController demandaController = new DemandaController(authService, demandaService);
                 ConsumoPerCapitaController consumoPerCapitaController = new ConsumoPerCapitaController(authService,
                                 consumoPerCapitaService);
@@ -141,6 +151,7 @@ public class ApplicationConfig {
                 server.register("POST", "/ofertas/solicitacoes/recusar", solicitacaoOfertaController::recusar);
                 server.register("POST", "/ofertas/solicitacoes/agendar", solicitacaoOfertaController::agendar);
                 server.register("POST", "/ofertas/solicitacoes/concluir", solicitacaoOfertaController::concluir);
+                server.register("GET", "/oportunidades", oportunidadeController::consultar);
                 server.register("GET", "/ofertas/solicitacoes", historicoDoacaoController::consultar);
                 server.register("GET", "/ofertas/solicitacoes/historico", historicoDoacaoController::linhaDoTempo);
                 server.register("POST", "/demandas", demandaController::cadastrar);

@@ -21,7 +21,8 @@ public class SolicitacaoOfertaRepository {
                 solicitacao.getIdUsuarioInstituicao(),
                 solicitacao.getQuantidade(),
                 solicitacao.getStatus(),
-                solicitacao.getCriadoEm());
+                solicitacao.getCriadoEm(),
+                solicitacao.getRetiradaAgendadaPara());
         solicitacoes.put(id, salva);
         return salva;
     }

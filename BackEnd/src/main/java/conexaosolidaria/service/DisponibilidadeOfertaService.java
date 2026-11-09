@@ -2,7 +2,6 @@ package conexaosolidaria.service;
 
 import conexaosolidaria.model.Oferta;
 import conexaosolidaria.model.SolicitacaoOferta;
-import conexaosolidaria.model.StatusSolicitacaoOferta;
 import conexaosolidaria.repository.SolicitacaoOfertaRepository;
 
 /**
@@ -19,8 +18,7 @@ public class DisponibilidadeOfertaService {
     public double quantidadeDisponivel(Oferta oferta) {
         double solicitada = solicitacaoRepository.findAll().stream()
                 .filter(item -> item.getIdOferta() == oferta.getId())
-                .filter(item -> item.getStatus() == StatusSolicitacaoOferta.SOLICITADA
-                        || item.getStatus() == StatusSolicitacaoOferta.RETIRADA)
+                .filter(item -> item.getStatus().reservaQuantidade())
                 .mapToDouble(SolicitacaoOferta::getQuantidade)
                 .sum();
         return Math.max(0, oferta.getQuantidade() - solicitada);

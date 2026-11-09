@@ -18,6 +18,8 @@ public enum Permissao {
     SOLICITAR_ALIMENTO("Solicitar alimento"),
     CONFIRMAR_RETIRADA_OFERTA("Confirmar retirada de oferta"),
     CANCELAR_SOLICITACAO_OFERTA("Cancelar solicitacao de oferta"),
+    RESPONDER_SOLICITACAO_OFERTA("Aceitar, recusar e agendar solicitacoes de oferta"),
+    CONCLUIR_DOACAO("Concluir doacao recebida"),
     CADASTRAR_DEMANDA("Cadastrar demanda"),
     CONSULTAR_DEMANDAS("Consultar demandas"),
     CADASTRAR_CONSUMO_PER_CAPITA("Cadastrar consumo per capita"),

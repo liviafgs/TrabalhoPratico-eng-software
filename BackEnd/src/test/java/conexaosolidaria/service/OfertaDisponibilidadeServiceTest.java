@@ -5,6 +5,7 @@ import conexaosolidaria.exception.ApiException;
 import conexaosolidaria.model.Oferta;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.model.SolicitacaoOferta;
+import conexaosolidaria.repository.InstituicaoRepository;
 import conexaosolidaria.repository.OfertaRepository;
 import conexaosolidaria.repository.SolicitacaoOfertaRepository;
 import conexaosolidaria.security.AccessControl;
@@ -103,8 +104,15 @@ class OfertaDisponibilidadeServiceTest {
 
         private SolicitacaoOfertaService criarSolicitacaoService(OfertaRepository ofertaRepository,
                         SolicitacaoOfertaRepository solicitacaoRepository) {
+                InstituicaoRepository instituicaoRepository = new InstituicaoRepository();
+                InstituicaoService instituicaoService = new InstituicaoService(instituicaoRepository);
+                AuthenticatedUser instituicao = usuario(2L, PerfilUsuario.INSTITUICAO_BENEFICIARIA);
+                instituicaoService.cadastrar(instituicao, "Instituicao Teste", "11222333000144",
+                                "Rua B, 41", "(31) 3232-4444");
+                instituicaoService.habilitar(instituicao, true);
+
                 return new SolicitacaoOfertaService(ofertaRepository, solicitacaoRepository, new AccessControl(),
-                                new DisponibilidadeOfertaService(solicitacaoRepository));
+                                new DisponibilidadeOfertaService(solicitacaoRepository), instituicaoRepository);
         }
 
         private AuthenticatedUser usuario(long id, PerfilUsuario perfil) {

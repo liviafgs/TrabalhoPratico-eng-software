@@ -24,6 +24,7 @@ public class AccessControl {
                 Permissao.CADASTRAR_OFERTA,
                 Permissao.CONSULTAR_OFERTAS,
                 Permissao.CONFIRMAR_RETIRADA_OFERTA,
+                Permissao.RESPONDER_SOLICITACAO_OFERTA,
                 Permissao.CONSULTAR_DEMANDAS));
         permissoesPorPerfil.put(PerfilUsuario.INSTITUICAO_BENEFICIARIA, EnumSet.of(
                 Permissao.CADASTRAR_INSTITUICAO,
@@ -37,6 +38,7 @@ public class AccessControl {
                 Permissao.CONSULTAR_OFERTAS,
                 Permissao.SOLICITAR_ALIMENTO,
                 Permissao.CANCELAR_SOLICITACAO_OFERTA,
+                Permissao.CONCLUIR_DOACAO,
                 Permissao.CADASTRAR_DEMANDA,
                 Permissao.CONSULTAR_DEMANDAS,
                 Permissao.CONSULTAR_CONSUMO_PER_CAPITA));

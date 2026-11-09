@@ -63,7 +63,7 @@ public class ApplicationConfig {
                                 solicitacaoOfertaRepository);
                 SolicitacaoOfertaService solicitacaoOfertaService = new SolicitacaoOfertaService(
                                 ofertaRepository, solicitacaoOfertaRepository, accessControl,
-                                disponibilidadeOfertaService);
+                                disponibilidadeOfertaService, instituicaoRepository);
                 OfertaService ofertaService = new OfertaService(ofertaRepository, accessControl,
                                 disponibilidadeOfertaService);
                 ConsumoPerCapitaService consumoPerCapitaService = new ConsumoPerCapitaService(
@@ -128,6 +128,10 @@ public class ApplicationConfig {
                 server.register("POST", "/ofertas/solicitacoes", solicitacaoOfertaController::solicitar);
                 server.register("POST", "/ofertas/retiradas/confirmar", solicitacaoOfertaController::confirmarRetirada);
                 server.register("POST", "/ofertas/solicitacoes/cancelar", solicitacaoOfertaController::cancelar);
+                server.register("POST", "/ofertas/solicitacoes/aceitar", solicitacaoOfertaController::aceitar);
+                server.register("POST", "/ofertas/solicitacoes/recusar", solicitacaoOfertaController::recusar);
+                server.register("POST", "/ofertas/solicitacoes/agendar", solicitacaoOfertaController::agendar);
+                server.register("POST", "/ofertas/solicitacoes/concluir", solicitacaoOfertaController::concluir);
                 server.register("POST", "/demandas", demandaController::cadastrar);
                 server.register("GET", "/demandas", demandaController::listar);
                 server.register("POST", "/demandas/verificar-coerencia", demandaController::verificarCoerencia);

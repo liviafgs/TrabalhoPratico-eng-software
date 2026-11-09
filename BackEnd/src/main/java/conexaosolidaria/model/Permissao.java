@@ -21,6 +21,7 @@ public enum Permissao {
     RESPONDER_SOLICITACAO_OFERTA("Aceitar, recusar e agendar solicitacoes de oferta"),
     CONCLUIR_DOACAO("Concluir doacao recebida"),
     CONSULTAR_HISTORICO_DOACOES("Consultar historico de doacoes"),
+    CONSULTAR_OPORTUNIDADES("Consultar oportunidades compativeis entre ofertas e demandas"),
     CADASTRAR_DEMANDA("Cadastrar demanda"),
     CONSULTAR_DEMANDAS("Consultar demandas"),
     CADASTRAR_CONSUMO_PER_CAPITA("Cadastrar consumo per capita"),

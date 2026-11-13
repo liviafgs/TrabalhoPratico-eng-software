@@ -10,13 +10,26 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class ConsumoPerCapitaRepository {
-    private final ConcurrentMap<String, ConsumoPerCapita> consumos = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<String, ConsumoPerCapita> consumos;
     private final AtomicLong sequence = new AtomicLong(1);
+
+    public ConsumoPerCapitaRepository() {
+        this(null);
+    }
+
+    public ConsumoPerCapitaRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        consumos = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("consumo_per_capita",
+                        consumo -> ConsumoPerCapita.chave(consumo.getAlimento(), consumo.getUnidadeMedida()),
+                        ConsumoPerCapita.class);
+    }
 
     public ConsumoPerCapita save(ConsumoPerCapita consumo) {
         String chave = ConsumoPerCapita.chave(consumo.getAlimento(), consumo.getUnidadeMedida());
         ConsumoPerCapita existente = consumos.get(chave);
-        long id = existente != null ? existente.getId() : sequence.getAndIncrement();
+        long id = existente != null ? existente.getId() : nextId();
 
         ConsumoPerCapita salvo = new ConsumoPerCapita(
                 id,
@@ -26,6 +39,10 @@ public class ConsumoPerCapitaRepository {
                 consumo.getCriadoEm());
         consumos.put(chave, salvo);
         return salvo;
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 
     public Optional<ConsumoPerCapita> findByAlimentoEUnidade(String alimento, String unidadeMedida) {

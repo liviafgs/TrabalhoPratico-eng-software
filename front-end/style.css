@@ -143,6 +143,19 @@ textarea:focus-visible {
     padding: 32px;
 }
 
+.global-message {
+    margin: 16px 32px 0;
+    padding: 12px 16px;
+    color: var(--texto);
+    background: #e8f4ec;
+    border-left: 4px solid var(--verde);
+}
+
+.global-message[data-type="error"] {
+    background: #fff0ef;
+    border-color: var(--vermelho);
+}
+
 /* =========================
    PÁGINAS
 ========================= */
@@ -307,6 +320,27 @@ form button[type="submit"] {
     margin-top: 24px;
 }
 
+.offer-request-form {
+    max-width: none;
+    margin-top: 14px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.offer-request-form label {
+    display: block;
+    margin: 0 0 6px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.offer-request-form button[type="submit"] {
+    margin-top: 10px;
+}
+
 /* =========================
    FILTROS
 ========================= */
@@ -468,11 +502,61 @@ form button[type="submit"] {
 .modal-content {
     width: 100%;
     max-width: 420px;
+    max-height: calc(100vh - 40px);
     padding: 30px;
     text-align: center;
     background-color: var(--branco);
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+}
+
+.auth-content form,
+.organization-content form {
+    max-width: none;
+    padding: 0;
+    text-align: left;
+    border: 0;
+    box-shadow: none;
+}
+
+.auth-content form button[type="submit"],
+.organization-content form button[type="submit"] {
+    width: 100%;
+}
+
+.text-button {
+    margin-top: 16px;
+    padding: 6px 0;
+    color: var(--roxo);
+    background: transparent;
+    border: 0;
+    text-decoration: underline;
+}
+
+.form-feedback {
+    min-height: 1.5em;
+    color: var(--vermelho);
+    font-size: 14px;
+}
+
+.status.pending {
+    color: #825500;
+    background: #fff4ce;
+}
+
+.hint {
+    margin-top: 10px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+#formPerfilOrganizacao,
+#formPerfilAtendimento,
+#formNutricionista,
+#perfilAtendimento,
+#dadosNutricionista {
+    margin-top: 20px;
 }
 
 .modal-content h2 {

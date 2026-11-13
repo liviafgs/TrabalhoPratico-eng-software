@@ -4,7 +4,7 @@ import java.text.Normalizer;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-public class ConsumoPerCapita {
+public class ConsumoPerCapita implements java.io.Serializable {
     private final long id;
     private final String alimento;
     private final String unidadeMedida;

@@ -6,7 +6,7 @@
 
 **Estilo arquitetural:** Cliente-servidor, com frontend web estático e backend Java organizado em camadas, executado como um monólito modular.
 
-**Justificativa:** A separação entre frontend e backend organiza a interface e as regras de negócio em partes distintas. No backend, os pacotes `server`, `controller`, `service`, `repository`, `model`, `security`, `dto`, `exception` e `config` separam responsabilidades e favorecem a manutenibilidade (RNF-10) e a rastreabilidade (RNF-11). A camada de serviços concentra casos de uso, enquanto os componentes de segurança apoiam autenticação e autorização (RNF-01 e RNF-02). A implementação analisada, porém, ainda utiliza repositórios em memória e não apresenta integração HTTP identificada entre o JavaScript do frontend e a API. Embora existam propriedades de PostgreSQL e arquivos de changelog do Liquibase, a conexão efetiva com o banco não foi comprovada no código consultado.
+**Justificativa:** A separação entre frontend e backend organiza a interface e as regras de negócio em partes distintas. No backend, os pacotes `server`, `controller`, `service`, `repository`, `model`, `security`, `dto`, `exception` e `config` separam responsabilidades e favorecem a manutenibilidade (RNF-10) e a rastreabilidade (RNF-11). A camada de serviços concentra casos de uso, enquanto os componentes de segurança apoiam autenticação e autorização (RNF-01 e RNF-02). O backend conecta-se ao PostgreSQL por JDBC, executa migrações com Liquibase e persiste os modelos ativos em uma tabela de compatibilidade. O frontend ainda não apresenta integração HTTP identificada com a API.
 
 ## 2. Diagrama de contexto
 
@@ -40,7 +40,7 @@ flowchart TB
         CTRL["controller"]
         SERVICE["service"]
         SECURITY["security"]
-        REPO["repository / ConcurrentHashMap"]
+        REPO["repository / JDBC"]
         MODEL["model"]
         DTO["dto / exception"]
 
@@ -56,10 +56,14 @@ flowchart TB
         REPO --> MODEL
     end
 
+    PG[(PostgreSQL)]
+    CONFIG --> PG
+    REPO --> PG
+
     JS -. "HTTP: integração não identificada no código atual" .-> HTTP
 ```
 
-> O diagrama representa a organização encontrada no repositório. Cada componente corresponde a arquivos ou diretórios existentes. Não foi incluído PostgreSQL como componente ativo, pois os repositórios verificados utilizam armazenamento em memória; as configurações de banco e os changelogs existentes não comprovam integração efetiva.
+> O frontend permanece sem chamadas HTTP identificadas para a API. Os construtores sem banco dos repositórios continuam disponíveis para os testes unitários.
 
 ## 4. Componentes e responsabilidades
 
@@ -72,10 +76,10 @@ flowchart TB
 | Controllers | Interpretar requisições HTTP, chamar serviços e produzir respostas da API. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/controller/` | Recebem requisições por meio das rotas e acionam os serviços. |
 | Serviços | Implementar casos de uso e regras de negócio de usuários, autenticação, ofertas, demandas, solicitações e cadastros. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/service/` | Recebem dependências por construtor e consultam ou alteram repositórios. |
 | Segurança | Apoiar autenticação, geração e validação de tokens, hash de senhas e autorização. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/security/` | Utilizada pelos controllers e serviços que precisam autenticar ou autorizar operações. |
-| Repositórios | Armazenar e consultar os dados utilizados pelos serviços. | Java 17; `ConcurrentHashMap`/`ConcurrentMap` | `BackEnd/src/main/java/conexaosolidaria/repository/` | Chamados pelos serviços; armazenamento atualmente em memória, sem persistência entre reinicializações. |
+| Repositórios | Armazenar e consultar os dados utilizados pelos serviços. | Java 17, JDBC e PostgreSQL | `BackEnd/src/main/java/conexaosolidaria/repository/` | No servidor, carregam e persistem registros em `backend_entity_store`; os construtores sem banco são usados nos testes unitários. |
 | Modelos | Representar entidades e estados do domínio. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/model/` | Utilizados por serviços e repositórios. |
 | DTOs e exceções | Transportar dados específicos e padronizar erros da API. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/dto/` e `BackEnd/src/main/java/conexaosolidaria/exception/` | Utilizados pelos controllers e pelo servidor HTTP. |
-| Configuração de banco e migrações | Manter parâmetros de conexão e arquivos de changelog existentes no projeto. | Properties e Liquibase | `BackEnd/src/main/resources/application.properties` e `BackEnd/src/main/resources/db/changelog/` | Não há integração ativa comprovada na implementação consultada. |
+| Configuração de banco e migrações | Configurar a conexão PostgreSQL e aplicar migrações antes de iniciar o servidor. | JDBC, properties e Liquibase | `BackEnd/src/main/java/conexaosolidaria/repository/DatabaseStore.java` e `BackEnd/src/main/resources/db/changelog/` | Lê `DB_URL`, `DB_USERNAME` e `DB_PASSWORD` (ou propriedades padrão) e falha na inicialização se a conexão/migração falhar. |
 
 ## 5. Decisões arquiteturais
 
@@ -103,13 +107,13 @@ flowchart TB
 - **Consequências e trade-offs:** A solução reduz dependências externas e mantém o servidor simples. Em contrapartida, roteamento, tratamento HTTP, CORS e outros recursos precisam ser mantidos pela própria equipe.
 - **Evidência no repositório:** `BackEnd/src/main/java/conexaosolidaria/server/ApplicationServer.java`, `RouteHandler.java`, `JsonResponse.java`, `Main.java` e `BackEnd/pom.xml`.
 
-### DA-04 — Persistência atual em memória
+### DA-04 — Persistência PostgreSQL dos modelos ativos
 
-- **Contexto:** Os serviços precisam armazenar e consultar usuários, ofertas, solicitações, demandas e demais entidades. Os repositórios verificados utilizam mapas concorrentes.
-- **Decisão:** A implementação atualmente disponível utiliza repositórios em memória (`ConcurrentHashMap`/`ConcurrentMap`), sem persistência relacional ativa identificada.
+- **Contexto:** Os serviços precisam preservar usuários, ofertas, solicitações, demandas e demais entidades após a reinicialização. O schema Liquibase preexistente não corresponde aos modelos ativos do backend.
+- **Decisão:** Usar JDBC e Liquibase; os repositórios do servidor carregam e salvam objetos serializados na tabela PostgreSQL `backend_entity_store`. Os construtores sem banco permanecem para testes unitários.
 - **Requisitos/atributos de qualidade:** `RNF-04` (integridade das quantidades) e `RNF-11` (rastreabilidade).
-- **Consequências e trade-offs:** O armazenamento em memória simplifica a execução, mas os dados são perdidos quando o processo é encerrado ou reiniciado. Existem configurações de PostgreSQL e changelogs Liquibase, porém não foi comprovada conexão ativa.
-- **Evidência no repositório:** `BackEnd/src/main/java/conexaosolidaria/repository/OfertaRepository.java`, `UsuarioRepository.java`, demais classes de `repository/`, `BackEnd/src/main/resources/application.properties`, `BackEnd/src/main/resources/db/changelog/` e `BackEnd/pom.xml`.
+- **Consequências e trade-offs:** Os registros deixam de ser perdidos ao reiniciar o processo, mas a tabela de compatibilidade não é normalizada nem expõe os campos das entidades para consultas SQL. As credenciais do PostgreSQL devem ser configuradas no ambiente; neste workspace, a senha anteriormente declarada foi rejeitada pelo servidor local, por isso a migração não foi validada nele.
+- **Evidência no repositório:** `BackEnd/src/main/java/conexaosolidaria/repository/DatabaseStore.java`, repositórios, `BackEnd/src/main/resources/db/changelog/changes/backend_entity_store.xml` e `BackEnd/src/main/resources/application.properties`.
 
 ### DA-05 — Frontend web estático com estado local
 
@@ -125,7 +129,7 @@ flowchart TB
 flowchart TB
     Cliente["Cliente / navegador"] --> Frontend["Arquivos estáticos do frontend"]
     Backend["Processo Java 17"] --> Servidor["Servidor HTTP — porta 8080"]
-    Servidor --> Memoria[("Repositórios em memória")]
+    Servidor --> PostgreSQL[("PostgreSQL")]
     Cliente -. "integração com API não identificada no frontend atual" .-> Servidor
 ```
 
@@ -141,9 +145,9 @@ flowchart TB
 
 | Risco | Probabilidade | Impacto | Mitigação | Issue |
 |---|---|---|---|---|
-| Perda dos dados ao reiniciar o backend, devido ao uso de repositórios em memória. | Alta | Alta | Implementar e testar persistência real em banco relacional; validar a recuperação dos dados após reinicialização. | A abrir; relacionado à arquitetura `#28`. |
+| Tabela de compatibilidade armazena objetos binários e não permite consultar os campos do domínio diretamente em SQL. | Média | Média | Migrar gradualmente para tabelas relacionais alinhadas aos modelos ativos. | A abrir; relacionado à arquitetura `#28`. |
 | Frontend sem integração efetiva com a API do backend na versão analisada. | Alta | Alta | Implementar chamadas HTTP no frontend, tratar respostas e erros e validar os fluxos ponta a ponta. | A abrir; relacionado à arquitetura `#28`. |
-| Configurações de PostgreSQL/Liquibase presentes, mas sem integração ativa comprovada. | Média | Alta | Alinhar dependências, configuração, repositórios e migrações; documentar e testar a inicialização do banco. | A abrir; relacionado à arquitetura `#28`. |
+| Credenciais configuradas podem não corresponder às do PostgreSQL do ambiente. | Média | Alta | Definir `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`; validar a migração e a persistência com o banco do ambiente. | A abrir; relacionado à arquitetura `#28`. |
 | Concentração da montagem de dependências e do registro de rotas em `ApplicationConfig`. | Média | Média | Avaliar a divisão da configuração por módulos ou grupos de funcionalidades, mantendo explícita a composição. | A abrir; relacionado à arquitetura `#28`. |
 | Regras de autorização distribuídas entre controllers e serviços. | Média | Alta | Concluir a migração das verificações para a camada de serviços, conforme decisão registrada no documento de decisões do projeto. | Acompanhar decisão registrada em `docs/projeto/decisoes-de-projeto.md`. |
 | Uso de CORS com origem `*` no servidor HTTP. | Média | Alta | Restringir as origens permitidas aos domínios utilizados nos ambientes de execução e validar as requisições autorizadas. | A abrir; relacionado à arquitetura `#28`. |
@@ -160,11 +164,11 @@ flowchart TB
 | Controllers e endpoints | `BackEnd/src/main/java/conexaosolidaria/controller/`. |
 | Regras e casos de uso | `BackEnd/src/main/java/conexaosolidaria/service/`. |
 | Autenticação e autorização | `BackEnd/src/main/java/conexaosolidaria/security/`. |
-| Repositórios em memória | `BackEnd/src/main/java/conexaosolidaria/repository/`. |
+| Repositórios e armazenamento JDBC | `BackEnd/src/main/java/conexaosolidaria/repository/`. |
 | Entidades e estados do domínio | `BackEnd/src/main/java/conexaosolidaria/model/`. |
 | Objetos de transferência e exceções | `BackEnd/src/main/java/conexaosolidaria/dto/` e `BackEnd/src/main/java/conexaosolidaria/exception/`. |
 | Configuração de build e versão Java | `BackEnd/pom.xml`. |
-| Configuração declarada de banco de dados | `BackEnd/src/main/resources/application.properties` (configuração existente, sem integração ativa comprovada). |
-| Migrações declaradas | `BackEnd/src/main/resources/db/changelog/` (arquivos existentes; execução não comprovada). |
+| Configuração PostgreSQL | `BackEnd/src/main/resources/application.properties` e variáveis `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`. |
+| Migrações Liquibase | `BackEnd/src/main/resources/db/changelog/`; aplicadas ao iniciar o servidor, pendentes de validação neste ambiente por credenciais rejeitadas. |
 | Requisitos funcionais e não funcionais | `docs/requisitos/requisitos.md`. |
 | Decisões locais de projeto | `docs/projeto/decisoes-de-projeto.md`. |

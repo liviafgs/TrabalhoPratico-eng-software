@@ -17,6 +17,7 @@ import conexaosolidaria.controller.SolicitacaoOfertaController;
 import conexaosolidaria.controller.UsuarioController;
 import conexaosolidaria.repository.AlimentoRepository;
 import conexaosolidaria.repository.ConsumoPerCapitaRepository;
+import conexaosolidaria.repository.DatabaseStore;
 import conexaosolidaria.repository.DemandaRepository;
 import conexaosolidaria.repository.EstabelecimentoRepository;
 import conexaosolidaria.repository.HistoricoSolicitacaoRepository;
@@ -51,17 +52,23 @@ import conexaosolidaria.service.UsuarioService;
 
 public class ApplicationConfig {
         public ApplicationServer createServer(int port) {
-                UsuarioRepository usuarioRepository = new UsuarioRepository();
-                OfertaRepository ofertaRepository = new OfertaRepository();
-                SolicitacaoOfertaRepository solicitacaoOfertaRepository = new SolicitacaoOfertaRepository();
-                HistoricoSolicitacaoRepository historicoSolicitacaoRepository = new HistoricoSolicitacaoRepository();
-                DemandaRepository demandaRepository = new DemandaRepository();
-                ConsumoPerCapitaRepository consumoPerCapitaRepository = new ConsumoPerCapitaRepository();
-                EstabelecimentoRepository estabelecimentoRepository = new EstabelecimentoRepository();
-                InstituicaoRepository instituicaoRepository = new InstituicaoRepository();
-                NutricionistaRepository nutricionistaRepository = new NutricionistaRepository();
-                AlimentoRepository alimentoRepository = new AlimentoRepository();
-                PerfilAtendimentoInstituicaoRepository perfilAtendimentoRepository = new PerfilAtendimentoInstituicaoRepository();
+                DatabaseStore databaseStore = DatabaseStore.configured();
+                databaseStore.migrate();
+
+                UsuarioRepository usuarioRepository = new UsuarioRepository(databaseStore);
+                OfertaRepository ofertaRepository = new OfertaRepository(databaseStore);
+                SolicitacaoOfertaRepository solicitacaoOfertaRepository = new SolicitacaoOfertaRepository(
+                                databaseStore);
+                HistoricoSolicitacaoRepository historicoSolicitacaoRepository = new HistoricoSolicitacaoRepository(
+                                databaseStore);
+                DemandaRepository demandaRepository = new DemandaRepository(databaseStore);
+                ConsumoPerCapitaRepository consumoPerCapitaRepository = new ConsumoPerCapitaRepository(databaseStore);
+                EstabelecimentoRepository estabelecimentoRepository = new EstabelecimentoRepository(databaseStore);
+                InstituicaoRepository instituicaoRepository = new InstituicaoRepository(databaseStore);
+                NutricionistaRepository nutricionistaRepository = new NutricionistaRepository(databaseStore);
+                AlimentoRepository alimentoRepository = new AlimentoRepository(databaseStore);
+                PerfilAtendimentoInstituicaoRepository perfilAtendimentoRepository = new PerfilAtendimentoInstituicaoRepository(
+                                databaseStore);
 
                 PasswordHasher passwordHasher = new PasswordHasher();
                 TokenService tokenService = new TokenService();
@@ -105,7 +112,7 @@ public class ApplicationConfig {
                                 estabelecimentoRepository, correspondenciaService, accessControl);
                 OportunidadeController oportunidadeController = new OportunidadeController(
                                 authService, oportunidadeService);
-                NotificacaoRepository notificacaoRepository = new NotificacaoRepository();
+                NotificacaoRepository notificacaoRepository = new NotificacaoRepository(databaseStore);
                 NotificacaoService notificacaoService = new NotificacaoService(
                                 notificacaoRepository, accessControl, ofertaRepository, demandaRepository,
                                 instituicaoRepository, estabelecimentoRepository, correspondenciaService);
@@ -149,9 +156,12 @@ public class ApplicationConfig {
                 server.register("POST", "/instituicoes/habilitar", instituicaoController::habilitar);
                 server.register("POST", "/instituicoes/perfil-atendimento", perfilAtendimentoController::cadastrar);
                 server.register("GET", "/instituicoes/perfil-atendimento", perfilAtendimentoController::consultar);
+                server.register("GET", "/instituicoes/perfil-atendimento/me",
+                                perfilAtendimentoController::consultarDoUsuario);
                 server.register("POST", "/nutricionistas", nutricionistaController::cadastrar);
                 server.register("GET", "/nutricionistas", nutricionistaController::listar);
                 server.register("GET", "/nutricionistas/consultar", nutricionistaController::consultar);
+                server.register("GET", "/nutricionistas/me", nutricionistaController::consultarDoUsuario);
                 server.register("POST", "/alimentos", alimentoController::cadastrar);
                 server.register("GET", "/alimentos", alimentoController::listar);
                 server.register("POST", "/ofertas", ofertaController::cadastrar);

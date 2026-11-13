@@ -2,6 +2,7 @@ package conexaosolidaria.service;
 
 import conexaosolidaria.dto.AuthenticatedUser;
 import conexaosolidaria.exception.ApiException;
+import conexaosolidaria.model.Instituicao;
 import conexaosolidaria.model.PerfilAtendimentoInstituicao;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.repository.InstituicaoRepository;
@@ -52,6 +53,12 @@ public class PerfilAtendimentoInstituicaoService {
         return perfilRepository.findByInstituicaoId(idInstituicao)
                 .orElseThrow(
                         () -> new ApiException(404, "Perfil de atendimento nao encontrado para esta instituicao."));
+    }
+
+    public PerfilAtendimentoInstituicao consultarPorUsuario(long idUsuario) {
+        Instituicao instituicao = instituicaoRepository.findByUsuarioId(idUsuario)
+                .orElseThrow(() -> new ApiException(404, "Instituicao nao encontrada para este usuario."));
+        return consultarPorInstituicao(instituicao.getId());
     }
 
     private void validarUsuario(AuthenticatedUser user) {

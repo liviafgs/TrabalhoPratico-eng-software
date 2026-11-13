@@ -3,7 +3,7 @@ package conexaosolidaria.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Oferta {
+public class Oferta implements java.io.Serializable {
     private final long id;
     private final long idUsuarioDoador;
     private final long idAlimento;

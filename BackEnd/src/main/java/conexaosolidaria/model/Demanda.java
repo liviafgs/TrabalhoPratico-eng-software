@@ -17,7 +17,8 @@ public class Demanda implements java.io.Serializable {
     private final boolean acimaDaReferencia;
     private final String justificativa;
 
-    public Demanda(long id, long idUsuarioInstituicao, String alimento, double quantidade, String unidadeMedida, LocalDate prazo, String prioridade) {
+    public Demanda(long id, long idUsuarioInstituicao, String alimento, double quantidade, String unidadeMedida,
+            LocalDate prazo, String prioridade) {
         this(id, idUsuarioInstituicao, alimento, quantidade, unidadeMedida, prazo, prioridade,
                 null, 0, null, null, false, null);
     }

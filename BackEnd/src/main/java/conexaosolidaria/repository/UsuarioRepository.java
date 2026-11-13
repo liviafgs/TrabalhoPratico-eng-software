@@ -23,8 +23,7 @@ public class UsuarioRepository {
         this.databaseStore = databaseStore;
         usuariosPorId = databaseStore == null ? new ConcurrentHashMap<>()
                 : databaseStore.map("usuario", Usuario::getId, Usuario.class);
-        usuariosPorId.values().forEach(usuario ->
-                idsPorEmail.put(normalizeEmail(usuario.getEmail()), usuario.getId()));
+        usuariosPorId.values().forEach(usuario -> idsPorEmail.put(normalizeEmail(usuario.getEmail()), usuario.getId()));
     }
 
     public Usuario save(Usuario usuario) {
@@ -35,8 +34,7 @@ public class UsuarioRepository {
                 usuario.getEmail(),
                 usuario.getSenhaHash(),
                 usuario.getPerfil(),
-                usuario.getCriadoEm()
-        );
+                usuario.getCriadoEm());
 
         usuariosPorId.put(salvo.getId(), salvo);
         idsPorEmail.put(normalizeEmail(salvo.getEmail()), salvo.getId());

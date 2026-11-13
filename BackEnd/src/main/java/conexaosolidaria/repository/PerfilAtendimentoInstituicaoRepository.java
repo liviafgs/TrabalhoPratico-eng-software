@@ -24,8 +24,7 @@ public class PerfilAtendimentoInstituicaoRepository {
         perfisPorId = databaseStore == null ? new ConcurrentHashMap<>()
                 : databaseStore.map("perfil_atendimento", PerfilAtendimentoInstituicao::getId,
                         PerfilAtendimentoInstituicao.class);
-        perfisPorId.values().forEach(perfil ->
-                idsPorInstituicao.put(perfil.getIdInstituicao(), perfil.getId()));
+        perfisPorId.values().forEach(perfil -> idsPorInstituicao.put(perfil.getIdInstituicao(), perfil.getId()));
     }
 
     public PerfilAtendimentoInstituicao save(PerfilAtendimentoInstituicao perfil) {

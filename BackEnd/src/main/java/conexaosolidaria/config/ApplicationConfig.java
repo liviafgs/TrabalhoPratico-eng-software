@@ -57,15 +57,18 @@ public class ApplicationConfig {
 
                 UsuarioRepository usuarioRepository = new UsuarioRepository(databaseStore);
                 OfertaRepository ofertaRepository = new OfertaRepository(databaseStore);
-                SolicitacaoOfertaRepository solicitacaoOfertaRepository = new SolicitacaoOfertaRepository(databaseStore);
-                HistoricoSolicitacaoRepository historicoSolicitacaoRepository = new HistoricoSolicitacaoRepository(databaseStore);
+                SolicitacaoOfertaRepository solicitacaoOfertaRepository = new SolicitacaoOfertaRepository(
+                                databaseStore);
+                HistoricoSolicitacaoRepository historicoSolicitacaoRepository = new HistoricoSolicitacaoRepository(
+                                databaseStore);
                 DemandaRepository demandaRepository = new DemandaRepository(databaseStore);
                 ConsumoPerCapitaRepository consumoPerCapitaRepository = new ConsumoPerCapitaRepository(databaseStore);
                 EstabelecimentoRepository estabelecimentoRepository = new EstabelecimentoRepository(databaseStore);
                 InstituicaoRepository instituicaoRepository = new InstituicaoRepository(databaseStore);
                 NutricionistaRepository nutricionistaRepository = new NutricionistaRepository(databaseStore);
                 AlimentoRepository alimentoRepository = new AlimentoRepository(databaseStore);
-                PerfilAtendimentoInstituicaoRepository perfilAtendimentoRepository = new PerfilAtendimentoInstituicaoRepository(databaseStore);
+                PerfilAtendimentoInstituicaoRepository perfilAtendimentoRepository = new PerfilAtendimentoInstituicaoRepository(
+                                databaseStore);
 
                 PasswordHasher passwordHasher = new PasswordHasher();
                 TokenService tokenService = new TokenService();
@@ -153,7 +156,8 @@ public class ApplicationConfig {
                 server.register("POST", "/instituicoes/habilitar", instituicaoController::habilitar);
                 server.register("POST", "/instituicoes/perfil-atendimento", perfilAtendimentoController::cadastrar);
                 server.register("GET", "/instituicoes/perfil-atendimento", perfilAtendimentoController::consultar);
-                server.register("GET", "/instituicoes/perfil-atendimento/me", perfilAtendimentoController::consultarDoUsuario);
+                server.register("GET", "/instituicoes/perfil-atendimento/me",
+                                perfilAtendimentoController::consultarDoUsuario);
                 server.register("POST", "/nutricionistas", nutricionistaController::cadastrar);
                 server.register("GET", "/nutricionistas", nutricionistaController::listar);
                 server.register("GET", "/nutricionistas/consultar", nutricionistaController::consultar);

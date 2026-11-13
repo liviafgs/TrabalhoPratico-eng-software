@@ -150,8 +150,8 @@ public class DatabaseStore {
                 String name = type.getName();
                 return type.isPrimitive() || name.startsWith("conexaosolidaria.model.")
                         || name.startsWith("java.lang.") || name.startsWith("java.time.")
-                        ? ObjectInputFilter.Status.ALLOWED
-                        : ObjectInputFilter.Status.REJECTED;
+                                ? ObjectInputFilter.Status.ALLOWED
+                                : ObjectInputFilter.Status.REJECTED;
             });
             Object value = input.readObject();
             if (!valueType.isInstance(value)) {

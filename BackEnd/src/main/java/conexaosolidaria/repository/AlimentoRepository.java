@@ -23,8 +23,8 @@ public class AlimentoRepository {
         this.databaseStore = databaseStore;
         alimentosPorId = databaseStore == null ? new ConcurrentHashMap<>()
                 : databaseStore.map("alimento", Alimento::getId, Alimento.class);
-        alimentosPorId.values().forEach(alimento ->
-                idsPorNome.put(normalizeNome(alimento.getNome()), alimento.getId()));
+        alimentosPorId.values()
+                .forEach(alimento -> idsPorNome.put(normalizeNome(alimento.getNome()), alimento.getId()));
     }
 
     public Alimento save(Alimento alimento) {

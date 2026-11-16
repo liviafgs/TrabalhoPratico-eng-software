@@ -2,6 +2,7 @@ package conexaosolidaria.service;
 
 import conexaosolidaria.dto.AuthenticatedUser;
 import conexaosolidaria.exception.ApiException;
+import conexaosolidaria.model.Instituicao;
 import conexaosolidaria.model.NutricionistaResponsavel;
 import conexaosolidaria.model.PerfilUsuario;
 import conexaosolidaria.repository.InstituicaoRepository;
@@ -65,6 +66,12 @@ public class NutricionistaService {
         return nutricionistaRepository.findByInstituicaoId(idInstituicao)
                 .orElseThrow(
                         () -> new ApiException(404, "Nutricionista responsavel nao encontrado para esta instituicao."));
+    }
+
+    public NutricionistaResponsavel consultarDoUsuario(long idUsuario) {
+        Instituicao instituicao = instituicaoRepository.findByUsuarioId(idUsuario)
+                .orElseThrow(() -> new ApiException(404, "Instituicao nao encontrada para este usuario."));
+        return consultarPorInstituicao(instituicao.getId());
     }
 
     public List<NutricionistaResponsavel> listarTodos() {

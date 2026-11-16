@@ -32,4 +32,17 @@
 - Manifestação de interesse e conexão entre instituições e estabelecimentos doadores.
 - Acompanhamento do status das doações.
 
+## 3. Execução do backend
+
+O backend requer Java 17, Maven e PostgreSQL. Na inicialização, o Liquibase aplica as migrações e os repositórios persistem os dados no banco `conexao_solidaria`. Configure as credenciais do PostgreSQL no ambiente antes de iniciar:
+
+```bash
+export DB_URL=jdbc:postgresql://localhost:5432/conexao_solidaria
+export DB_USERNAME=conexao_solidaria
+export DB_PASSWORD='sua-senha-do-postgres'
+mvn -f BackEnd/pom.xml clean compile exec:java
+```
+
+`DB_URL`, `DB_USERNAME` e `DB_PASSWORD` substituem os valores padrão de `BackEnd/src/main/resources/application.properties`. O servidor HTTP inicia na porta 8080 somente após conectar ao banco e executar as migrações.
+
 

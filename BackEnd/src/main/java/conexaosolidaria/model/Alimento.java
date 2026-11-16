@@ -3,7 +3,7 @@ package conexaosolidaria.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Alimento {
+public class Alimento implements java.io.Serializable {
     private final long id;
     private final String nome;
     private final String categoria;

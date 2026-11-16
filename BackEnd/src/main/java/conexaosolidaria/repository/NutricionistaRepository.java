@@ -10,13 +10,29 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class NutricionistaRepository {
-    private final ConcurrentMap<Long, NutricionistaResponsavel> nutricionistasPorId = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<Long, NutricionistaResponsavel> nutricionistasPorId;
     private final ConcurrentMap<Long, Long> idsPorUsuario = new ConcurrentHashMap<>();
     private final ConcurrentMap<Long, Long> idsPorInstituicao = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(1);
 
+    public NutricionistaRepository() {
+        this(null);
+    }
+
+    public NutricionistaRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        nutricionistasPorId = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("nutricionista", NutricionistaResponsavel::getId,
+                        NutricionistaResponsavel.class);
+        nutricionistasPorId.values().forEach(nutricionista -> {
+            idsPorUsuario.put(nutricionista.getIdUsuario(), nutricionista.getId());
+            idsPorInstituicao.put(nutricionista.getIdInstituicao(), nutricionista.getId());
+        });
+    }
+
     public NutricionistaResponsavel save(NutricionistaResponsavel nutricionista) {
-        long id = nutricionista.getId() == 0 ? sequence.getAndIncrement() : nutricionista.getId();
+        long id = nutricionista.getId() == 0 ? nextId() : nutricionista.getId();
         NutricionistaResponsavel salvo = new NutricionistaResponsavel(
                 id,
                 nutricionista.getIdUsuario(),
@@ -56,5 +72,9 @@ public class NutricionistaRepository {
 
     public boolean existsByInstituicao(long idInstituicao) {
         return idsPorInstituicao.containsKey(idInstituicao);
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 }

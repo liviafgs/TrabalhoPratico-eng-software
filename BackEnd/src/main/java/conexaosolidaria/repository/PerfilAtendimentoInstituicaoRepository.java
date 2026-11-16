@@ -10,12 +10,25 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class PerfilAtendimentoInstituicaoRepository {
-    private final ConcurrentMap<Long, PerfilAtendimentoInstituicao> perfisPorId = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<Long, PerfilAtendimentoInstituicao> perfisPorId;
     private final ConcurrentMap<Long, Long> idsPorInstituicao = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(1);
 
+    public PerfilAtendimentoInstituicaoRepository() {
+        this(null);
+    }
+
+    public PerfilAtendimentoInstituicaoRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        perfisPorId = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("perfil_atendimento", PerfilAtendimentoInstituicao::getId,
+                        PerfilAtendimentoInstituicao.class);
+        perfisPorId.values().forEach(perfil -> idsPorInstituicao.put(perfil.getIdInstituicao(), perfil.getId()));
+    }
+
     public PerfilAtendimentoInstituicao save(PerfilAtendimentoInstituicao perfil) {
-        long id = perfil.getId() == 0 ? sequence.getAndIncrement() : perfil.getId();
+        long id = perfil.getId() == 0 ? nextId() : perfil.getId();
         PerfilAtendimentoInstituicao salvo = new PerfilAtendimentoInstituicao(
                 id,
                 perfil.getIdInstituicao(),
@@ -41,5 +54,9 @@ public class PerfilAtendimentoInstituicaoRepository {
 
     public boolean existsByInstituicaoId(long idInstituicao) {
         return idsPorInstituicao.containsKey(idInstituicao);
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 }

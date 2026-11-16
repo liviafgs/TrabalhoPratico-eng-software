@@ -50,6 +50,13 @@ public class NutricionistaController {
         JsonResponse.send(exchange, 200, Map.of("nutricionista", toMap(nutricionista)));
     }
 
+    public void consultarDoUsuario(HttpExchange exchange) throws IOException {
+        AuthenticatedUser user = authService.authenticate(RequestUtils.authorizationHeader(exchange));
+        accessControl.require(user, Permissao.CONSULTAR_NUTRICIONISTAS);
+        NutricionistaResponsavel nutricionista = nutricionistaService.consultarDoUsuario(user.id());
+        JsonResponse.send(exchange, 200, Map.of("nutricionista", toMap(nutricionista)));
+    }
+
     public void listar(HttpExchange exchange) throws IOException {
         AuthenticatedUser user = authService.authenticate(RequestUtils.authorizationHeader(exchange));
         accessControl.require(user, Permissao.CONSULTAR_NUTRICIONISTAS);

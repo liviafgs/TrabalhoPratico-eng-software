@@ -9,11 +9,22 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class DemandaRepository {
-    private final ConcurrentMap<Long, Demanda> demandas = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<Long, Demanda> demandas;
     private final AtomicLong sequence = new AtomicLong(1);
 
+    public DemandaRepository() {
+        this(null);
+    }
+
+    public DemandaRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        demandas = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("demanda", Demanda::getId, Demanda.class);
+    }
+
     public Demanda save(Demanda demanda) {
-        long id = demanda.getId() == 0 ? sequence.getAndIncrement() : demanda.getId();
+        long id = demanda.getId() == 0 ? nextId() : demanda.getId();
         Demanda salva = new Demanda(
                 id,
                 demanda.getIdUsuarioInstituicao(),
@@ -27,8 +38,7 @@ public class DemandaRepository {
                 demanda.getConsumoPerCapita(),
                 demanda.getQuantidadeReferencia(),
                 demanda.isAcimaDaReferencia(),
-                demanda.getJustificativa()
-        );
+                demanda.getJustificativa());
 
         demandas.put(salva.getId(), salva);
         return salva;
@@ -36,5 +46,9 @@ public class DemandaRepository {
 
     public List<Demanda> findAll() {
         return new ArrayList<>(demandas.values());
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 }

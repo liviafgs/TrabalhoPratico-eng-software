@@ -7,29 +7,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body data-api-base="http://localhost:8080">
 
 <header class="header">
     <div>
         <h1>Conexão Solidária</h1>
-        <p>Doação que conecta, alimento que transforma.</p>
+        <p><span id="nomeUsuario">Acesso à rede solidária</span> <span id="perfilUsuario"></span></p>
     </div>
 
-    <button id="logoutBtn" type="button">Sair</button>
+    <button id="logoutBtn" type="button" hidden>Sair</button>
 </header>
 
-<div class="layout">
+<p id="globalMessage" class="global-message" role="status" aria-live="polite" hidden></p>
+
+<div id="appShell" class="layout" hidden>
 
     <aside class="sidebar">
         <button class="menu active" data-page="inicio">Início</button>
         <button class="menu" data-page="ofertas">Ofertas disponíveis</button>
-        <button class="menu" data-page="demanda">Cadastrar demanda</button>
         <button class="menu" data-page="solicitacoes">Minhas solicitações</button>
         <button class="menu" data-page="cadastro">Meu cadastro</button>
+        <button class="menu" data-page="notificacoes">Notificações <span id="totalNotificacoes">0</span></button>
 
-        <div id="menuDoador" style="display: none;">
+        <div id="menuDoador" hidden>
             <button class="menu" data-page="novaOferta">Cadastrar oferta</button>
             <button class="menu" data-page="demandas">Consultar demandas</button>
+        </div>
+        <div id="menuInstituicao" hidden>
+            <button class="menu" data-page="demanda">Cadastrar demanda</button>
         </div>
     </aside>
 
@@ -58,12 +63,16 @@
             </div>
 
             <div class="actions">
-                <button class="primary" onclick="mostrarPagina('ofertas')">
+                <button class="primary" type="button" data-page-link="ofertas">
                     Ver ofertas
                 </button>
 
-                <button class="secondary" onclick="mostrarPagina('demanda')">
+                <button id="homeDemandLink" class="secondary" type="button" data-page-link="demanda">
                     Cadastrar demanda
+                </button>
+
+                <button class="secondary" type="button" data-action="refresh">
+                    Atualizar dados
                 </button>
             </div>
         </section>
@@ -95,9 +104,7 @@
                     <input id="filtroData" type="date">
                 </div>
 
-                <button class="secondary"
-                        type="button"
-                        onclick="filtrarOfertas()">
+                <button id="filtrarOfertasBtn" class="secondary" type="button">
                     Filtrar
                 </button>
 
@@ -120,6 +127,16 @@
                        type="text"
                        required>
 
+                <label for="ofertaCategoria">Categoria do alimento *</label>
+                <select id="ofertaCategoria" required>
+                    <option value="">Selecione</option>
+                    <option value="Grãos">Grãos</option>
+                    <option value="Hortifruti">Hortifruti</option>
+                    <option value="Laticínios">Laticínios</option>
+                    <option value="Proteínas">Proteínas</option>
+                    <option value="Outros">Outros</option>
+                </select>
+
                 <label for="ofertaQuantidade">Quantidade *</label>
                 <input id="ofertaQuantidade"
                        type="number"
@@ -139,6 +156,9 @@
                 <input id="ofertaData"
                        type="date"
                        required>
+
+                  <label for="ofertaValidade">Validade do alimento</label>
+                  <input id="ofertaValidade" type="date">
 
                 <label for="ofertaLocal">Local de retirada *</label>
                 <input id="ofertaLocal"
@@ -304,48 +324,74 @@
             <h2>Meu cadastro</h2>
 
             <div class="profile">
-
-                <h3 id="nomePerfil">
-                    Instituição Esperança
-                </h3>
-
-                <p id="tipoPerfil">
-                    Instituição beneficiária
-                </p>
-
-                <span class="status">
-                    Habilitada
-                </span>
-
+                <h3 id="nomePerfil"></h3>
+                <p id="tipoPerfil"></p>
+                <span id="statusPerfil" class="status"></span>
+                <button id="habilitarInstituicaoBtn" class="secondary" type="button"
+                        data-action="enable-institution" hidden>Habilitar instituição</button>
                 <hr>
-
-                <p>
-                    <strong>Responsável:</strong>
-                    Maria da Silva
-                </p>
-
-                <p>
-                    <strong>Nutricionista:</strong>
-                    CRN 12345
-                </p>
-
-                <p>
-                    <strong>Pessoas atendidas:</strong>
-                    30
-                </p>
-
-                <p>
-                    <strong>Capacidade:</strong>
-                    50 pessoas
-                </p>
-
-                <p>
-                    <strong>Público atendido:</strong>
-                    Famílias em vulnerabilidade
-                </p>
-
+                <p><strong>Conta:</strong> <span id="nomeConta"></span></p>
+                <p><strong>E-mail:</strong> <span id="emailConta"></span></p>
             </div>
 
+            <form id="formPerfilOrganizacao" hidden>
+                <h3>Dados da organização</h3>
+                <label for="campoOrganizacaoNome">Nome *</label>
+                <input id="campoOrganizacaoNome" required>
+                <label for="campoOrganizacaoCnpj">CNPJ *</label>
+                <input id="campoOrganizacaoCnpj" inputmode="numeric" minlength="14" maxlength="14" required>
+                <label for="campoOrganizacaoEndereco">Endereço *</label>
+                <input id="campoOrganizacaoEndereco" required>
+                <label for="campoOrganizacaoContato">Contato *</label>
+                <input id="campoOrganizacaoContato" required>
+                <button class="primary" type="submit">Salvar cadastro</button>
+            </form>
+
+            <section id="perfilAtendimento" class="profile" hidden>
+                <h3>Perfil de atendimento</h3>
+                <p><strong>Pessoas atendidas:</strong> <span id="numeroBeneficiariosPerfil">-</span></p>
+                <p><strong>Capacidade:</strong> <span id="capacidadePerfil">-</span></p>
+                <p><strong>Público atendido:</strong> <span id="publicoPerfil">-</span></p>
+                <p><strong>Frequência:</strong> <span id="frequenciaPerfil">-</span></p>
+            </section>
+
+            <form id="formPerfilAtendimento" hidden>
+                <h3>Cadastrar perfil de atendimento</h3>
+                <label for="perfilNumeroBeneficiarios">Pessoas atendidas *</label>
+                <input id="perfilNumeroBeneficiarios" type="number" min="0" step="1" required>
+                <label for="perfilCapacidade">Capacidade de atendimento *</label>
+                <input id="perfilCapacidade" type="number" min="0" step="1" required>
+                <label for="perfilPublico">Público atendido *</label>
+                <input id="perfilPublico" required>
+                <label for="perfilFrequencia">Frequência de atendimento *</label>
+                <input id="perfilFrequencia" required>
+                <button class="primary" type="submit">Salvar perfil de atendimento</button>
+            </form>
+
+            <section id="dadosNutricionista" class="profile" hidden>
+                <h3>Nutricionista responsável</h3>
+                <p><strong>Nome:</strong> <span id="nutricionistaNome">-</span></p>
+                <p><strong>CRN:</strong> <span id="nutricionistaCrn">-</span></p>
+                <p><strong>Contato:</strong> <span id="nutricionistaContato">-</span></p>
+            </section>
+
+            <form id="formNutricionista" hidden>
+                <h3>Cadastrar nutricionista responsável</h3>
+                <label for="nutricionistaNomeInput">Nome *</label>
+                <input id="nutricionistaNomeInput" required>
+                <label for="nutricionistaCrnInput">CRN *</label>
+                <input id="nutricionistaCrnInput" required>
+                <label for="nutricionistaContatoInput">Contato *</label>
+                <input id="nutricionistaContatoInput" required>
+                <button class="primary" type="submit">Salvar nutricionista</button>
+            </form>
+
+        </section>
+
+        <section id="notificacoes" class="page">
+            <h2>Notificações</h2>
+            <button class="secondary" type="button" data-action="mark-all-read">Marcar todas como lidas</button>
+            <div id="listaNotificacoes"></div>
         </section>
 
     </main>
@@ -355,27 +401,66 @@
 <!-- ESCOLHA DE PERFIL -->
 <div id="modalPerfil" class="modal">
 
-    <div class="modal-content">
+    <div class="modal-content auth-content">
 
         <h2>Conexão Solidária</h2>
+        <p>Acesse sua conta ou cadastre sua organização.</p>
+        <p id="authFeedback" class="form-feedback" role="alert"></p>
 
-        <p>Escolha o perfil para acessar a aplicação.</p>
+        <div id="loginPane">
+            <form id="formLogin">
+                <label for="loginEmail">E-mail</label>
+                <input id="loginEmail" type="email" autocomplete="email" required>
+                <label for="loginSenha">Senha</label>
+                <input id="loginSenha" type="password" autocomplete="current-password" required>
+                <button class="primary" type="submit">Entrar</button>
+            </form>
+            <button id="showRegisterBtn" class="text-button" type="button">Criar uma conta</button>
+        </div>
 
-        <button type="button"
-                onclick="selecionarPerfil('instituicao')">
-            Instituição beneficiária
-        </button>
-
-        <button type="button"
-                onclick="selecionarPerfil('doador')">
-            Estabelecimento doador
-        </button>
+        <div id="registerPane" hidden>
+            <form id="formConta">
+                <label for="novoNome">Nome do responsável</label>
+                <input id="novoNome" autocomplete="name" required>
+                <label for="novoEmail">E-mail</label>
+                <input id="novoEmail" type="email" autocomplete="email" required>
+                <label for="novaSenha">Senha</label>
+                <input id="novaSenha" type="password" minlength="8" autocomplete="new-password" required>
+                <label for="novoPerfil">Tipo de organização</label>
+                <select id="novoPerfil" required>
+                    <option value="">Selecione</option>
+                    <option value="ESTABELECIMENTO_DOADOR">Estabelecimento doador</option>
+                    <option value="INSTITUICAO_BENEFICIARIA">Instituição beneficiária</option>
+                </select>
+                <button class="primary" type="submit">Criar conta</button>
+            </form>
+            <button id="showLoginBtn" class="text-button" type="button">Já tenho uma conta</button>
+        </div>
 
     </div>
 
 </div>
 
-<script src="script.js"></script>
+<div id="cadastroOrganizacao" class="modal" style="display: none;">
+    <div class="modal-content organization-content">
+        <h2 id="tituloCadastroOrganizacao">Cadastre sua organização</h2>
+        <p>Esses dados serão associados à sua conta.</p>
+        <p id="organizationFeedback" class="form-feedback" role="alert"></p>
+        <form id="formCadastroOrganizacao">
+            <label for="organizacaoNome">Nome *</label>
+            <input id="organizacaoNome" required>
+            <label for="organizacaoCnpj">CNPJ *</label>
+            <input id="organizacaoCnpj" inputmode="numeric" minlength="14" maxlength="14" required>
+            <label for="organizacaoEndereco">Endereço *</label>
+            <input id="organizacaoEndereco" required>
+            <label for="organizacaoContato">Contato *</label>
+            <input id="organizacaoContato" required>
+            <button class="primary" type="submit">Salvar cadastro</button>
+        </form>
+    </div>
+</div>
+
+<script src="app.js"></script>
 
 </body>
 </html>

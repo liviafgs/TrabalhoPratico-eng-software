@@ -23,5 +23,6 @@
     <include file="db/changelog/changes/retirada.xml"/>
     <include file="db/changelog/changes/historico_status.xml"/>
     <include file="db/changelog/changes/notificacao.xml"/>
+    <include file="db/changelog/changes/backend_entity_store.xml"/>
 
 </databaseChangeLog>

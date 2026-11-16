@@ -10,12 +10,25 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class AlimentoRepository {
-    private final ConcurrentMap<Long, Alimento> alimentosPorId = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<Long, Alimento> alimentosPorId;
     private final ConcurrentMap<String, Long> idsPorNome = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(1);
 
+    public AlimentoRepository() {
+        this(null);
+    }
+
+    public AlimentoRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        alimentosPorId = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("alimento", Alimento::getId, Alimento.class);
+        alimentosPorId.values()
+                .forEach(alimento -> idsPorNome.put(normalizeNome(alimento.getNome()), alimento.getId()));
+    }
+
     public Alimento save(Alimento alimento) {
-        long id = alimento.getId() == 0 ? sequence.getAndIncrement() : alimento.getId();
+        long id = alimento.getId() == 0 ? nextId() : alimento.getId();
         Alimento salvo = new Alimento(
                 id,
                 alimento.getNome(),
@@ -44,5 +57,9 @@ public class AlimentoRepository {
 
     private String normalizeNome(String nome) {
         return nome == null ? "" : nome.trim().toLowerCase();
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 }

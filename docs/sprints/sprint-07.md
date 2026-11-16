@@ -3,7 +3,7 @@
 - **Data de entrega:** 16/11/2026
 - **Pontuação:** 2,5 pontos
 - **Tag obrigatória:** `sprint-07`
-- **Responsável por conferir este arquivo:** Equipe de desenvolvimento.
+- **Responsável por conferir este arquivo:** Lívia Fagundes
 
 ## 1. Pergunta que esta sprint deve responder
 

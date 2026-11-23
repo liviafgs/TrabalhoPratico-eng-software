@@ -6,7 +6,7 @@
 
 **Estilo arquitetural:** Cliente-servidor, com frontend web estático e backend Java organizado em camadas, executado como um monólito modular.
 
-**Justificativa:** A separação entre frontend e backend organiza a interface e as regras de negócio em partes distintas. No backend, os pacotes `server`, `controller`, `service`, `repository`, `model`, `security`, `dto`, `exception` e `config` separam responsabilidades e favorecem a manutenibilidade (RNF-10) e a rastreabilidade (RNF-11). A camada de serviços concentra casos de uso, enquanto os componentes de segurança apoiam autenticação e autorização (RNF-01 e RNF-02). O backend conecta-se ao PostgreSQL por JDBC, executa migrações com Liquibase e persiste os modelos ativos em uma tabela de compatibilidade. O frontend ainda não apresenta integração HTTP identificada com a API.
+**Justificativa:** A separação entre frontend e backend organiza a interface e as regras de negócio em partes distintas. No backend, os pacotes `server`, `controller`, `service`, `repository`, `model`, `security`, `dto`, `exception` e `config` separam responsabilidades e favorecem a manutenibilidade (RNF-10) e a rastreabilidade (RNF-11). A camada de serviços concentra casos de uso, enquanto os componentes de segurança apoiam autenticação e autorização (RNF-01 e RNF-02). O backend conecta-se ao PostgreSQL por JDBC, executa migrações com Liquibase e persiste os modelos ativos em uma tabela de compatibilidade. O frontend possui uma implementação de integração HTTP em `front-end/app.js` que utiliza `fetch` e token Bearer. A execução dos fluxos integrados ainda precisa ser comprovada por testes.
 
 ## 2. Diagrama de contexto
 
@@ -16,10 +16,10 @@ flowchart LR
     I[Instituição beneficiária] --> W
     A[Administrador] --> W
     N[Profissional nutricionista] --> W
-    W -. integração HTTP não identificada no frontend atual .-> API[Backend Conexão Solidária]
+    W -->|HTTP| API[Backend Conexão Solidária]
 ```
 
-**Descrição:** Estabelecimentos doadores, instituições beneficiárias, administradores e profissionais nutricionistas representam os perfis que utilizam o Conexão Solidária. Eles acessam a aplicação web por meio de um navegador. O backend disponibiliza rotas HTTP e reúne controllers, serviços, repositórios e componentes de segurança. A seta tracejada representa a separação prevista entre cliente e servidor; na versão do frontend analisada, não foram identificadas chamadas HTTP ao backend em `front-end/script.js`. As interações e os dados existentes no frontend são manipulados localmente.
+**Descrição:** Estabelecimentos doadores, instituições beneficiárias, administradores e profissionais nutricionistas representam os perfis que utilizam o Conexão Solidária. Eles acessam a aplicação web por meio de um navegador. O backend disponibiliza rotas HTTP e reúne controllers, serviços, repositórios e componentes de segurança. O frontend contém o arquivo `app.js`, que implementa chamadas HTTP à API. O arquivo `script.js` também contém uma versão/protótipo com estado local. A integração efetiva e os fluxos ponta a ponta precisam ser confirmados por execução e evidência.
 
 ## 3. Diagrama de contêineres/componentes
 
@@ -60,16 +60,16 @@ flowchart TB
     CONFIG --> PG
     REPO --> PG
 
-    JS -. "HTTP: integração não identificada no código atual" .-> HTTP
+    JS -->|HTTP fetch| HTTP
 ```
 
-> O frontend permanece sem chamadas HTTP identificadas para a API. Os construtores sem banco dos repositórios continuam disponíveis para os testes unitários.
+> O front-end possui chamadas HTTP implementadas em `app.js`; o arquivo `script.js` contém código de protótipo com dados locais. A validação ponta a ponta ainda depende de execução manual documentada. Os construtores sem banco dos repositórios continuam disponíveis para testes unitários.
 
 ## 4. Componentes e responsabilidades
 
 | Componente | Responsabilidade | Tecnologia | Diretório/serviço real | Comunicação |
 |---|---|---|---|---|
-| Frontend | Apresentar telas, navegação, formulários e interações do usuário. | HTML, CSS e JavaScript | `front-end/index.html`, `front-end/style.css`, `front-end/script.js` | Executado no navegador; na versão analisada, manipula dados e interações localmente. |
+| Frontend | Apresentar telas, navegação, formulários e interações do usuário. | HTML, CSS e JavaScript | `front-end/index.html`, `front-end/style.css`, `front-end/script.js` | Executado no navegador; o arquivo `app.js` implementa chamadas HTTP e o `script.js` mantém código de protótipo local. |
 | Inicialização | Criar a configuração da aplicação e iniciar o servidor na porta 8080. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/Main.java` | Chama `ApplicationConfig` e inicia `ApplicationServer`. |
 | Configuração | Instanciar repositórios, serviços, componentes de segurança e controllers; registrar rotas. | Java 17 | `BackEnd/src/main/java/conexaosolidaria/config/ApplicationConfig.java` | Injeta dependências por construtores e registra handlers no servidor HTTP. |
 | Servidor HTTP | Receber requisições, localizar rotas, aplicar CORS e converter erros em respostas HTTP/JSON. | `com.sun.net.httpserver.HttpServer` | `BackEnd/src/main/java/conexaosolidaria/server/` | Encaminha requisições aos handlers registrados. |
@@ -115,13 +115,13 @@ flowchart TB
 - **Consequências e trade-offs:** Os registros deixam de ser perdidos ao reiniciar o processo, mas a tabela de compatibilidade não é normalizada nem expõe os campos das entidades para consultas SQL. As credenciais do PostgreSQL devem ser configuradas no ambiente; neste workspace, a senha anteriormente declarada foi rejeitada pelo servidor local, por isso a migração não foi validada nele.
 - **Evidência no repositório:** `BackEnd/src/main/java/conexaosolidaria/repository/DatabaseStore.java`, repositórios, `BackEnd/src/main/resources/db/changelog/changes/backend_entity_store.xml` e `BackEnd/src/main/resources/application.properties`.
 
-### DA-05 — Frontend web estático com estado local
+### DA-05 — Frontend web estático com integração HTTP implementada
 
 - **Contexto:** A aplicação disponibiliza uma interface web com fluxos de ofertas, solicitações e demandas.
-- **Decisão:** O frontend existente é composto por arquivos estáticos HTML, CSS e JavaScript, com dados e operações manipulados no próprio `script.js`.
+- **Decisão:** O frontend é composto por HTML, CSS e JavaScript. O `app.js` contém integração HTTP (`fetch`) com a API, token Bearer e tratamento de erros; o `script.js` ainda contém uma implementação/protótipo de estado local.
 - **Requisitos/atributos de qualidade:** `RNF-06` (usabilidade), `RNF-07` (acessibilidade), `RNF-08` (compatibilidade) e `RNF-09` (responsividade).
-- **Consequências e trade-offs:** A interface pode ser executada sem um processo de build de framework frontend. Entretanto, enquanto não houver chamadas à API, os dados e ações do navegador não estarão integrados aos dados gerenciados pelo backend.
-- **Evidência no repositório:** `front-end/index.html`, `front-end/style.css` e `front-end/script.js`; não foram localizadas chamadas `fetch`, `XMLHttpRequest` ou referências ao endereço HTTP do backend no arquivo `script.js` analisado.
+- **Consequências e trade-offs:** A interface pode ser executada sem um processo de build de framework frontend. A integração HTTP está presente no código, mas os fluxos completos e a persistência compartilhada devem ser comprovados com testes ponta a ponta.
+- **Evidência no repositório:** `front-end/index.html`, `front-end/style.css` e `front-end/script.js`; há chamadas `fetch` em `front-end/app.js`, usando a URL-base configurável pelo atributo `data-api-base` no HTML. O funcionamento integrado ainda requer evidência de execução.
 
 ## 6. Implantação e execução
 
@@ -130,7 +130,7 @@ flowchart TB
     Cliente["Cliente / navegador"] --> Frontend["Arquivos estáticos do frontend"]
     Backend["Processo Java 17"] --> Servidor["Servidor HTTP — porta 8080"]
     Servidor --> PostgreSQL[("PostgreSQL")]
-    Cliente -. "integração com API não identificada no frontend atual" .-> Servidor
+    Cliente -->|HTTP API| Servidor
 ```
 
 **Ambientes:**
@@ -138,7 +138,7 @@ flowchart TB
 | Ambiente | Endereço ou comando | Finalidade |
 |---|---|---|
 | Local | Na pasta `BackEnd/`: `mvn compile exec:java` | Desenvolvimento e testes do backend. Requer Maven e Java 17; o servidor é iniciado na porta 8080 (`http://localhost:8080`). |
-| Local — frontend | Abrir `front-end/index.html` no navegador ou servir a pasta `front-end/` por um servidor HTTP estático. | Visualizar e testar as interações locais da interface. |
+| Local — frontend | Abrir `front-end/index.html` no navegador ou servir a pasta `front-end/` por um servidor HTTP estático. | Visualizar e testar a interface; verificar chamadas HTTP e fluxos com o backend em execução. |
 | Publicado | Não informado no README consultado; o endereço da aplicação consta como “em andamento”. | Não há URL pública confirmada para demonstração nesta versão. |
 
 ## 7. Riscos arquiteturais
@@ -146,7 +146,7 @@ flowchart TB
 | Risco | Probabilidade | Impacto | Mitigação | Issue |
 |---|---|---|---|---|
 | Tabela de compatibilidade armazena objetos binários e não permite consultar os campos do domínio diretamente em SQL. | Média | Média | Migrar gradualmente para tabelas relacionais alinhadas aos modelos ativos. | A abrir; relacionado à arquitetura `#28`. |
-| Frontend sem integração efetiva com a API do backend na versão analisada. | Alta | Alta | Implementar chamadas HTTP no frontend, tratar respostas e erros e validar os fluxos ponta a ponta. | A abrir; relacionado à arquitetura `#28`. |
+| Integração HTTP do frontend com a API ainda sem evidência de validação ponta a ponta. | Alta | Alta | Validar os fluxos de chamadas HTTP existentes, tratar eventuais defeitos e registrar testes ponta a ponta. | A abrir; relacionado à arquitetura `#28`. |
 | Credenciais configuradas podem não corresponder às do PostgreSQL do ambiente. | Média | Alta | Definir `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`; validar a migração e a persistência com o banco do ambiente. | A abrir; relacionado à arquitetura `#28`. |
 | Concentração da montagem de dependências e do registro de rotas em `ApplicationConfig`. | Média | Média | Avaliar a divisão da configuração por módulos ou grupos de funcionalidades, mantendo explícita a composição. | A abrir; relacionado à arquitetura `#28`. |
 | Regras de autorização distribuídas entre controllers e serviços. | Média | Alta | Concluir a migração das verificações para a camada de serviços, conforme decisão registrada no documento de decisões do projeto. | Acompanhar decisão registrada em `docs/projeto/decisoes-de-projeto.md`. |
@@ -169,6 +169,6 @@ flowchart TB
 | Objetos de transferência e exceções | `BackEnd/src/main/java/conexaosolidaria/dto/` e `BackEnd/src/main/java/conexaosolidaria/exception/`. |
 | Configuração de build e versão Java | `BackEnd/pom.xml`. |
 | Configuração PostgreSQL | `BackEnd/src/main/resources/application.properties` e variáveis `DB_URL`, `DB_USERNAME` e `DB_PASSWORD`. |
-| Migrações Liquibase | `BackEnd/src/main/resources/db/changelog/`; aplicadas ao iniciar o servidor, pendentes de validação neste ambiente por credenciais rejeitadas. |
+| Migrações Liquibase | `BackEnd/src/main/resources/db/changelog/`; executadas na inicialização do backend. A conexão e a persistência no ambiente precisam de validação registrada na Sprint 8; o histórico da Sprint 7 relatou credenciais rejeitadas. |
 | Requisitos funcionais e não funcionais | `docs/requisitos/requisitos.md`. |
 | Decisões locais de projeto | `docs/projeto/decisoes-de-projeto.md`. |

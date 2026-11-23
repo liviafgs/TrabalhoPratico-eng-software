@@ -170,6 +170,6 @@ O comando executa os testes automatizados do backend utilizando Maven.
 
 ## 10. Links enviados no UFLA Virtual
 
-- **Tag `sprint-07`:** [COLAR LINK DA TAG]
-- **Este arquivo na tag:** [COLAR LINK DO ARQUIVO]
+- **Tag `sprint-07`:** https://docs.google.com/document/d/1CAGsjbnLvDWt6nbcKd8lLV9Hegs2ilwM/edit?usp=drive_link&ouid=117530274876184227669&rtpof=true&sd=true
+- **Este arquivo na tag:** https://github.com/liviafgs/TrabalhoPratico-eng-software/blob/main/docs/sprints/sprint-07.md
 - **Observação adicional:** A Sprint 7 contemplou o planejamento e as primeiras execuções verificáveis dos testes do Conexão Solidária. Foram registrados 66 testes automatizados aprovados e testes manuais com API simulada. A integração completa com PostgreSQL permanece pendente.

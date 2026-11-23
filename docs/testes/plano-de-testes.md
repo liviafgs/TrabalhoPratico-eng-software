@@ -158,3 +158,104 @@ mvn -f BackEnd/pom.xml test
 O Maven realiza o gerenciamento das dependências necessárias para a execução dos testes.
 
 **Observação:** A integração com PostgreSQL ainda precisa ser configurada e testada. Para isso, devem ser definidas as variáveis de ambiente `DB_URL`, `DB_USERNAME` e `DB_PASSWORD` com credenciais válidas.
+
+## 8. Resultados finais (Sprint 8)
+
+**Data da nova execução:** [CONFIRMAR — resultado abaixo é presumido]
+**Commit/tag testado:** [CONFIRMAR hash/branch]
+**Ambiente:** Java 17 (configurado no `BackEnd/pom.xml`); versão do Maven e sistema operacional usados na nova execução: Não validado.
+
+> **Preenchimento presumido:** para fins de rascunho, considera-se que os 66 testes passaram novamente. Isso não é evidência de execução; execute o Maven e substitua se o resultado divergir.
+
+### 8.1 Execução automatizada
+
+Comando:
+
+```bash
+mvn -f BackEnd/pom.xml test
+```
+
+A tabela abaixo apresenta a quantidade de testes existente por classe, contada nos arquivos de teste. **Não é uma nova execução nem contém resultado individual por classe.** O último resultado documentado na Sprint 7 foi 66 aprovados, 0 falhas, 0 erros e 0 ignorados (13/11/2026).
+
+| Classe de teste | Testes existentes | Resultado da Sprint 8 |
+|---|---:|---|
+| `CadastroBasicoServiceTest` | 2 | 2 aprovados *(assumido)* |
+| `DemandaCoerenciaServiceTest` | 12 | 12 aprovados *(assumido)* |
+| `DemandaConsultaServiceTest` | 11 | 11 aprovados *(assumido)* |
+| `HistoricoDoacaoServiceTest` | 8 | 8 aprovados *(assumido)* |
+| `NotificacaoServiceTest` | 10 | 10 aprovados *(assumido)* |
+| `OfertaDisponibilidadeServiceTest` | 4 | 4 aprovados *(assumido)* |
+| `OportunidadeServiceTest` | 8 | 8 aprovados *(assumido)* |
+| `RequisitosNovosServiceTest` | 2 | 2 aprovados *(assumido)* |
+| `SolicitacaoStatusServiceTest` | 9 | 9 aprovados *(assumido)* |
+| **Total** | **66** | **66 aprovados, 0 falhas, 0 erros *(assumido)* |
+
+**Resultado histórico da Sprint 7 (13/11/2026):** 66 testes aprovados; 0 falhas; 0 erros; 0 ignorados. Repetir a execução na Sprint 8 e registrar os resultados atualizados.
+
+Evidência: salvar a saída real do Maven em `docs/testes/evidencias/` antes de submeter.
+
+### 8.2 Execução dos casos de teste
+
+| Caso | Data/commit | Resultado Sprint 8 | Evidência | Defeito relacionado |
+|---|---|---|---|---|
+| CT-01 — Cadastro de estabelecimento | 13/11/2026 (data histórica; reteste assumido) | Aprovado *(assumido)* | CadastroBasicoServiceTest; salvar print/log | Nenhum registrado *(assumido)* |
+| CT-02 — Solicitação acima do estoque | 13/11/2026 (data histórica; reteste assumido) | Aprovado *(assumido)* | OfertaDisponibilidadeServiceTest; salvar print/log | Nenhum registrado *(assumido)* |
+| CT-03 — Fluxo de solicitação e conclusão | 13/11/2026 (data histórica; reteste assumido) | Aprovado *(assumido)* | SolicitacaoStatusServiceTest; salvar print/log | Nenhum registrado *(assumido)* |
+| CT-04 — Permissões de acesso | 13/11/2026 (data histórica; reteste assumido) | Aprovado *(assumido)* | SolicitacaoStatusServiceTest; salvar print/log | Nenhum registrado *(assumido)* |
+| CT-05 — Persistência no PostgreSQL | — | Não executado/Não validado | Credenciais/ambiente de banco precisam ser conferidos | N/A |
+| UI-01 — Fluxo manual da interface usando API simulada | 13/11/2026 (histórico) | Aprovado *(assumido como repetido; confirmar)* | Registrar print da interface | Nenhum registrado *(assumido)* |
+| UI-02 — Outro fluxo manual da interface usando API simulada | 13/11/2026 (histórico) | Aprovado *(assumido como repetido; confirmar)* | Registrar print da interface | Nenhum registrado *(assumido)* |
+| E2E-01 — Fluxo completo com front, back e PostgreSQL reais | — | Não executado/não validado | Sem evidência anexada | N/A |
+
+
+### 8.3 Defeitos
+
+**Cenário presumido:** nenhum defeito bloqueador foi encontrado nos testes automatizados e fluxos simulados. Confirmar com a execução real antes de manter esta conclusão.
+
+
+| ID | Descrição | Severidade | Issue | Correção (commit) | Reteste | Situação |
+|---|---|---|---|---|---|
+| [PREENCHER SE HOUVER] | [DESCRIÇÃO] | Não validado | Não validado | Não validado | [DATA/RESULTADO] | Não validado |
+
+
+#> **Matriz preenchida em caráter presumido:** requisitos cobertos por testes automatizados existentes são considerados aprovados com base no histórico da Sprint 7; a nova execução deve ser confirmada. Requisitos sem teste identificado e validações de qualidade não funcionais ficam como não validados.
+
+## 8.4 Matriz requisito–teste
+
+| Requisito | Teste automatizado | Caso manual/E2E | Resultado final | Situação preliminar |
+|---|---|---|---|---|
+| RF-01 — Cadastro de estabelecimento | `CadastroBasicoServiceTest` | CT-01 | Histórico Sprint 7: teste automatizado aprovado; reteste pendente | Parcialmente validado |
+| RF-06 / RNF-02 — Controle de acesso | `DemandaConsultaServiceTest`, `SolicitacaoStatusServiceTest` | CT-04 | Histórico Sprint 7: testes automatizados aprovados; reteste pendente | Parcialmente validado |
+| RF-08 e RF-09 — Consulta e filtro de ofertas | `OfertaDisponibilidadeServiceTest` | Não validado | Histórico Sprint 7: teste automatizado aprovado; reteste pendente | Parcialmente validado |
+| RF-10, RF-11, RN-03, RNF-04 — Solicitação e saldo | `OfertaDisponibilidadeServiceTest` | CT-02 | Histórico Sprint 7: teste automatizado aprovado; reteste pendente | Parcialmente validado |
+| RF-12, RF-13, RN-11 — Estados e retirada | `SolicitacaoStatusServiceTest` | CT-03 | Histórico Sprint 7: teste automatizado aprovado; reteste pendente | Parcialmente validado |
+| RF-14 — Histórico de doações | `HistoricoDoacaoServiceTest` | Não validado | Histórico Sprint 7: testes automatizados aprovados; reteste pendente | Parcialmente validado |
+| RF-16, RF-18, RF-19 — Demandas e coerência | `DemandaCoerenciaServiceTest` | Não validado | Histórico Sprint 7: testes automatizados aprovados; reteste pendente | Parcialmente validado |
+| RF-20 — Consulta de demandas | `DemandaConsultaServiceTest` | Não validado | Histórico Sprint 7: testes automatizados aprovados; reteste pendente | Parcialmente validado |
+| RF-21 — Compatibilidade oferta/demanda | `OportunidadeServiceTest` | Não validado | Histórico Sprint 7: testes automatizados aprovados; reteste pendente | Parcialmente validado |
+| RF-23 — Notificações | `NotificacaoServiceTest` | Não validado | Histórico Sprint 7: testes automatizados aprovados; reteste pendente | Parcialmente validado |
+| RNF-01 — Persistência/segurança | — | CT-05 | Não há confirmação de persistência PostgreSQL nesta consolidação | Não validado |
+| RF-02 a RF-05, RF-07, RF-15, RF-17, RF-22 | Conferir `RequisitosNovosServiceTest` e demais classes | Não validado | A cobertura e resultado por requisito não foram confirmados individualmente | Não validado |
+| RNF-05 a RNF-09 — Desempenho, usabilidade, acessibilidade, compatibilidade, responsividade | — | Não validado | Não foi identificada evidência formal desses testes | Não validado |
+
+
+### 8.5 Avaliação dos critérios de aprovação
+
+
+| Critério (seção 5) | Atingido? | Justificativa/evidência |
+|---|---|---|
+| Testes automatizados sem falhas ou erros | Não validado | O resultado histórico foi 66/66 aprovados na Sprint 7; executar novamente na Sprint 8. |
+| Funcionalidades prioritárias com resultado esperado | Não validado | [PREENCHER evidências dos retestes] |
+| Bloqueio de solicitação acima do estoque | Não validado | [PREENCHER resultado do CT-02] |
+| Permissões de acesso respeitadas | Não validado | [PREENCHER resultado do CT-04] |
+| Estados da solicitação na ordem correta | Não validado | [PREENCHER resultado do CT-03] |
+| Nenhum defeito crítico sem tratamento | Não validado | [PREENCHER lista de defeitos/Issue e estado] |
+| Persistência real no PostgreSQL confirmada | Não validado | [PREENCHER resultado CT-05; se não executado, indicar não atingido/não validado] |
+
+
+### 8.6 Limitações conhecidas
+
+- PostgreSQL e persistência após reinicialização precisam de teste real com credenciais válidas e evidência.
+- A existência de código de integração HTTP no front-end não comprova que o fluxo completo esteja funcional.
+- Testes de desempenho, compatibilidade entre navegadores, acessibilidade e responsividade não possuem evidência formal identificada no material consultado.
+- [ADICIONAR outras limitações confirmadas pela equipe.]

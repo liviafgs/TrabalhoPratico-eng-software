@@ -156,9 +156,12 @@ public class ApplicationConfig {
                 server.register("POST", "/instituicoes/habilitar", instituicaoController::habilitar);
                 server.register("POST", "/instituicoes/perfil-atendimento", perfilAtendimentoController::cadastrar);
                 server.register("GET", "/instituicoes/perfil-atendimento", perfilAtendimentoController::consultar);
+                server.register("GET", "/instituicoes/perfil-atendimento/me",
+                                perfilAtendimentoController::consultarDoUsuario);
                 server.register("POST", "/nutricionistas", nutricionistaController::cadastrar);
                 server.register("GET", "/nutricionistas", nutricionistaController::listar);
                 server.register("GET", "/nutricionistas/consultar", nutricionistaController::consultar);
+                server.register("GET", "/nutricionistas/me", nutricionistaController::consultarDoUsuario);
                 server.register("POST", "/alimentos", alimentoController::cadastrar);
                 server.register("GET", "/alimentos", alimentoController::listar);
                 server.register("POST", "/ofertas", ofertaController::cadastrar);

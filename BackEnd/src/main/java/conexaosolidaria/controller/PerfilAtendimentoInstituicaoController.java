@@ -51,6 +51,12 @@ public class PerfilAtendimentoInstituicaoController {
         JsonResponse.send(exchange, 200, Map.of("perfilAtendimento", toMap(perfil)));
     }
 
+    public void consultarDoUsuario(HttpExchange exchange) throws IOException {
+        AuthenticatedUser user = authService.authenticate(RequestUtils.authorizationHeader(exchange));
+        PerfilAtendimentoInstituicao perfil = perfilService.consultarPorUsuario(user.id());
+        JsonResponse.send(exchange, 200, Map.of("perfilAtendimento", toMap(perfil)));
+    }
+
     private Map<String, Object> toMap(PerfilAtendimentoInstituicao perfil) {
         return Map.of(
                 "id", perfil.getId(),

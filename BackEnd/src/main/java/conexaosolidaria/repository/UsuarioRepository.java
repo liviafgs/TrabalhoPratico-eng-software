@@ -34,8 +34,7 @@ public class UsuarioRepository {
                 usuario.getEmail(),
                 usuario.getSenhaHash(),
                 usuario.getPerfil(),
-                usuario.getCriadoEm()
-        );
+                usuario.getCriadoEm());
 
         usuariosPorId.put(salvo.getId(), salvo);
         idsPorEmail.put(normalizeEmail(salvo.getEmail()), salvo.getId());

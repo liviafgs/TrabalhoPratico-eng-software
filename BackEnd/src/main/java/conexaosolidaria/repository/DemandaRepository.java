@@ -38,8 +38,7 @@ public class DemandaRepository {
                 demanda.getConsumoPerCapita(),
                 demanda.getQuantidadeReferencia(),
                 demanda.isAcimaDaReferencia(),
-                demanda.getJustificativa()
-        );
+                demanda.getJustificativa());
 
         demandas.put(salva.getId(), salva);
         return salva;

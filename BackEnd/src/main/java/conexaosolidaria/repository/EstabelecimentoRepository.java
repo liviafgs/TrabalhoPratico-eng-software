@@ -10,13 +10,28 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class EstabelecimentoRepository {
-    private final ConcurrentMap<Long, Estabelecimento> estabelecimentosPorId = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<Long, Estabelecimento> estabelecimentosPorId;
     private final ConcurrentMap<Long, Long> idsPorUsuario = new ConcurrentHashMap<>();
     private final ConcurrentMap<String, Long> idsPorCnpj = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(1);
 
+    public EstabelecimentoRepository() {
+        this(null);
+    }
+
+    public EstabelecimentoRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        estabelecimentosPorId = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("estabelecimento", Estabelecimento::getId, Estabelecimento.class);
+        estabelecimentosPorId.values().forEach(estabelecimento -> {
+            idsPorUsuario.put(estabelecimento.getIdUsuario(), estabelecimento.getId());
+            idsPorCnpj.put(normalizeCnpj(estabelecimento.getCnpj()), estabelecimento.getId());
+        });
+    }
+
     public Estabelecimento save(Estabelecimento estabelecimento) {
-        long id = estabelecimento.getId() == 0 ? sequence.getAndIncrement() : estabelecimento.getId();
+        long id = estabelecimento.getId() == 0 ? nextId() : estabelecimento.getId();
         Estabelecimento salvo = new Estabelecimento(
                 id,
                 estabelecimento.getIdUsuario(),
@@ -55,5 +70,9 @@ public class EstabelecimentoRepository {
 
     private String normalizeCnpj(String cnpj) {
         return cnpj == null ? "" : cnpj.replaceAll("\\D", "");
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 }

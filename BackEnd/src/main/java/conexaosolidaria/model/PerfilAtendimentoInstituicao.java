@@ -3,7 +3,9 @@ package conexaosolidaria.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class PerfilAtendimentoInstituicao {
+public class PerfilAtendimentoInstituicao implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final long id;
     private final long idInstituicao;
     private final int numeroBeneficiarios;

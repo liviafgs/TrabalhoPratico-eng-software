@@ -2,7 +2,9 @@ package conexaosolidaria.model;
 
 import java.time.LocalDateTime;
 
-public class SolicitacaoOferta {
+public class SolicitacaoOferta implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final long id;
     private final long idOferta;
     private final long idUsuarioInstituicao;

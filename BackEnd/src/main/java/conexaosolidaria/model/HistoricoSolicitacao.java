@@ -9,5 +9,5 @@ public record HistoricoSolicitacao(
         StatusSolicitacaoOferta statusAnterior,
         StatusSolicitacaoOferta statusNovo,
         long idUsuario,
-        LocalDateTime registradoEm) {
+        LocalDateTime registradoEm) implements java.io.Serializable {
 }

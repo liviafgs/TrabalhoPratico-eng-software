@@ -10,11 +10,22 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class NotificacaoRepository {
-    private final ConcurrentMap<Long, Notificacao> notificacoes = new ConcurrentHashMap<>();
+    private final DatabaseStore databaseStore;
+    private final ConcurrentMap<Long, Notificacao> notificacoes;
     private final AtomicLong sequence = new AtomicLong(1);
 
+    public NotificacaoRepository() {
+        this(null);
+    }
+
+    public NotificacaoRepository(DatabaseStore databaseStore) {
+        this.databaseStore = databaseStore;
+        notificacoes = databaseStore == null ? new ConcurrentHashMap<>()
+                : databaseStore.map("notificacao", Notificacao::getId, Notificacao.class);
+    }
+
     public Notificacao save(Notificacao notificacao) {
-        long id = notificacao.getId() == 0 ? sequence.getAndIncrement() : notificacao.getId();
+        long id = notificacao.getId() == 0 ? nextId() : notificacao.getId();
         Notificacao salva = new Notificacao(
                 id,
                 notificacao.getIdUsuarioDestino(),
@@ -39,5 +50,9 @@ public class NotificacaoRepository {
                 .filter(notificacao -> notificacao.getIdUsuarioDestino() == idUsuario)
                 .sorted(Comparator.comparingLong(Notificacao::getId).reversed())
                 .toList();
+    }
+
+    private long nextId() {
+        return databaseStore == null ? sequence.getAndIncrement() : databaseStore.nextId();
     }
 }

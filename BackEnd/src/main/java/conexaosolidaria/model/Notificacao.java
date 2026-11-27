@@ -2,7 +2,9 @@ package conexaosolidaria.model;
 
 import java.time.LocalDateTime;
 
-public class Notificacao {
+public class Notificacao implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final long id;
     private final long idUsuarioDestino;
     private final TipoNotificacao tipo;
